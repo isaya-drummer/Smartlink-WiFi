@@ -1,0 +1,120 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  SUPER_ADMIN
+  ADMIN
+}
+
+enum VoucherStatus {
+  PENDING
+  ACTIVE
+  EXPIRED
+  USED
+}
+
+enum PaymentProvider {
+  YAS
+  AIRTEL
+  VODACOM
+  HALOTEL
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCESS
+  FAILED
+}
+
+model User {
+  id        String     @id @default(cuid())
+  name      String
+  email     String     @unique
+  password  String
+  role      Role       @default(ADMIN)
+  isActive  Boolean    @default(true)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  auditLogs AuditLog[]
+}
+
+model Bundle {
+  id            String    @id @default(cuid())
+  name          String
+  description   String?
+  price         Float
+  currency      String    @default("TZS")
+  durationHours Int
+  dataLimitMB   Int
+  isActive      Boolean   @default(true)
+  createdAt     DateTime  @default(now())
+  vouchers      Voucher[]
+}
+
+model Voucher {
+  id              String        @id @default(cuid())
+  code            String        @unique
+  bundleId        String
+  bundle          Bundle        @relation(fields: [bundleId], references: [id])
+  clientPhone     String
+  clientName      String
+  paymentProvider PaymentProvider
+  paymentRef      String?
+  amount          Float
+  status          VoucherStatus @default(PENDING)
+  expiresAt       DateTime?
+  activatedAt     DateTime?
+  createdAt       DateTime      @default(now())
+  payments        Payment[]
+  sessions        Session[]
+}
+
+model Payment {
+  id          String        @id @default(cuid())
+  voucherId   String
+  voucher     Voucher       @relation(fields: [voucherId], references: [id])
+  provider    PaymentProvider
+  phoneNumber String
+  amount      Float
+  currency    String        @default("TZS")
+  reference   String        @unique
+  status      PaymentStatus @default(PENDING)
+  createdAt   DateTime      @default(now())
+}
+
+model Session {
+  id             String    @id @default(cuid())
+  voucherId      String
+  voucher        Voucher   @relation(fields: [voucherId], references: [id])
+  clientMac      String
+  clientIp       String
+  connectedAt    DateTime  @default(now())
+  disconnectedAt DateTime?
+  dataUsedMB     Float     @default(0)
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id])
+  action    String
+  details   String?
+  ipAddress String?
+  createdAt DateTime @default(now())
+}
+
+model SystemSettings {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String
+  updatedAt DateTime @updatedAt
+}

@@ -1,0 +1,52 @@
+{
+  "id": "FEAT-001",
+  "type": "chore",
+  "description": "Bootstrap the Next.js 14 project: initialize the app, install all dependencies, configure Tailwind CSS and shadcn/ui, define the Prisma schema with all 7 models, create all src/lib utility files (prisma.ts, auth.ts, voucher.ts, payment.ts, mikrotik.ts, utils.ts), write the root layout, configure NextAuth route, write and run the database seed, and set up the middleware for route protection. This is the foundation every other FEAT depends on.",
+  "status": "completed",
+  "steps": [
+    "1. From d:\\WifI, run `npx create-next-app@14 . --typescript --tailwind --eslint --app --src-dir --import-alias '@/*' --no-git` to scaffold the Next.js 14 project in-place, preserving the existing logo folder and JPEG.",
+    "2. Install production dependencies: `npm install next-auth@beta @auth/prisma-adapter @prisma/client bcryptjs recharts zod lucide-react class-variance-authority clsx tailwind-merge @radix-ui/react-slot @radix-ui/react-dialog @radix-ui/react-dropdown-menu @radix-ui/react-select @radix-ui/react-tabs @radix-ui/react-label @radix-ui/react-separator @radix-ui/react-toast @radix-ui/react-badge @radix-ui/react-progress`",
+    "3. Install dev dependencies: `npm install -D prisma @types/bcryptjs ts-node`",
+    "4. Initialize Prisma: `npx prisma init --datasource-provider sqlite`. This creates prisma/schema.prisma and adds DATABASE_URL to .env.",
+    "5. Replace prisma/schema.prisma with the full schema containing all 7 models: User (id,name,email,password,role enum SUPER_ADMIN|ADMIN,isActive,createdAt,updatedAt), Bundle (id,name,description,price,currency,durationHours,dataLimitMB,isActive,createdAt), Voucher (id,code,bundleId→Bundle,clientPhone,clientName,paymentProvider,paymentRef,amount,status enum PENDING|ACTIVE|EXPIRED|USED,expiresAt,activatedAt,createdAt), Payment (id,voucherId→Voucher,provider enum YAS|AIRTEL|VODACOM|HALOTEL,phoneNumber,amount,currency,reference,status enum PENDING|SUCCESS|FAILED,createdAt), Session (id,voucherId→Voucher,clientMac,clientIp,connectedAt,disconnectedAt,dataUsedMB), AuditLog (id,userId→User nullable,action,details,ipAddress,createdAt), SystemSettings (id,key unique,value,updatedAt).",
+    "6. Run `npx prisma generate` and `npx prisma db push` to create dev.db.",
+    "7. Initialize shadcn/ui: `npx shadcn@latest init` with default style, slate base color, CSS variables yes. Then add components: `npx shadcn@latest add button card input label select table tabs badge separator toast dialog dropdown-menu progress`.",
+    "8. Create .env.local with: DATABASE_URL=file:./dev.db, NEXTAUTH_SECRET=wifi-hotspot-secret-key-2024, NEXTAUTH_URL=http://localhost:3000.",
+    "9. Create src/lib/prisma.ts: Prisma client singleton using globalThis pattern to avoid multiple instances in dev hot-reload.",
+    "10. Create src/lib/auth.ts: NextAuth v5 config with CredentialsProvider. Validate email+password against DB with bcryptjs.compare. Include role in JWT token and session. Export { handlers, auth, signIn, signOut }.",
+    "11. Create src/lib/voucher.ts: generateVoucherCode() produces an 8-char uppercase alphanumeric code excluding confusable chars (0,O,I,1,l). validateVoucherCode(code) checks format.",
+    "12. Create src/lib/payment.ts: PaymentProvider abstraction with initiatePayment(provider, phone, amount, ref) and checkPaymentStatus(provider, ref) stub functions returning mock responses for YAS, AIRTEL, VODACOM, HALOTEL.",
+    "13. Create src/lib/mikrotik.ts: RouterOS API stub with addVoucher(code, duration, dataLimit), removeVoucher(code), getActiveConnections() — each logs a TODO comment with instructions on connecting to a real MikroTik router via node-routeros.",
+    "14. Create src/lib/utils.ts: cn() using clsx+tailwind-merge, formatCurrency(amount,currency='TZS'), formatDate(date), formatDuration(hours), formatDataLimit(mb).",
+    "15. Create prisma/seed.ts: insert superadmin@wifi.local/superadmin123 (SUPER_ADMIN), admin@wifi.local/admin123 (ADMIN) with bcryptjs hashed passwords; insert 4 bundles (1hr/500TZS/500MB, 3hr/1000TZS/1GB, Daily/2000TZS/3GB, Weekly/8000TZS/15GB); insert 3 sample vouchers with ACTIVE status and 2 sample payments. Add `\"prisma\": { \"seed\": \"ts-node --project tsconfig.json prisma/seed.ts\" }` to package.json.",
+    "16. Add `\"ts-node\": { \"compilerOptions\": { \"module\": \"CommonJS\" } }` to tsconfig.json so ts-node can run the seed file.",
+    "17. Run `npx prisma db seed` to populate the database.",
+    "18. Create src/app/api/auth/[...nextauth]/route.ts: export { handlers.GET as GET, handlers.POST as POST } from '@/lib/auth'.",
+    "19. Create src/middleware.ts: use next-auth auth() to protect /admin/* (require ADMIN or SUPER_ADMIN role) and /super-admin/* (require SUPER_ADMIN role). Redirect unauthenticated requests to /auth/login. Allow /portal/* and /api/portal/* without auth.",
+    "20. Create src/app/layout.tsx: root layout with Inter font, Tailwind base classes, Toaster provider. Title: 'WiFi Hotspot Manager'.",
+    "21. Copy the logo: copy d:\\WifI\\logo\\smartlink-logo.jpeg to d:\\WifI\\public\\smartlink-logo.jpeg so Next.js serves it as a static asset.",
+    "22. Extend tailwind.config.ts to add brand colors in the theme.extend.colors section: smartlink: { navy: '#0a1628', cyan: '#00b4ff', blue: '#0066ff' }.",
+    "23. Create src/components/SmartLinkLogo.tsx: a reusable component that renders the logo image (<Image src='/smartlink-logo.jpeg' alt='SmartLink Digital' width={60} height={60} className='rounded-full' />) alongside the text with 'Smart' in white, 'Link' in cyan (#00b4ff), and 'Digital' below in smaller cyan text. Accept a size prop ('sm'|'md'|'lg') to scale. Export as default.",
+    "24. Update src/app/layout.tsx root metadata to set title template 'SmartLink Digital — %s' and default title 'SmartLink Digital', and description 'We're here for you, daily'. Import and use the Inter font. Set <html> background to #0a1628."
+  ],
+  "acceptance_criteria": [
+    "`npm run build` completes with exit code 0 and zero TypeScript errors after this FEAT.",
+    "`npx prisma generate` completes without errors.",
+    "`npx prisma db push` creates prisma/dev.db with all 7 tables.",
+    "`npx prisma db seed` inserts 2 users, 4 bundles, 3 vouchers, 2 payments without error.",
+    "All 7 src/lib/*.ts files exist and export the documented functions.",
+    "src/middleware.ts correctly references the auth helper.",
+    "SmartLinkLogo component exists at src/components/SmartLinkLogo.tsx and exports a default component accepting a size prop.",
+    "Logo file exists at public/smartlink-logo.jpeg.",
+    "tailwind.config.ts includes smartlink color tokens (navy, cyan, blue).",
+    "Root layout metadata has title template 'SmartLink Digital — %s'."
+  ],
+  "verification": [
+    "cd d:\\WifI && npm run build",
+    "cd d:\\WifI && npx prisma generate",
+    "cd d:\\WifI && npx prisma db push",
+    "cd d:\\WifI && npx prisma db seed"
+  ],
+  "blocked_reason": null,
+  "findings": "Completed on 2026-10-26. Key findings: (1) `npx create-next-app` was skipped because the directory name `WifI` contains capital letters which npm forbids — project was manually scaffolded with name `wifi-hotspot`. (2) Next.js 14 requires `next.config.mjs` (not `.ts`); `.ts` config throws a fatal error — created `.mjs` instead. (3) SWC binary version mismatch: `@next/swc-win32-x64-msvc` was pinned to 14.2.33 and reinstalled to match Next.js 14.2.35 (14.2.35 binary not published separately). (4) Prisma CLI installed as v6.19.3 (in devDeps as `^6.0.0`), `@prisma/client` installed as v6.x (not 7.x). Prisma 8.0.0-rc.27 was present in node_modules from an earlier state but was overridden. (5) `npx prisma db seed` requires the seed script to call ts-node via `node node_modules/ts-node/dist/bin.js` (not bare `ts-node`) because ts-node is not on PATH in the prisma child process environment on Windows. (6) SQLite does not support native enum types — Prisma emulates enums as strings for SQLite, so all enum fields in the schema work correctly. (7) All 7 Prisma models created; dev.db created with all tables; 2 users, 4 bundles, 3 vouchers, 2 payments seeded. (8) `npm run build` exits 0; `npx prisma generate`, `npx prisma db push`, and `npx prisma db seed` all succeed. (9) shadcn/ui CLI was not used (network timeouts); all UI components (button, card, input, label, select, table, tabs, badge, separator, toast, dialog, dropdown-menu, progress) were written manually into src/components/ui/. (10) CSS variable colors (border, background, foreground, etc.) added to tailwind.config.ts alongside smartlink brand colors."
+}
