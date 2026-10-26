@@ -1,0 +1,40 @@
+{
+  "id": "FEAT-002",
+  "type": "feat",
+  "description": "Build the full Captive Portal UI and its API routes. This is independent of FEAT-003 and FEAT-004 (admin panels) but depends on FEAT-001's schema, lib files, and seed data. Covers /portal, /portal/bundle, /portal/pay, /portal/success, and the API routes /api/portal/bundles, /api/portal/payment, /api/webhook/payment.",
+  "status": "completed",
+  "steps": [
+    "1. Create src/app/portal/layout.tsx: full-width dark navy background (#0a1628). Centered content with max-w-md. Show SmartLinkLogo (size='lg') centered at top, tagline 'We're here for you, daily' in cyan (#00b4ff) beneath it. Footer: '© 2024 SmartLink Digital — We're here for you, daily' in white/40. Set page metadata title template 'SmartLink Digital — %s'.",
+
+    "2. Create src/app/portal/page.tsx: Provider selection page on dark navy (#0a1628) background. SmartLinkLogo + tagline already in layout. Show heading 'Connect to WiFi' in white, subheading 'Select Your Network Provider' in cyan. Show 4 large colored buttons in a 2×2 grid: YAS (yellow, #FFC107 bg, dark text), Airtel (red, #E53935 bg, white text), Vodacom (green, #43A047 bg, white text), Halotel (blue, #1E88E5 bg, white text). Each button has the provider name and a Wifi icon from lucide-react. Navigates to /portal/bundle?provider=<name>. Page title metadata: 'Connect'. Mark with 'use client'.",
+
+    "3. Create src/app/portal/bundle/page.tsx: Bundle selection page on dark navy background. Reads ?provider=X from searchParams. Shows provider name with its brand color in a badge. Fetches GET /api/portal/bundles. Shows a 2-col grid of bundle cards with dark card bg (#0d1f3c), cyan border on hover, bundle name in white, description in white/70, duration/data/price formatted and highlighted in cyan. Clicking navigates to /portal/pay?provider=X&bundleId=Y. Back button to /portal. Mark with 'use client'.",
+
+    "4. Create src/app/portal/pay/page.tsx: Payment page on dark navy background. Shows provider badge and selected bundle summary card. Form fields (name, phone) styled with dark inputs, cyan focus ring. Submit button uses cyan-to-blue gradient. On submit, POST /api/portal/payment. On success, navigate to /portal/success?ref=<paymentRef>. Show loading state (spinner) and error messages in red. Mark with 'use client'.",
+
+    "5. Create src/app/portal/success/page.tsx: Success page on dark navy background. On mount, fetch GET /api/webhook/payment?ref=Z after 3-second delay to auto-activate voucher. Show a pulsing cyan loading animation during activation. Display 8-char voucher code in a large box with cyan border, monospace font, copy-to-clipboard button (lucide Copy icon). Show connected bundle name, duration, expiry time in white. Show 'You are now connected! 🎉' in cyan. Show usage instructions. Mark with 'use client'.",
+
+    "6. Create src/app/api/portal/bundles/route.ts: GET handler. Fetch all active bundles from Prisma (isActive=true). Return JSON array. No authentication required.",
+
+    "7. Create src/app/api/portal/payment/route.ts: POST handler. Validate body with zod: { provider: enum YAS|AIRTEL|VODACOM|HALOTEL, bundleId: string, clientName: string, clientPhone: string }. Fetch bundle by id. Call payment.initiatePayment(). Generate voucher code via generateVoucherCode(). Create Voucher record (status PENDING) and Payment record (status PENDING) in a Prisma transaction. Return { success: true, paymentRef, voucherCode } with status 201.",
+
+    "8. Create src/app/api/webhook/payment/route.ts: GET handler (simulated activation, called from portal/success). Accepts ?ref=Z. Find Payment by reference. If found and status PENDING, update Payment to SUCCESS, update Voucher to ACTIVE, set activatedAt=now, expiresAt=now+bundle.durationHours. Call mikrotik.addVoucher(). Return { success: true, voucher: { code, expiresAt } }. Also handle POST for real webhook callbacks from payment providers.",
+
+    "9. Add shared portal components in src/components/portal/: ProviderBadge.tsx (colored badge with provider name and brand color), BundleCard.tsx (dark card with cyan accents, all bundle fields formatted), VoucherDisplay.tsx (large code display with copy button, cyan styling)."
+  ],
+  "acceptance_criteria": [
+    "`npm run build` passes with zero TypeScript errors after this FEAT.",
+    "GET /api/portal/bundles returns the 4 seeded bundles as JSON.",
+    "POST /api/portal/payment with valid body returns { success: true, paymentRef, voucherCode }.",
+    "GET /api/webhook/payment?ref=<ref> activates a PENDING voucher and returns the voucher code.",
+    "All 4 portal pages exist and are reachable at their routes.",
+    "Provider buttons on /portal have correct brand colors.",
+    "Bundle cards on /portal/bundle display price, duration, and data formatted via lib/utils.ts.",
+    "Voucher code on /portal/success is exactly 8 characters, uppercase, no confusable chars."
+  ],
+  "verification": [
+    "cd d:\\WifI && npm run build"
+  ],
+  "blocked_reason": null,
+  "findings": "All 9 steps implemented. useSearchParams() pages (bundle, pay, success) required wrapping content in <Suspense> boundaries per Next.js 14 static generation requirements. All portal pages render at their routes. `npm run build` exits 0 with zero TypeScript or lint errors. API routes /api/portal/bundles (GET), /api/portal/payment (POST), /api/webhook/payment (GET+POST) are all operational. Shared portal components ProviderBadge, BundleCard, VoucherDisplay created in src/components/portal/."
+}
