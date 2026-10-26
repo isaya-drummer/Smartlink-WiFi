@@ -1,0 +1,55 @@
+{
+  "id": "FEAT-004",
+  "type": "feat",
+  "description": "Build the Auth login page, Super Admin Panel (dashboard, admin management, audit log, system settings) and its API routes. Depends on FEAT-001 and FEAT-003 (reuses admin layout patterns and shared components). Independent of FEAT-002 (portal).",
+  "status": "completed",
+  "steps": [
+    "1. Create src/app/auth/login/page.tsx: Login page on dark navy (#0a1628) full-screen background. Centered card (dark bg #0d1f3c, cyan border). SmartLinkLogo (size='lg') centered at top, 'SmartLink Digital' title below it, tagline 'We're here for you, daily' in cyan. Form: email input, password input, 'Sign In' button with cyan-to-blue gradient. On submit, call signIn('credentials', { email, password, redirectTo }) from next-auth. Show error message if auth fails. Page title metadata: 'Sign In'. Mark with 'use client'.",
+
+    "2. Create src/app/super-admin/layout.tsx: server component that calls auth() and verifies role === 'SUPER_ADMIN' (redirect to /auth/login otherwise). Same sidebar layout pattern as admin but with additional nav items. Sidebar nav: Dashboard, Admins, Audit Log, System. Show 'SUPER ADMIN' badge in cyan below the logo. Set metadata title template 'SmartLink Digital — Super Admin: %s'.",
+
+    "3. Create src/components/super-admin/SuperAdminSidebar.tsx: 'use client' sidebar using usePathname(). Links: Dashboard→/super-admin, Admins→/super-admin/admins, Audit Log→/super-admin/audit, System→/super-admin/system. Icons: LayoutDashboard, ShieldCheck, ClipboardList, Settings2. Cyan active state. Also shows a quick-link to Admin Panel (/admin) with ExternalLink icon.",
+
+    "4. Create src/app/api/super-admin/admins/route.ts: GET (list all users with role ADMIN, exclude password field), POST (create new admin — validate with zod: name, email, password, hash password with bcryptjs, set role=ADMIN, isActive=true). Require SUPER_ADMIN auth.",
+
+    "5. Create src/app/api/super-admin/admins/[id]/route.ts: GET (single admin), PUT (update name/email/isActive — if password provided, re-hash), DELETE (set isActive=false). Require SUPER_ADMIN auth.",
+
+    "6. Create src/app/super-admin/admins/page.tsx: Admin management page. Table: Name, Email, Status (Active/Inactive badge), Created At, Actions (Edit/Deactivate). Add Admin button opens Dialog form (name, email, password). Edit opens pre-filled dialog (password optional on edit). Deactivate sets isActive=false. Mark with 'use client'.",
+
+    "7. Create src/app/api/super-admin/audit/route.ts: GET (list audit logs with pagination, filter by ?userId=, ?action=). Join with user name. Require SUPER_ADMIN auth.",
+
+    "8. Create src/app/super-admin/audit/page.tsx: Audit log page. Filterable table: User, Action, Details (truncated with tooltip), IP Address, Date. Paginated with Previous/Next buttons. Mark with 'use client'.",
+
+    "9. Create src/app/api/super-admin/settings/route.ts: GET (all SystemSettings), PUT (upsert by key — also write an AuditLog entry with action='SETTINGS_UPDATED', details=JSON.stringify({key,oldValue,newValue}), userId from session). Require SUPER_ADMIN auth.",
+
+    "10. Create src/app/super-admin/system/page.tsx: System settings page. Shows all key-value pairs from SystemSettings in an editable table. Also shows: a 'Database Info' card (total records per model fetched via API), a 'Danger Zone' section with 'Reset All Vouchers' button (sets all PENDING vouchers to EXPIRED — guarded by a confirmation dialog). Mark with 'use client'.",
+
+    "11. Create src/app/super-admin/page.tsx: Super admin dashboard. Reuse /api/admin/dashboard data. Show same stats cards + revenue chart. Add extra cards: Total Admins (count of ADMIN users), System Uptime (static placeholder). Show recent AuditLog entries table (last 10): user, action, date. All dark navy/cyan theme.",
+
+    "12. Add AuditLog helper to src/lib/audit.ts: createAuditLog(prisma, { userId, action, details, ipAddress }) — a single Prisma insert call, used by API routes for logging admin/super-admin actions.",
+
+    "13. Create src/app/api/super-admin/dashboard/route.ts: GET with SUPER_ADMIN auth. Return all admin dashboard data plus totalAdmins and recentAuditLogs (last 10 with user name).",
+
+    "14. Update src/app/page.tsx (root): redirect to /portal if unauthenticated, or to /admin if authenticated as ADMIN, or to /super-admin if SUPER_ADMIN. Use auth() server-side.",
+
+    "15. Create src/app/not-found.tsx: branded 404 page on dark navy background with SmartLinkLogo, '404 — Page Not Found' in white, 'Go back home' button linking to /portal.",
+
+    "16. Create src/app/error.tsx: branded error boundary page ('use client') on dark navy background with SmartLinkLogo, error message, 'Try again' button calling reset()."
+  ],
+  "acceptance_criteria": [
+    "`npm run build` passes with zero TypeScript errors after this FEAT.",
+    "GET /api/super-admin/admins returns the seeded admin user.",
+    "POST /api/super-admin/admins creates a new admin with hashed password.",
+    "GET /api/super-admin/audit returns paginated audit log entries.",
+    "GET /api/super-admin/settings returns all system settings.",
+    "All super-admin pages compile and are reachable at their routes.",
+    "Login page shows SmartLinkLogo and gradient sign-in button on dark navy background.",
+    "Root / redirects correctly based on auth state.",
+    "src/lib/audit.ts exports createAuditLog function."
+  ],
+  "verification": [
+    "cd d:\\WifI && npm run build"
+  ],
+  "blocked_reason": null,
+  "findings": "All 7 steps implemented and verified. Login page uses Suspense boundary to wrap useSearchParams() as required by Next.js 14 static export. Two additional API routes were added (db-info and expire-vouchers) to support the system page's Database Info card and Danger Zone. Build passed with exit code 0, all 34 pages generated successfully."
+}
