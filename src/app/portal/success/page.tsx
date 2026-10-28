@@ -158,6 +158,16 @@ function SuccessPageContent() {
             </ol>
           </div>
 
+          {/* Rating notice */}
+          <div
+            className="rounded-xl p-4 text-sm"
+            style={{ backgroundColor: "#0d1f3c", border: "1px solid #1e3a5f" }}
+          >
+            <p className="text-white/70">
+              ℹ️ When your session ends, you will be asked to rate our service — your feedback helps us improve.
+            </p>
+          </div>
+
           <button
             onClick={() => router.push("/portal")}
             className="w-full py-3 rounded-xl font-semibold text-white/70 text-sm transition-colors hover:text-white"

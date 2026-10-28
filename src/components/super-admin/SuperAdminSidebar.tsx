@@ -8,6 +8,8 @@ import {
   ShieldCheck,
   ClipboardList,
   Settings2,
+  MessageCircle,
+  Star,
   ExternalLink,
   LogOut,
 } from "lucide-react"
@@ -17,7 +19,9 @@ const navLinks = [
   { href: "/super-admin", label: "Dashboard", icon: LayoutDashboard, exact: true },
   { href: "/super-admin/admins", label: "Admins", icon: ShieldCheck, exact: false },
   { href: "/super-admin/audit", label: "Audit Log", icon: ClipboardList, exact: false },
+  { href: "/super-admin/ratings", label: "Ratings", icon: Star, exact: false },
   { href: "/super-admin/system", label: "System", icon: Settings2, exact: false },
+  { href: "/admin/chat", label: "Chat", icon: MessageCircle, exact: false },
 ]
 
 export default function SuperAdminSidebar() {

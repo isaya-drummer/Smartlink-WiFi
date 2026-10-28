@@ -6,8 +6,9 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DATABASE_URL_UNPOOLED")
 }
 
 enum Role {
@@ -36,15 +37,17 @@ enum PaymentStatus {
 }
 
 model User {
-  id        String     @id @default(cuid())
-  name      String
-  email     String     @unique
-  password  String
-  role      Role       @default(ADMIN)
-  isActive  Boolean    @default(true)
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  auditLogs AuditLog[]
+  id           String           @id @default(cuid())
+  name         String
+  email        String           @unique
+  password     String
+  role         Role             @default(ADMIN)
+  isActive     Boolean          @default(true)
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+  auditLogs    AuditLog[]
+  chatMessages ChatMessage[]
+  chatReads     ChatMessageRead[]
 }
 
 model Bundle {
@@ -76,6 +79,7 @@ model Voucher {
   createdAt       DateTime      @default(now())
   payments        Payment[]
   sessions        Session[]
+  rating          ServiceRating?
 }
 
 model Payment {
@@ -117,4 +121,33 @@ model SystemSettings {
   key       String   @unique
   value     String
   updatedAt DateTime @updatedAt
+}
+
+model ChatMessage {
+  id        String          @id @default(cuid())
+  userId    String
+  user      User            @relation(fields: [userId], references: [id])
+  message   String
+  createdAt DateTime        @default(now())
+  reads     ChatMessageRead[]
+}
+
+model ChatMessageRead {
+  id        String      @id @default(cuid())
+  messageId String
+  message   ChatMessage @relation(fields: [messageId], references: [id])
+  userId    String
+  user      User        @relation(fields: [userId], references: [id])
+  readAt    DateTime    @default(now())
+
+  @@unique([messageId, userId])
+}
+
+model ServiceRating {
+  id        String   @id @default(cuid())
+  voucherId String   @unique
+  voucher   Voucher  @relation(fields: [voucherId], references: [id])
+  rating    Int
+  comment   String?
+  createdAt DateTime @default(now())
 }

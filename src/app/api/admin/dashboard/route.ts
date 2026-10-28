@@ -88,6 +88,38 @@ export async function GET() {
     },
   })
 
+  // Service ratings aggregate
+  const ratingAgg = await prisma.serviceRating.aggregate({
+    _avg: { rating: true },
+    _count: { rating: true },
+  })
+  const avgRating = Math.round((ratingAgg._avg.rating ?? 0) * 10) / 10
+  const totalRatings = ratingAgg._count.rating
+
+  // Recent ratings (last 10)
+  const rawRecentRatings = await prisma.serviceRating.findMany({
+    orderBy: { createdAt: "desc" },
+    take: 10,
+    include: {
+      voucher: {
+        select: {
+          code: true,
+          clientPhone: true,
+          bundle: { select: { name: true } },
+        },
+      },
+    },
+  })
+  const recentRatings = rawRecentRatings.map((r) => ({
+    id: r.id,
+    voucherCode: r.voucher.code,
+    clientPhone: r.voucher.clientPhone,
+    bundleName: r.voucher.bundle?.name ?? null,
+    rating: r.rating,
+    comment: r.comment,
+    createdAt: r.createdAt,
+  }))
+
   return NextResponse.json({
     totalVouchers,
     activeVouchers,
@@ -96,5 +128,8 @@ export async function GET() {
     totalClients,
     revenueByDay,
     recentPayments,
+    avgRating,
+    totalRatings,
+    recentRatings,
   })
 }

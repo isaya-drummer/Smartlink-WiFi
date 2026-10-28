@@ -65,3 +65,15 @@ export function formatDataLimit(mb: number): string {
     return `${gb % 1 === 0 ? gb : gb.toFixed(1)} GB`
   }
 }
+
+/**
+ * Masks a phone number, showing only the last 4 digits.
+ * e.g. '0712345678' → '••••••5678'
+ * @param phone - The phone number string to mask
+ */
+export function maskPhone(phone: string): string {
+  if (!phone) return ""
+  const visible = phone.slice(-4)
+  const masked = "•".repeat(Math.max(0, phone.length - 4))
+  return masked + visible
+}
