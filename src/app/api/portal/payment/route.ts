@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { z } from "zod"
 import { prisma } from "@/lib/prisma"
-import { initiatePayment } from "@/lib/payment"
+import { initiatePayment, normalizePhone } from "@/lib/payment"
 import { generateVoucherCode } from "@/lib/voucher"
 
 const paymentSchema = z.object({
@@ -31,6 +31,9 @@ export async function POST(request: NextRequest) {
 
     const { provider, bundleId, clientName, clientPhone } = parsed.data
 
+    // Normalize phone to 255XXXXXXXXX format for PayIn
+    const normalizedPhone = normalizePhone(clientPhone)
+
     // Fetch the bundle
     const bundle = await prisma.bundle.findUnique({ where: { id: bundleId } })
     if (!bundle || !bundle.isActive) {
@@ -42,35 +45,42 @@ export async function POST(request: NextRequest) {
 
     // Generate voucher code and payment reference
     const voucherCode = generateVoucherCode()
-    const paymentRef = `PAY-${Date.now()}-${Math.random().toString(36).slice(2, 8).toUpperCase()}`
+    const paymentRef  = `SLD-${Date.now()}-${Math.random().toString(36).slice(2, 8).toUpperCase()}`
 
-    // Initiate payment with provider (stub)
-    await initiatePayment(provider, clientPhone, bundle.price, paymentRef)
+    // Initiate USSD push payment via PayIn
+    const paymentResult = await initiatePayment(provider, normalizedPhone, bundle.price, paymentRef)
+
+    if (!paymentResult.success) {
+      return NextResponse.json(
+        { error: paymentResult.message || "Payment initiation failed" },
+        { status: 502 }
+      )
+    }
 
     // Create Voucher + Payment in a transaction
     const result = await prisma.$transaction(async (tx) => {
       const voucher = await tx.voucher.create({
         data: {
-          code: voucherCode,
-          bundleId: bundle.id,
-          clientPhone,
+          code:            voucherCode,
+          bundleId:        bundle.id,
+          clientPhone:     normalizedPhone,
           clientName,
           paymentProvider: provider,
           paymentRef,
-          amount: bundle.price,
-          status: "PENDING",
+          amount:          bundle.price,
+          status:          "PENDING",
         },
       })
 
       const payment = await tx.payment.create({
         data: {
-          voucherId: voucher.id,
+          voucherId:   voucher.id,
           provider,
-          phoneNumber: clientPhone,
-          amount: bundle.price,
-          currency: bundle.currency,
-          reference: paymentRef,
-          status: "PENDING",
+          phoneNumber: normalizedPhone,
+          amount:      bundle.price,
+          currency:    bundle.currency,
+          reference:   paymentRef,
+          status:      "PENDING",
         },
       })
 

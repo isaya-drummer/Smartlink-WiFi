@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/prisma"
 import { z } from "zod"
+import { Prisma } from "@prisma/client"
 
 const RatingSchema = z.object({
   voucherCode: z.string().min(1),
@@ -64,9 +65,17 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Already rated" }, { status: 409 })
   }
 
-  await prisma.serviceRating.create({
-    data: { voucherId: voucher.id, rating, comment },
-  })
+  try {
+    await prisma.serviceRating.create({
+      data: { voucherId: voucher.id, rating, comment },
+    })
+  } catch (e) {
+    // Handle concurrent duplicate submissions — DB unique constraint violation
+    if (e instanceof Prisma.PrismaClientKnownRequestError && e.code === "P2002") {
+      return NextResponse.json({ error: "Already rated" }, { status: 409 })
+    }
+    throw e
+  }
 
   return NextResponse.json({ success: true })
 }

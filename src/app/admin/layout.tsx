@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import { redirect } from "next/navigation"
 import { auth } from "@/lib/auth"
-import Sidebar from "@/components/admin/Sidebar"
+import AdminShell from "@/components/admin/AdminShell"
 
 export const metadata: Metadata = {
   title: {
@@ -10,11 +10,7 @@ export const metadata: Metadata = {
   },
 }
 
-export default async function AdminLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const session = await auth()
   const role = (session?.user as { role?: string } | undefined)?.role
 
@@ -22,12 +18,5 @@ export default async function AdminLayout({
     redirect("/auth/login")
   }
 
-  return (
-    <div className="flex h-screen overflow-hidden" style={{ backgroundColor: "#0d1f3c" }}>
-      <Sidebar />
-      <main className="flex-1 overflow-y-auto" style={{ backgroundColor: "#0d1f3c" }}>
-        {children}
-      </main>
-    </div>
-  )
+  return <AdminShell>{children}</AdminShell>
 }

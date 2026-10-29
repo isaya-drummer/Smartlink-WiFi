@@ -1,25 +1,37 @@
 "use client"
 
-import type { Metadata } from "next"
 import { useRouter } from "next/navigation"
-import { Wifi } from "lucide-react"
-
-// Note: metadata can't be exported from client components; set in layout or a server wrapper.
-// The layout handles the title template; this page's title is provided via a <title> tag approach.
+import Image from "next/image"
 
 const PROVIDERS = [
-  { key: "YAS", label: "YAS", bg: "#FFC107", text: "#1a1a1a" },
-  { key: "AIRTEL", label: "Airtel", bg: "#E53935", text: "#ffffff" },
-  { key: "VODACOM", label: "Vodacom", bg: "#43A047", text: "#ffffff" },
-  { key: "HALOTEL", label: "Halotel", bg: "#1E88E5", text: "#ffffff" },
+  {
+    key: "YAS",
+    label: "Yas Mixx",
+    logo: "/yas.jpg",
+    bg: "#FFC107",        // yellow — matches Yas brand
+  },
+  {
+    key: "AIRTEL",
+    label: "Airtel",
+    logo: "/airtel.jpg",
+    bg: "#E53935",        // red — matches Airtel brand
+  },
+  {
+    key: "VODACOM",
+    label: "Vodacom M-Pesa",
+    logo: "/vodacom.png",
+    bg: "#E53935",        // red — matches Vodacom brand
+  },
+  {
+    key: "HALOTEL",
+    label: "HaloPesa",
+    logo: "/halopesa.png",
+    bg: "#ffffff",        // white — matches HaloPesa brand
+  },
 ] as const
 
 export default function PortalPage() {
   const router = useRouter()
-
-  const handleProviderSelect = (provider: string) => {
-    router.push(`/portal/bundle?provider=${provider}`)
-  }
 
   return (
     <div className="flex flex-col gap-6">
@@ -27,7 +39,7 @@ export default function PortalPage() {
       <div className="text-center mt-2">
         <h1 className="text-2xl font-bold text-white">Connect to WiFi</h1>
         <p className="mt-1 text-sm" style={{ color: "#00b4ff" }}>
-          Select Your Network Provider
+          Select Your Mobile Money Provider
         </p>
       </div>
 
@@ -36,13 +48,23 @@ export default function PortalPage() {
         {PROVIDERS.map((p) => (
           <button
             key={p.key}
-            onClick={() => handleProviderSelect(p.key)}
-            className="flex flex-col items-center justify-center gap-2 rounded-2xl py-8 px-4 font-bold text-lg transition-all duration-200 hover:scale-105 active:scale-95 focus:outline-none focus:ring-4 focus:ring-white/30"
-            style={{ backgroundColor: p.bg, color: p.text }}
-            aria-label={`Connect with ${p.label}`}
+            onClick={() => router.push(`/portal/bundle?provider=${p.key}`)}
+            className="relative overflow-hidden rounded-2xl transition-all duration-200 hover:scale-105 active:scale-95 focus:outline-none focus:ring-4 focus:ring-white/30 shadow-lg flex items-center justify-center p-3"
+            style={{ height: "140px", backgroundColor: p.bg }}
+            aria-label={`Pay with ${p.label}`}
           >
-            <Wifi size={32} />
-            {p.label}
+            {/* Logo contained fully — no cropping, brand bg fills the rest */}
+            <div className="relative w-full h-full">
+              <Image
+                src={p.logo}
+                alt={p.label}
+                fill
+                className="object-contain"
+                sizes="(max-width: 768px) 50vw, 200px"
+              />
+            </div>
+            {/* Tap feedback overlay */}
+            <div className="absolute inset-0 bg-black/0 hover:bg-black/10 active:bg-black/20 transition-colors duration-150 rounded-2xl" />
           </button>
         ))}
       </div>

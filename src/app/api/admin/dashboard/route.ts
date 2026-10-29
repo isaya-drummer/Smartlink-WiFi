@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server"
 import { auth } from "@/lib/auth"
-import { prisma } from "@/lib/prisma"
+import { prisma, withRetry } from "@/lib/prisma"
 
 function requireAdminAuth(role?: string) {
   return role === "ADMIN" || role === "SUPER_ADMIN"
@@ -14,102 +14,76 @@ export async function GET() {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
   }
 
-  // Total vouchers
-  const totalVouchers = await prisma.voucher.count()
-
-  // Active vouchers
-  const activeVouchers = await prisma.voucher.count({
-    where: { status: "ACTIVE" },
-  })
-
-  // Total revenue (sum of successful payments)
-  const revenueResult = await prisma.payment.aggregate({
-    _sum: { amount: true },
-    where: { status: "SUCCESS" },
-  })
-  const totalRevenue = revenueResult._sum.amount ?? 0
+  const [
+    totalVouchers,
+    activeVouchers,
+    revenueResult,
+    clientGroups,
+    successfulPayments,
+    recentPayments,
+    ratingAgg,
+    rawRecentRatings,
+  ] = await withRetry(() =>
+    Promise.all([
+      prisma.voucher.count(),
+      prisma.voucher.count({ where: { status: "ACTIVE" } }),
+      prisma.payment.aggregate({ _sum: { amount: true }, where: { status: "SUCCESS" } }),
+      prisma.voucher.groupBy({ by: ["clientPhone"] }),
+      prisma.payment.findMany({
+        where: {
+          status: "SUCCESS",
+          createdAt: { gte: (() => { const d = new Date(); d.setDate(d.getDate() - 6); d.setHours(0,0,0,0); return d })() },
+        },
+        select: { amount: true, createdAt: true },
+      }),
+      prisma.payment.findMany({
+        orderBy: { createdAt: "desc" },
+        take: 10,
+        include: { voucher: { select: { clientName: true, clientPhone: true } } },
+      }),
+      prisma.serviceRating.aggregate({ _avg: { rating: true }, _count: { rating: true } }),
+      prisma.serviceRating.findMany({
+        orderBy: { createdAt: "desc" },
+        take: 10,
+        include: {
+          voucher: {
+            select: { code: true, clientPhone: true, bundle: { select: { name: true } } },
+          },
+        },
+      }),
+    ])
+  )
 
   // Today's revenue
   const startOfToday = new Date()
   startOfToday.setHours(0, 0, 0, 0)
-  const todayResult = await prisma.payment.aggregate({
-    _sum: { amount: true },
-    where: {
-      status: "SUCCESS",
-      createdAt: { gte: startOfToday },
-    },
-  })
-  const todayRevenue = todayResult._sum.amount ?? 0
+  const todayResult = await withRetry(() =>
+    prisma.payment.aggregate({
+      _sum: { amount: true },
+      where: { status: "SUCCESS", createdAt: { gte: startOfToday } },
+    })
+  )
 
-  // Total distinct clients (by clientPhone)
-  const clientGroups = await prisma.voucher.groupBy({
-    by: ["clientPhone"],
-  })
+  const totalRevenue = revenueResult._sum.amount ?? 0
+  const todayRevenue = todayResult._sum.amount ?? 0
   const totalClients = clientGroups.length
 
   // Revenue by day — last 7 days
-  const sevenDaysAgo = new Date()
-  sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 6)
-  sevenDaysAgo.setHours(0, 0, 0, 0)
-
-  const successfulPayments = await prisma.payment.findMany({
-    where: {
-      status: "SUCCESS",
-      createdAt: { gte: sevenDaysAgo },
-    },
-    select: { amount: true, createdAt: true },
-  })
-
-  // Build a map of date -> amount for last 7 days
   const dailyMap: Record<string, number> = {}
   for (let i = 0; i < 7; i++) {
     const d = new Date()
     d.setDate(d.getDate() - (6 - i))
-    const key = d.toISOString().slice(0, 10)
-    dailyMap[key] = 0
+    dailyMap[d.toISOString().slice(0, 10)] = 0
   }
   for (const p of successfulPayments) {
     const key = p.createdAt.toISOString().slice(0, 10)
-    if (key in dailyMap) {
-      dailyMap[key] = (dailyMap[key] ?? 0) + p.amount
-    }
+    if (key in dailyMap) dailyMap[key] = (dailyMap[key] ?? 0) + p.amount
   }
-  const revenueByDay = Object.entries(dailyMap).map(([date, amount]) => ({
-    date,
-    amount,
-  }))
+  const revenueByDay = Object.entries(dailyMap).map(([date, amount]) => ({ date, amount }))
 
-  // Recent payments (last 10)
-  const recentPayments = await prisma.payment.findMany({
-    orderBy: { createdAt: "desc" },
-    take: 10,
-    include: {
-      voucher: { select: { clientName: true, clientPhone: true } },
-    },
-  })
-
-  // Service ratings aggregate
-  const ratingAgg = await prisma.serviceRating.aggregate({
-    _avg: { rating: true },
-    _count: { rating: true },
-  })
   const avgRating = Math.round((ratingAgg._avg.rating ?? 0) * 10) / 10
   const totalRatings = ratingAgg._count.rating
 
-  // Recent ratings (last 10)
-  const rawRecentRatings = await prisma.serviceRating.findMany({
-    orderBy: { createdAt: "desc" },
-    take: 10,
-    include: {
-      voucher: {
-        select: {
-          code: true,
-          clientPhone: true,
-          bundle: { select: { name: true } },
-        },
-      },
-    },
-  })
   const recentRatings = rawRecentRatings.map((r) => ({
     id: r.id,
     voucherCode: r.voucher.code,

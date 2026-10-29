@@ -130,116 +130,104 @@ export default function BundlesPage() {
   }
 
   return (
-    <div className="p-6 space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="p-4 md:p-6 space-y-5">
+      <div className="flex items-center justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-bold text-white">Bundles</h1>
-          <p className="text-sm text-gray-400 mt-1">
-            Manage your WiFi bundle packages
-          </p>
+          <h1 className="text-xl md:text-2xl font-bold text-white">Bundles</h1>
+          <p className="text-sm text-gray-400 mt-1 hidden sm:block">Manage your WiFi bundle packages</p>
         </div>
         <Button
           onClick={openAdd}
-          className="flex items-center gap-2"
+          className="flex items-center gap-2 flex-shrink-0"
           style={{ backgroundColor: "#00b4ff", color: "#000" }}
         >
           <Plus className="w-4 h-4" />
-          Add Bundle
+          <span className="hidden sm:inline">Add Bundle</span>
+          <span className="sm:hidden">Add</span>
         </Button>
       </div>
 
       {loading ? (
         <div className="text-gray-400 py-8 text-center">Loading...</div>
+      ) : bundles.length === 0 ? (
+        <div className="rounded-xl py-12 text-center text-gray-500 text-sm" style={{ border: "1px solid #1e3a5f", backgroundColor: "#0d1f3c" }}>
+          No bundles yet. Add your first bundle.
+        </div>
       ) : (
-        <div
-          className="rounded-xl overflow-hidden"
-          style={{ border: "1px solid #1e3a5f" }}
-        >
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr style={{ backgroundColor: "#071020" }}>
-                  {["Name", "Price", "Duration", "Data", "Vouchers", "Status", "Actions"].map(
-                    (h) => (
-                      <th
-                        key={h}
-                        className="px-4 py-3 text-left font-semibold text-gray-400 whitespace-nowrap"
-                      >
-                        {h}
-                      </th>
-                    )
-                  )}
-                </tr>
-              </thead>
-              <tbody>
-                {bundles.length === 0 ? (
-                  <tr>
-                    <td
-                      colSpan={7}
-                      className="px-4 py-8 text-center text-gray-500"
-                    >
-                      No bundles found.
-                    </td>
+        <>
+          {/* Mobile cards */}
+          <div className="md:hidden space-y-3">
+            {bundles.map((b) => (
+              <div key={b.id} className="rounded-xl p-4" style={{ backgroundColor: "#0d1f3c", border: "1px solid #1e3a5f" }}>
+                <div className="flex items-start justify-between gap-2 mb-3">
+                  <div>
+                    <p className="font-semibold text-white">{b.name}</p>
+                    {b.description && <p className="text-xs text-gray-400 mt-0.5">{b.description}</p>}
+                  </div>
+                  <StatusBadge status={b.isActive ? "ACTIVE" : "EXPIRED"} label={b.isActive ? "Active" : "Inactive"} />
+                </div>
+                <div className="grid grid-cols-3 gap-2 text-center mb-3">
+                  <div className="rounded-lg p-2" style={{ backgroundColor: "#071020" }}>
+                    <p className="text-xs text-gray-400">Price</p>
+                    <p className="text-sm font-semibold text-white">{formatCurrency(b.price, b.currency)}</p>
+                  </div>
+                  <div className="rounded-lg p-2" style={{ backgroundColor: "#071020" }}>
+                    <p className="text-xs text-gray-400">Duration</p>
+                    <p className="text-sm font-semibold text-white">{formatDuration(b.durationHours)}</p>
+                  </div>
+                  <div className="rounded-lg p-2" style={{ backgroundColor: "#071020" }}>
+                    <p className="text-xs text-gray-400">Data</p>
+                    <p className="text-sm font-semibold text-white">{formatDataLimit(b.dataLimitMB)}</p>
+                  </div>
+                </div>
+                <div className="flex items-center justify-end gap-2">
+                  <button onClick={() => openEdit(b)} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium" style={{ backgroundColor: "rgba(0,180,255,0.15)", color: "#00b4ff" }}>
+                    <Pencil className="w-3.5 h-3.5" /> Edit
+                  </button>
+                  <button onClick={() => confirmDelete(b.id)} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium" style={{ backgroundColor: "rgba(239,68,68,0.15)", color: "#ef4444" }}>
+                    <Trash2 className="w-3.5 h-3.5" /> Delete
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Desktop table */}
+          <div className="hidden md:block rounded-xl overflow-hidden" style={{ border: "1px solid #1e3a5f" }}>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr style={{ backgroundColor: "#071020" }}>
+                    {["Name", "Price", "Duration", "Data", "Vouchers", "Status", "Actions"].map((h) => (
+                      <th key={h} className="px-4 py-3 text-left font-semibold text-gray-400 whitespace-nowrap">{h}</th>
+                    ))}
                   </tr>
-                ) : (
-                  bundles.map((b, idx) => (
-                    <tr
-                      key={b.id}
-                      style={{
-                        backgroundColor:
-                          idx % 2 === 0 ? "#0d1f3c" : "#0a1a35",
-                        borderTop: "1px solid #1e3a5f",
-                      }}
-                    >
+                </thead>
+                <tbody>
+                  {bundles.map((b, idx) => (
+                    <tr key={b.id} style={{ backgroundColor: idx % 2 === 0 ? "#0d1f3c" : "#0a1a35", borderTop: "1px solid #1e3a5f" }}>
                       <td className="px-4 py-3">
                         <div className="font-medium text-white">{b.name}</div>
-                        {b.description && (
-                          <div className="text-xs text-gray-400">
-                            {b.description}
-                          </div>
-                        )}
+                        {b.description && <div className="text-xs text-gray-400">{b.description}</div>}
                       </td>
-                      <td className="px-4 py-3 text-white">
-                        {formatCurrency(b.price, b.currency)}
-                      </td>
-                      <td className="px-4 py-3 text-white">
-                        {formatDuration(b.durationHours)}
-                      </td>
-                      <td className="px-4 py-3 text-white">
-                        {formatDataLimit(b.dataLimitMB)}
-                      </td>
-                      <td className="px-4 py-3 text-white">
-                        {b._count?.vouchers ?? 0}
-                      </td>
-                      <td className="px-4 py-3">
-                        <StatusBadge
-                          status={b.isActive ? "ACTIVE" : "EXPIRED"}
-                          label={b.isActive ? "Active" : "Inactive"}
-                        />
-                      </td>
+                      <td className="px-4 py-3 text-white">{formatCurrency(b.price, b.currency)}</td>
+                      <td className="px-4 py-3 text-white">{formatDuration(b.durationHours)}</td>
+                      <td className="px-4 py-3 text-white">{formatDataLimit(b.dataLimitMB)}</td>
+                      <td className="px-4 py-3 text-white">{b._count?.vouchers ?? 0}</td>
+                      <td className="px-4 py-3"><StatusBadge status={b.isActive ? "ACTIVE" : "EXPIRED"} label={b.isActive ? "Active" : "Inactive"} /></td>
                       <td className="px-4 py-3">
                         <div className="flex items-center gap-2">
-                          <button
-                            onClick={() => openEdit(b)}
-                            className="p-1.5 rounded hover:bg-white/10 text-gray-400 hover:text-white transition-colors"
-                          >
-                            <Pencil className="w-4 h-4" />
-                          </button>
-                          <button
-                            onClick={() => confirmDelete(b.id)}
-                            className="p-1.5 rounded hover:bg-red-500/10 text-gray-400 hover:text-red-400 transition-colors"
-                          >
-                            <Trash2 className="w-4 h-4" />
-                          </button>
+                          <button onClick={() => openEdit(b)} className="p-1.5 rounded hover:bg-white/10 text-gray-400 hover:text-white transition-colors"><Pencil className="w-4 h-4" /></button>
+                          <button onClick={() => confirmDelete(b.id)} className="p-1.5 rounded hover:bg-red-500/10 text-gray-400 hover:text-red-400 transition-colors"><Trash2 className="w-4 h-4" /></button>
                         </div>
                       </td>
                     </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
+        </>
       )}
 
       {/* Add / Edit Dialog */}

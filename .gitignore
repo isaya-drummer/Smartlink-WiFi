@@ -27,6 +27,13 @@ yarn-error.log*
 
 # local env files
 .env*.local
+.env
+
+# sensitive scripts
+prisma/reset-passwords.ts
+
+# agent task files
+.agents/
 
 # vercel
 .vercel

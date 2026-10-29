@@ -27,8 +27,8 @@ export async function GET(req: NextRequest) {
   }
 
   const createdAt: { gte?: Date; lte?: Date } = {}
-  if (dateFrom) createdAt.gte = new Date(dateFrom)
-  if (dateTo) createdAt.lte = new Date(dateTo)
+  if (dateFrom) createdAt.gte = new Date(dateFrom + "T00:00:00.000Z")
+  if (dateTo) createdAt.lte = new Date(dateTo + "T23:59:59.999Z")
   if (createdAt.gte || createdAt.lte) where.createdAt = createdAt
 
   const ratings = await prisma.serviceRating.findMany({
