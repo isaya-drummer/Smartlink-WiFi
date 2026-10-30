@@ -1,0 +1,18 @@
+{
+  "framework": "nextjs",
+  "buildCommand": "npx prisma generate && next build",
+  "installCommand": "npm install",
+  "outputDirectory": ".next",
+  "env": {
+    "DATABASE_URL": "@database_url",
+    "NEXTAUTH_SECRET": "@nextauth_secret",
+    "NEXTAUTH_URL": "@nextauth_url",
+    "UPLOADTHING_TOKEN": "@uploadthing_token",
+    "UPLOADTHING_SECRET": "@uploadthing_secret",
+    "UPLOADTHING_APP_ID": "@uploadthing_app_id",
+    "PAYIN_API_KEY": "@payin_api_key",
+    "PAYIN_API_SECRET": "@payin_api_secret",
+    "PAYIN_WEBHOOK_SECRET": "@payin_webhook_secret",
+    "PAYIN_SANDBOX": "@payin_sandbox"
+  }
+}
