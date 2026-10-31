@@ -4,6 +4,7 @@ import StatsCard from "@/components/admin/StatsCard"
 import StatusBadge from "@/components/admin/StatusBadge"
 import { formatCurrency, formatDate } from "@/lib/utils"
 import RevenueChart from "@/components/admin/RevenueChart"
+import { prisma, withRetry } from "@/lib/prisma"
 
 export const metadata: Metadata = { title: "Dashboard" }
 
@@ -28,12 +29,77 @@ interface DashboardData {
 }
 
 async function getDashboardData(): Promise<DashboardData> {
-  const baseUrl = process.env.NEXTAUTH_URL ?? "http://localhost:3000"
-  const res = await fetch(`${baseUrl}/api/super-admin/dashboard`, {
-    cache: "no-store",
-    headers: { Cookie: "" },
-  })
-  if (!res.ok) {
+  try {
+    const totalVouchers = await prisma.voucher.count()
+    const activeVouchers = await prisma.voucher.count({ where: { status: "ACTIVE" } })
+
+    const revenueResult = await prisma.payment.aggregate({
+      _sum: { amount: true },
+      where: { status: "SUCCESS" },
+    })
+    const totalRevenue = revenueResult._sum.amount ?? 0
+
+    const startOfToday = new Date()
+    startOfToday.setHours(0, 0, 0, 0)
+    const todayResult = await prisma.payment.aggregate({
+      _sum: { amount: true },
+      where: { status: "SUCCESS", createdAt: { gte: startOfToday } },
+    })
+    const todayRevenue = todayResult._sum.amount ?? 0
+
+    const clientGroups = await prisma.voucher.groupBy({ by: ["clientPhone"] })
+    const totalClients = clientGroups.length
+
+    const sevenDaysAgo = new Date()
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 6)
+    sevenDaysAgo.setHours(0, 0, 0, 0)
+
+    const successfulPayments = await prisma.payment.findMany({
+      where: { status: "SUCCESS", createdAt: { gte: sevenDaysAgo } },
+      select: { amount: true, createdAt: true },
+    })
+
+    const dailyMap: Record<string, number> = {}
+    for (let i = 0; i < 7; i++) {
+      const d = new Date()
+      d.setDate(d.getDate() - (6 - i))
+      dailyMap[d.toISOString().slice(0, 10)] = 0
+    }
+    for (const p of successfulPayments) {
+      const key = p.createdAt.toISOString().slice(0, 10)
+      if (key in dailyMap) dailyMap[key] = (dailyMap[key] ?? 0) + p.amount
+    }
+    const revenueByDay = Object.entries(dailyMap).map(([date, amount]) => ({ date, amount }))
+
+    const totalAdmins = await prisma.user.count({ where: { role: "ADMIN" } })
+
+    const rawAuditLogs = await prisma.auditLog.findMany({
+      orderBy: { createdAt: "desc" },
+      take: 10,
+      include: { user: { select: { name: true, email: true } } },
+    })
+
+    const recentAuditLogs = rawAuditLogs.map((log) => ({
+      id: log.id,
+      action: log.action,
+      details: log.details,
+      ipAddress: log.ipAddress,
+      createdAt: log.createdAt.toISOString(),
+      user: log.user,
+    }))
+
+    return {
+      totalVouchers,
+      activeVouchers,
+      totalRevenue,
+      todayRevenue,
+      totalClients,
+      revenueByDay,
+      totalAdmins,
+      recentAuditLogs,
+    }
+  } catch (err) {
+    console.error("Error loading super-admin dashboard data:", err)
     return {
       totalVouchers: 0,
       activeVouchers: 0,
@@ -45,7 +111,6 @@ async function getDashboardData(): Promise<DashboardData> {
       recentAuditLogs: [],
     }
   }
-  return res.json()
 }
 
 export default async function SuperAdminDashboardPage() {
