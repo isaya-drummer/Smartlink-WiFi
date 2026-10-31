@@ -4,6 +4,7 @@ import StatsCard from "@/components/admin/StatsCard"
 import StatusBadge from "@/components/admin/StatusBadge"
 import { formatCurrency, formatDate } from "@/lib/utils"
 import RevenueChart from "@/components/admin/RevenueChart"
+import DashboardGreeting from "@/components/admin/DashboardGreeting"
 import { prisma, withRetry } from "@/lib/prisma"
 
 export const metadata: Metadata = { title: "Dashboard" }
@@ -126,10 +127,7 @@ export default async function SuperAdminDashboardPage() {
 
   return (
     <div className="p-4 md:p-6 space-y-5">
-      <div>
-        <h1 className="text-xl md:text-2xl font-bold text-white">Super Admin Dashboard</h1>
-        <p className="text-sm text-gray-400 mt-1">Full system overview and control</p>
-      </div>
+      <DashboardGreeting subtitle="Full system overview and control" />
 
       {/* Stats Cards */}
       <div className="grid grid-cols-2 md:grid-cols-3 gap-3">

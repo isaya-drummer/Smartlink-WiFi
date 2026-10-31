@@ -5,6 +5,7 @@ import { SessionProvider } from "next-auth/react"
 import { Menu } from "lucide-react"
 import Sidebar from "@/components/admin/Sidebar"
 import SmartLinkLogo from "@/components/SmartLinkLogo"
+import AdminTopBar from "@/components/admin/AdminTopBar"
 
 export default function AdminShell({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false)
@@ -35,19 +36,21 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
       {/* Main content area */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
 
-        {/* Mobile top bar */}
         <div
-          className="md:hidden flex items-center gap-3 px-4 py-3 border-b flex-shrink-0"
+          className="flex items-center gap-3 px-4 py-3 border-b flex-shrink-0"
           style={{ backgroundColor: "#0a1628", borderColor: "#1e3a5f" }}
         >
           <button
             onClick={() => setOpen(true)}
-            className="p-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/10 transition-colors"
+            className="md:hidden p-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/10 transition-colors"
             aria-label="Open menu"
           >
             <Menu className="w-5 h-5" />
           </button>
-          <SmartLinkLogo size="sm" />
+          <div className="md:hidden">
+            <SmartLinkLogo size="sm" />
+          </div>
+          <AdminTopBar />
         </div>
 
         {/* Scrollable page content */}

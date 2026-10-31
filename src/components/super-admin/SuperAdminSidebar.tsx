@@ -2,7 +2,6 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { signOut } from "next-auth/react"
 import { useEffect, useState } from "react"
 import {
   LayoutDashboard,
@@ -12,7 +11,7 @@ import {
   MessageCircle,
   Star,
   ExternalLink,
-  LogOut,
+  FileBarChart,
   X,
 } from "lucide-react"
 import SmartLinkLogo from "@/components/SmartLinkLogo"
@@ -23,6 +22,7 @@ const navLinks = [
   { href: "/super-admin/audit", label: "Audit Log", icon: ClipboardList, exact: false },
   { href: "/super-admin/ratings", label: "Ratings", icon: Star, exact: false },
   { href: "/super-admin/system", label: "System", icon: Settings2, exact: false },
+  { href: "/super-admin/reports", label: "Reports", icon: FileBarChart, exact: false },
   { href: "/admin/chat", label: "Chat", icon: MessageCircle, exact: false },
 ]
 
@@ -138,17 +138,6 @@ export default function SuperAdminSidebar({ onClose }: { onClose?: () => void })
           Admin Panel
         </Link>
       </nav>
-
-      {/* Sign Out */}
-      <div className="p-3 border-t" style={{ borderColor: "#1e3a5f" }}>
-        <button
-          onClick={() => signOut({ callbackUrl: "/auth/login" })}
-          className="flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-all"
-        >
-          <LogOut className="w-5 h-5 flex-shrink-0" />
-          Sign Out
-        </button>
-      </div>
     </aside>
   )
 }

@@ -14,15 +14,16 @@ export interface TranslationSchema {
     title: string
     subtitle: string
     instruction: string
-    contact: {
-      title: string
-      subtitle: string
-      callButton: string
-      whatsappButton: string
-      phoneLabel: string
-      badge: string
-      defaultMessage: string
-    }
+      contact: {
+        title: string
+        subtitle: string
+        callButton: string
+        whatsappButton: string
+        phoneLabel: string
+        badge: string
+        defaultMessage: string
+        iconLabel: string
+      }
   }
   bundle: {
     title: string
@@ -93,6 +94,7 @@ export const translations: Record<Language, TranslationSchema> = {
         phoneLabel: "Support Hotline",
         badge: "Admin Available",
         defaultMessage: "Hello Admin, I need assistance connecting to SmartLink WiFi.",
+        iconLabel: "Contact admin",
       },
     },
     bundle: {
@@ -162,6 +164,7 @@ export const translations: Record<Language, TranslationSchema> = {
         phoneLabel: "Namba ya Msaada",
         badge: "Admin Yupo Hewani",
         defaultMessage: "Habari Admin, nahitaji msaada wa kujiunga na SmartLink WiFi.",
+        iconLabel: "Wasiliana na admin",
       },
     },
     bundle: {
