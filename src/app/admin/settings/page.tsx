@@ -20,6 +20,18 @@ const SETTING_FIELDS = [
     placeholder: "SmartLink WiFi",
   },
   {
+    key: "admin_phone",
+    label: "Admin / Support Phone Number",
+    type: "text",
+    placeholder: "+255 744 000 000",
+  },
+  {
+    key: "admin_whatsapp",
+    label: "WhatsApp Number (without + or spaces, e.g. 255744000000)",
+    type: "text",
+    placeholder: "255744000000",
+  },
+  {
     key: "max_sessions",
     label: "Max Sessions",
     type: "number",

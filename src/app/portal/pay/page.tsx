@@ -7,6 +7,7 @@ import { ArrowLeft, Loader2 } from "lucide-react"
 import ProviderBadge from "@/components/portal/ProviderBadge"
 import { type Provider } from "@/lib/payment"
 import { formatCurrency, formatDataLimit, formatDuration } from "@/lib/utils"
+import { useLanguage } from "@/context/LanguageContext"
 
 const VALID_PROVIDERS: Provider[] = ["YAS", "AIRTEL", "VODACOM", "HALOTEL"]
 
@@ -22,6 +23,7 @@ interface Bundle {
 
 function PayPageContent() {
   const router = useRouter()
+  const { t } = useLanguage()
   const searchParams = useSearchParams()
   const providerParam = searchParams.get("provider")?.toUpperCase() as Provider | null
   const bundleId = searchParams.get("bundleId")
@@ -112,10 +114,10 @@ function PayPageContent() {
             router.push(`/portal/bundle?provider=${providerParam}`)
           }
           className="flex items-center gap-1 text-sm text-white/70 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-[#00b4ff] rounded"
-          aria-label="Back to bundle selection"
+          aria-label={t.common.back}
         >
           <ArrowLeft size={16} />
-          Back
+          {t.common.back}
         </button>
         {providerParam && <ProviderBadge provider={providerParam} />}
       </div>
@@ -140,19 +142,19 @@ function PayPageContent() {
           )}
           <div className="flex gap-4">
             <div>
-              <span className="text-white/50 text-xs">Duration</span>
+              <span className="text-white/50 text-xs">{t.bundle.duration}</span>
               <p className="text-sm font-medium" style={{ color: "#00b4ff" }}>
                 {formatDuration(bundle.durationHours)}
               </p>
             </div>
             <div>
-              <span className="text-white/50 text-xs">Data</span>
+              <span className="text-white/50 text-xs">{t.bundle.dataLimit}</span>
               <p className="text-sm font-medium" style={{ color: "#00b4ff" }}>
                 {formatDataLimit(bundle.dataLimitMB)}
               </p>
             </div>
             <div>
-              <span className="text-white/50 text-xs">Price</span>
+              <span className="text-white/50 text-xs">{t.bundle.price}</span>
               <p className="text-sm font-bold" style={{ color: "#00b4ff" }}>
                 {formatCurrency(bundle.price, bundle.currency)}
               </p>
@@ -163,18 +165,18 @@ function PayPageContent() {
 
       {/* Payment form */}
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        <h2 className="text-lg font-bold text-white">Your Details</h2>
+        <h2 className="text-lg font-bold text-white">{t.pay.title}</h2>
 
         <div className="flex flex-col gap-1">
           <label htmlFor="clientName" className="text-sm text-white/70">
-            Full Name
+            {t.pay.clientNameLabel}
           </label>
           <input
             id="clientName"
             type="text"
             value={clientName}
             onChange={(e) => setClientName(e.target.value)}
-            placeholder="e.g. John Doe"
+            placeholder={t.pay.clientNamePlaceholder}
             required
             minLength={2}
             className="w-full rounded-lg px-4 py-3 text-white placeholder-white/30 focus:outline-none transition-colors"
@@ -189,14 +191,14 @@ function PayPageContent() {
 
         <div className="flex flex-col gap-1">
           <label htmlFor="clientPhone" className="text-sm text-white/70">
-            Phone Number
+            {t.pay.phoneLabel}
           </label>
           <input
             id="clientPhone"
             type="tel"
             value={clientPhone}
             onChange={(e) => setClientPhone(e.target.value)}
-            placeholder="e.g. 0712345678"
+            placeholder={t.pay.phonePlaceholder}
             required
             minLength={8}
             className="w-full rounded-lg px-4 py-3 text-white placeholder-white/30 focus:outline-none transition-colors"
@@ -207,6 +209,7 @@ function PayPageContent() {
             onFocus={(e) => (e.currentTarget.style.borderColor = "#00b4ff")}
             onBlur={(e) => (e.currentTarget.style.borderColor = "#1e3a5f")}
           />
+          <p className="text-xs text-gray-400 mt-1">{t.pay.pushNotice}</p>
         </div>
 
         {error && (
@@ -226,10 +229,10 @@ function PayPageContent() {
           {submitting ? (
             <>
               <Loader2 size={20} className="animate-spin" />
-              Processing...
+              {t.pay.processingButton}
             </>
           ) : (
-            `Pay ${bundle ? formatCurrency(bundle.price, bundle.currency) : ""}`
+            `${t.pay.payButton} ${bundle ? formatCurrency(bundle.price, bundle.currency) : ""}`
           )}
         </button>
       </form>

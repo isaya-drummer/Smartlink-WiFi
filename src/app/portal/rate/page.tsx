@@ -3,6 +3,7 @@
 import { Suspense, useEffect, useState } from "react"
 import { useSearchParams, useRouter } from "next/navigation"
 import { CheckCircle } from "lucide-react"
+import { useLanguage } from "@/context/LanguageContext"
 
 const LABELS: Record<number, string> = {
   1: "Very Poor",
@@ -15,6 +16,7 @@ const LABELS: Record<number, string> = {
 function RatePageContent() {
   const searchParams = useSearchParams()
   const router = useRouter()
+  const { t } = useLanguage()
   const ref = searchParams.get("ref") ?? ""
 
   const [loading, setLoading] = useState(true)

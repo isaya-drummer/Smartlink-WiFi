@@ -6,6 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation"
 import { CheckCircle, Wifi } from "lucide-react"
 import VoucherDisplay from "@/components/portal/VoucherDisplay"
 import { formatDate } from "@/lib/utils"
+import { useLanguage } from "@/context/LanguageContext"
 
 interface VoucherData {
   code: string
@@ -20,6 +21,7 @@ interface ActivationResult {
 
 function SuccessPageContent() {
   const router = useRouter()
+  const { t } = useLanguage()
   const searchParams = useSearchParams()
   const ref = searchParams.get("ref")
 
@@ -79,10 +81,10 @@ function SuccessPageContent() {
             </div>
           </div>
           <p className="text-white font-semibold text-lg">
-            Activating your voucher&hellip;
+            {t.success.activatingTitle}
           </p>
           <p className="text-white/50 text-sm text-center">
-            Please wait while we connect you to the internet.
+            {t.success.activatingNotice}
           </p>
         </div>
       ) : error ? (
@@ -96,7 +98,7 @@ function SuccessPageContent() {
               background: "linear-gradient(135deg, #00b4ff 0%, #0066ff 100%)",
             }}
           >
-            Try Again
+            {t.bundle.retry}
           </button>
         </div>
       ) : voucher ? (
@@ -109,16 +111,16 @@ function SuccessPageContent() {
               className="text-xl font-bold text-center"
               style={{ color: "#00b4ff" }}
             >
-              You are now connected! 🎉
+              {t.success.title} 🎉
             </h2>
           </div>
 
           {/* Voucher code display */}
           <div className="flex flex-col gap-2">
-            <p className="text-white/70 text-sm">Your access code:</p>
+            <p className="text-white/70 text-sm">{t.success.voucherHeader}:</p>
             <VoucherDisplay code={voucher.code} />
             <p className="text-white/40 text-xs text-center">
-              Enter this code in the hotspot login page
+              {t.success.connectInstruction}
             </p>
           </div>
 

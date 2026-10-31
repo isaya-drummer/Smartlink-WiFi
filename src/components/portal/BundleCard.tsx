@@ -1,4 +1,7 @@
+"use client"
+
 import { formatCurrency, formatDataLimit, formatDuration } from "@/lib/utils"
+import { useLanguage } from "@/context/LanguageContext"
 
 interface Bundle {
   id: string
@@ -20,6 +23,8 @@ interface BundleCardProps {
  * Shows bundle name, description, duration, data limit, and price.
  */
 export default function BundleCard({ bundle, onClick }: BundleCardProps) {
+  const { t } = useLanguage()
+
   return (
     <button
       onClick={() => onClick(bundle.id)}
@@ -48,13 +53,13 @@ export default function BundleCard({ bundle, onClick }: BundleCardProps) {
 
       <div className="flex flex-wrap gap-3 mt-2">
         <div className="flex flex-col">
-          <span className="text-white/50 text-xs uppercase tracking-wide">Duration</span>
+          <span className="text-white/50 text-xs uppercase tracking-wide">{t.bundle.duration}</span>
           <span className="text-sm font-medium" style={{ color: "#00b4ff" }}>
             {formatDuration(bundle.durationHours)}
           </span>
         </div>
         <div className="flex flex-col">
-          <span className="text-white/50 text-xs uppercase tracking-wide">Data</span>
+          <span className="text-white/50 text-xs uppercase tracking-wide">{t.bundle.dataLimit}</span>
           <span className="text-sm font-medium" style={{ color: "#00b4ff" }}>
             {formatDataLimit(bundle.dataLimitMB)}
           </span>

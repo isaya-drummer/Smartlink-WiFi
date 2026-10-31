@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { Copy, Check } from "lucide-react"
+import { useLanguage } from "@/context/LanguageContext"
 
 interface VoucherDisplayProps {
   code: string
@@ -11,6 +12,7 @@ interface VoucherDisplayProps {
  * Large monospace voucher code display with a copy-to-clipboard button.
  */
 export default function VoucherDisplay({ code }: VoucherDisplayProps) {
+  const { t } = useLanguage()
   const [copied, setCopied] = useState(false)
 
   const handleCopy = async () => {
@@ -55,12 +57,12 @@ export default function VoucherDisplay({ code }: VoucherDisplayProps) {
         {copied ? (
           <>
             <Check size={16} />
-            Copied!
+            {t.common.copied}
           </>
         ) : (
           <>
             <Copy size={16} />
-            Copy
+            {t.common.copy}
           </>
         )}
       </button>

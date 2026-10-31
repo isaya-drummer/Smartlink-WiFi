@@ -7,6 +7,7 @@ import { ArrowLeft } from "lucide-react"
 import ProviderBadge from "@/components/portal/ProviderBadge"
 import BundleCard from "@/components/portal/BundleCard"
 import { type Provider } from "@/lib/payment"
+import { useLanguage } from "@/context/LanguageContext"
 
 const VALID_PROVIDERS: Provider[] = ["YAS", "AIRTEL", "VODACOM", "HALOTEL"]
 
@@ -22,6 +23,7 @@ interface Bundle {
 
 function BundlePageContent() {
   const router = useRouter()
+  const { t } = useLanguage()
   const searchParams = useSearchParams()
   const providerParam = searchParams.get("provider")?.toUpperCase() as Provider | null
 
@@ -71,18 +73,18 @@ function BundlePageContent() {
         <button
           onClick={() => router.push("/portal")}
           className="flex items-center gap-1 text-sm text-white/70 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-[#00b4ff] rounded"
-          aria-label="Back to provider selection"
+          aria-label={t.common.back}
         >
           <ArrowLeft size={16} />
-          Back
+          {t.common.back}
         </button>
         <ProviderBadge provider={providerParam} />
       </div>
 
       <div>
-        <h2 className="text-xl font-bold text-white">Select a Bundle</h2>
+        <h2 className="text-xl font-bold text-white">{t.bundle.title}</h2>
         <p className="text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
-          Choose the plan that works best for you
+          {t.bundle.subtitle}
         </p>
       </div>
 
