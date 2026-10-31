@@ -10,28 +10,6 @@ export async function GET() {
   }
 
   try {
-    // Single query: count all unread messages across all conversations
-    // using a join instead of N+1 loops
-    const result = await withRetry(() =>
-      prisma.message.count({
-        where: {
-          deleted: false,
-          senderId: { not: u.id },
-          conversation: {
-            participants: {
-              some: { userId: u.id },
-            },
-          },
-          createdAt: {
-            gt: (async () => {
-              // Get earliest lastReadAt across all participations
-              return new Date(0) // fallback — individual check below
-            })(),
-          },
-        },
-      })
-    )
-
     // Efficient approach: raw aggregate per participation
     const participations = await withRetry(() =>
       prisma.conversationParticipant.findMany({

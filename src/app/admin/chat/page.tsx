@@ -14,6 +14,7 @@ interface Participant { id: string; name: string; role: string }
 interface LastMessage {
   id: string; content: string; type: string; senderId: string
   senderName: string; createdAt: string; deleted: boolean
+  fileName?: string | null
 }
 
 interface Conversation {
