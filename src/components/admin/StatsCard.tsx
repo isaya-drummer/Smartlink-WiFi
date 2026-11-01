@@ -13,18 +13,32 @@ export default function StatsCard({ title, value, icon: Icon, change, changeLabe
 
   return (
     <div
-      className="rounded-xl p-4 md:p-5 flex items-start gap-3"
-      style={{ backgroundColor: "var(--bg-secondary)", border: "1px solid var(--border-color)" }}
+      className="rounded-xl p-4 flex items-center gap-3"
+      style={{
+        backgroundColor: "var(--bg-secondary)",
+        border: "1px solid var(--border-color)",
+      }}
     >
+      {/* Icon */}
       <div
-        className="p-2.5 rounded-lg flex-shrink-0"
-        style={{ backgroundColor: "rgba(0, 180, 255, 0.15)" }}
+        className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0"
+        style={{ backgroundColor: "var(--accent-dim, rgba(0,180,255,0.15))" }}
       >
-        <Icon className="w-5 h-5" style={{ color: "#00b4ff" }} />
+        <Icon className="w-5 h-5" style={{ color: "var(--accent, #00b4ff)" }} />
       </div>
-      <div className="flex-1 min-w-0">
-        <p className="text-xs md:text-sm font-medium text-gray-400 truncate">{title}</p>
-        <p className="mt-0.5 text-lg md:text-2xl font-bold text-white truncate">
+
+      {/* Text */}
+      <div className="min-w-0 flex-1">
+        <p
+          className="text-xs font-medium truncate"
+          style={{ color: "var(--text-secondary)" }}
+        >
+          {title}
+        </p>
+        <p
+          className="mt-0.5 text-lg font-bold leading-tight truncate"
+          style={{ color: "var(--text-primary)" }}
+        >
           {typeof value === "number" ? value.toLocaleString() : value}
         </p>
         {change !== undefined && (

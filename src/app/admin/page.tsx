@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { DollarSign, Ticket, Users, TrendingUp, Star } from "lucide-react"
+import { Ticket, Users, TrendingUp, Star } from "lucide-react"
 import StatsCard from "@/components/admin/StatsCard"
 import StatusBadge from "@/components/admin/StatusBadge"
 import { formatCurrency, formatDate, maskPhone } from "@/lib/utils"
@@ -160,11 +160,6 @@ export default async function AdminDashboardPage() {
 
   const stats = [
     {
-      title: "Total Revenue",
-      value: formatCurrency(data.totalRevenue),
-      icon: DollarSign,
-    },
-    {
       title: "Active Vouchers",
       value: data.activeVouchers,
       icon: Ticket,
@@ -181,7 +176,7 @@ export default async function AdminDashboardPage() {
     },
     {
       title: "Avg Rating",
-      value: `★ ${data.avgRating || "—"} (${data.totalRatings})`,
+      value: data.avgRating ? `★ ${data.avgRating} (${data.totalRatings})` : "No ratings",
       icon: Star,
     },
   ]
@@ -190,8 +185,8 @@ export default async function AdminDashboardPage() {
     <div className="p-4 md:p-6 space-y-5">
       <DashboardGreeting subtitle="Overview of your WiFi hotspot system" />
 
-      {/* Stats Cards */}
-      <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-3">
+      {/* Stats Cards — 2 columns on mobile, 4 on desktop */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         {stats.map((s) => (
           <StatsCard key={s.title} title={s.title} value={s.value} icon={s.icon} />
         ))}
