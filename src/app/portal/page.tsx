@@ -10,25 +10,29 @@ const PROVIDERS = [
     key: "YAS",
     label: "Yas Mixx",
     logo: "/yas.jpg",
-    bg: "#FFC800", // exact same yellow as the Yas Mixx logo background
+    bg: "#FFC800",   // exact Yas yellow — DO NOT CHANGE
+    fit: "cover",    // wide landscape — fills perfectly
   },
   {
     key: "AIRTEL",
     label: "Airtel",
     logo: "/airtel.jpg",
-    bg: "#CC0000", // deep red — exact same intensity as Airtel logo red
+    bg: "#CC0000",   // Airtel deep red
+    fit: "contain",  // portrait logo — contain so nothing is cropped
   },
   {
     key: "VODACOM",
     label: "Vodacom M-Pesa",
     logo: "/vodacom.png",
-    bg: "#E53935", // unchanged — Vodacom red stays as-is
+    bg: "#E53935",   // Vodacom red
+    fit: "contain",  // wide banner — contain to show full logo
   },
   {
     key: "HALOTEL",
     label: "HaloPesa",
     logo: "/halopesa.png",
-    bg: "#ffffff", // pure white background for HaloPesa
+    bg: "#ffffff",   // white background for HaloPesa
+    fit: "contain",  // wide banner — contain to show full logo
   },
 ] as const
 
@@ -58,16 +62,14 @@ export default function PortalPage() {
             style={{ height: "135px", backgroundColor: p.bg }}
             aria-label={`Pay with ${p.label}`}
           >
-            {/* Image fills the entire card — no padding, no gap, no visible boundary */}
             <Image
               src={p.logo}
               alt={p.label}
               fill
-              className="object-cover"
+              className={p.fit === "cover" ? "object-cover" : "object-contain"}
               sizes="(max-width: 768px) 50vw, 200px"
               priority
             />
-            {/* Tap feedback overlay */}
             <div className="absolute inset-0 bg-black/0 hover:bg-black/10 active:bg-black/20 transition-colors duration-150 rounded-2xl" />
           </button>
         ))}
