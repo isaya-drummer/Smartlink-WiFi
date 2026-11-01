@@ -31,8 +31,8 @@ const PROVIDERS = [
     key: "HALOTEL",
     label: "HaloPesa",
     logo: "/halopesa.png",
-    bg: "#ffffff",   // white — HaloPesa PNG has transparent/white bg with orange logo
-    fit: "contain" as const,  // orange logo on white — contain to show full logo
+    bg: "#ffffff",
+    fit: "cover" as const,
   },
 ] as const
 
@@ -62,31 +62,14 @@ export default function PortalPage() {
             style={{ height: "135px", backgroundColor: p.bg }}
             aria-label={`Pay with ${p.label}`}
           >
-            {p.fit === "cover" ? (
-              /* Full bleed — image fills card edge to edge (Yas, Airtel, Vodacom) */
-              <Image
-                src={p.logo}
-                alt={p.label}
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 50vw, 200px"
-                priority
-              />
-            ) : (
-              /* Contained — white card, logo centred with padding (HaloPesa) */
-              <div className="absolute inset-0 flex items-center justify-center p-5"
-                style={{ backgroundColor: "#ffffff" }}>
-                <Image
-                  src={p.logo}
-                  alt={p.label}
-                  fill
-                  className="object-contain"
-                  sizes="(max-width: 768px) 50vw, 200px"
-                  style={{ padding: "16px" }}
-                  priority
-                />
-              </div>
-            )}
+            <Image
+              src={p.logo}
+              alt={p.label}
+              fill
+              className={p.fit === "cover" ? "object-cover" : "object-contain p-4"}
+              sizes="(max-width: 768px) 50vw, 200px"
+              priority
+            />
             <div className="absolute inset-0 bg-black/0 hover:bg-black/10 active:bg-black/20 transition-colors duration-150 rounded-2xl" />
           </button>
         ))}
