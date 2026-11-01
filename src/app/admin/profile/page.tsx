@@ -40,19 +40,30 @@ export default function ProfilePage() {
 
   async function handlePhotoUpload(file: File) {
     setUploadingPhoto(true)
+    setError("")
     try {
       const fd = new FormData()
       fd.append("file", file)
       const res = await fetch("/api/uploadthing", { method: "POST", body: fd })
-      if (!res.ok) return
       const d = await res.json()
+      if (!res.ok || !d.data?.url) {
+        setError(d.error ?? "Photo upload failed. Please try again.")
+        return
+      }
       const url: string = d.data.url
-      await fetch("/api/admin/profile", {
+      const saveRes = await fetch("/api/admin/profile", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ avatarUrl: url }),
       })
+      if (!saveRes.ok) {
+        setError("Photo uploaded but could not save to profile.")
+        return
+      }
       setAvatarUrl(url)
+      setMessage("Profile photo updated!")
+    } catch {
+      setError("Photo upload failed. Check your connection.")
     } finally {
       setUploadingPhoto(false)
     }

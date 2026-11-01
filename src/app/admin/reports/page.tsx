@@ -101,8 +101,18 @@ function openWatermarkedPrint(report: ReportPayload) {
 </body>
 </html>`
 
-  const printWindow = window.open("", "_blank", "noopener,noreferrer,width=1024,height=720")
-  if (!printWindow) return
+  const printWindow = window.open("", "_blank", "width=1024,height=720")
+  if (!printWindow) {
+    // Popup blocked — fallback: download as HTML file
+    const blob = new Blob([html], { type: "text/html;charset=utf-8;" })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement("a")
+    a.href = url
+    a.download = `${report.type}-report.html`
+    a.click()
+    URL.revokeObjectURL(url)
+    return
+  }
   printWindow.document.open()
   printWindow.document.write(html)
   printWindow.document.close()
