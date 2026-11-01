@@ -96,7 +96,7 @@ export default function ProfilePage() {
       ) : (
         <div
           className="rounded-xl p-6 space-y-5"
-          style={{ backgroundColor: "#0a1628", border: "1px solid #1e3a5f" }}
+          style={{ backgroundColor: "var(--bg-primary)", border: "1px solid var(--border-color)" }}
         >
           {/* Avatar section */}
           <div className="flex flex-col items-center gap-3 pb-2">
@@ -132,7 +132,7 @@ export default function ProfilePage() {
               onClick={() => photoInputRef.current?.click()}
               disabled={uploadingPhoto}
               className="flex items-center gap-2 text-xs"
-              style={{ borderColor: "#1e3a5f", color: "#9ca3af" }}
+              style={{ borderColor: "var(--border-color)", color: "#9ca3af" }}
             >
               <Camera className="w-3.5 h-3.5" />
               {uploadingPhoto ? "Uploading…" : "Upload photo"}
@@ -145,7 +145,7 @@ export default function ProfilePage() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="e.g. James Mwamba"
-              style={{ backgroundColor: "#0d1f3c", borderColor: "#1e3a5f", color: "#fff" }}
+              style={{ backgroundColor: "var(--bg-secondary)", borderColor: "var(--border-color)", color: "#fff" }}
             />
           </div>
           <div className="space-y-1.5">
@@ -153,7 +153,7 @@ export default function ProfilePage() {
             <Input
               value={email}
               disabled
-              style={{ backgroundColor: "#0d1f3c", borderColor: "#1e3a5f", color: "#9ca3af" }}
+              style={{ backgroundColor: "var(--bg-secondary)", borderColor: "var(--border-color)", color: "#9ca3af" }}
             />
           </div>
           <div className="space-y-1.5">
@@ -161,14 +161,14 @@ export default function ProfilePage() {
             <Input
               value={role === "SUPER_ADMIN" ? "Super Admin" : "Admin"}
               disabled
-              style={{ backgroundColor: "#0d1f3c", borderColor: "#1e3a5f", color: "#9ca3af" }}
+              style={{ backgroundColor: "var(--bg-secondary)", borderColor: "var(--border-color)", color: "#9ca3af" }}
             />
           </div>
           <div className="flex items-center gap-3 pt-1">
             <Button
               onClick={handleSave}
               disabled={saving || name.trim().length < 2}
-              style={{ backgroundColor: "#00b4ff", color: "#0a1628" }}
+              style={{ backgroundColor: "#00b4ff", color: "var(--bg-primary)" }}
             >
               <Save className="w-4 h-4" />
               {saving ? "Saving…" : "Save profile"}

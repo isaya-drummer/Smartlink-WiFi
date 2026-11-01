@@ -171,7 +171,7 @@ export default function ReportsPage() {
 
       <div
         className="rounded-xl p-4 md:p-5 flex flex-wrap items-end gap-3"
-        style={{ backgroundColor: "#0a1628", border: "1px solid #1e3a5f" }}
+        style={{ backgroundColor: "var(--bg-primary)", border: "1px solid var(--border-color)" }}
       >
         <label className="space-y-1.5 text-sm text-gray-300">
           <span className="block">Report type</span>
@@ -179,7 +179,7 @@ export default function ReportsPage() {
             value={type}
             onChange={(e) => setType(e.target.value)}
             className="h-10 rounded-md px-3 text-sm outline-none"
-            style={{ backgroundColor: "#0d1f3c", border: "1px solid #1e3a5f", color: "#fff" }}
+            style={{ backgroundColor: "var(--bg-secondary)", border: "1px solid var(--border-color)", color: "#fff" }}
           >
             {REPORT_TYPES.map((opt) => (
               <option key={opt.value} value={opt.value}>
@@ -195,7 +195,7 @@ export default function ReportsPage() {
             value={from}
             onChange={(e) => setFrom(e.target.value)}
             className="h-10 rounded-md px-3 text-sm outline-none"
-            style={{ backgroundColor: "#0d1f3c", border: "1px solid #1e3a5f", color: "#fff" }}
+            style={{ backgroundColor: "var(--bg-secondary)", border: "1px solid var(--border-color)", color: "#fff" }}
           />
         </label>
         <label className="space-y-1.5 text-sm text-gray-300">
@@ -205,7 +205,7 @@ export default function ReportsPage() {
             value={to}
             onChange={(e) => setTo(e.target.value)}
             className="h-10 rounded-md px-3 text-sm outline-none"
-            style={{ backgroundColor: "#0d1f3c", border: "1px solid #1e3a5f", color: "#fff" }}
+            style={{ backgroundColor: "var(--bg-secondary)", border: "1px solid var(--border-color)", color: "#fff" }}
           />
         </label>
         <Button
@@ -239,8 +239,8 @@ export default function ReportsPage() {
 
       {error && <p className="text-sm text-red-400">{error}</p>}
 
-      <div className="rounded-xl overflow-hidden" style={{ border: "1px solid #1e3a5f" }}>
-        <div className="px-6 py-4 border-b" style={{ backgroundColor: "#0a1628", borderColor: "#1e3a5f" }}>
+      <div className="rounded-xl overflow-hidden" style={{ border: "1px solid var(--border-color)" }}>
+        <div className="px-6 py-4 border-b" style={{ backgroundColor: "var(--bg-primary)", borderColor: "var(--border-color)" }}>
           <h2 className="text-lg font-semibold text-white">{report?.title ?? "Report preview"}</h2>
           {report && (
             <p className="text-xs text-gray-400 mt-1">
@@ -248,10 +248,10 @@ export default function ReportsPage() {
             </p>
           )}
         </div>
-        <div className="overflow-x-auto" style={{ backgroundColor: "#0d1f3c" }}>
+        <div className="overflow-x-auto" style={{ backgroundColor: "var(--bg-secondary)" }}>
           <table className="w-full text-sm">
             <thead>
-              <tr style={{ backgroundColor: "#071020" }}>
+              <tr style={{ backgroundColor: "var(--bg-tertiary)" }}>
                 {(report?.columns ?? ["Loading"]).map((h) => (
                   <th key={h} className="px-4 py-3 text-left font-semibold text-gray-400 whitespace-nowrap">
                     {h}
@@ -277,8 +277,8 @@ export default function ReportsPage() {
                   <tr
                     key={idx}
                     style={{
-                      backgroundColor: idx % 2 === 0 ? "#0d1f3c" : "#0a1a35",
-                      borderTop: "1px solid #1e3a5f",
+                      backgroundColor: idx % 2 === 0 ? "var(--bg-secondary)" : "#0a1a35",
+                      borderTop: "1px solid var(--border-color)",
                     }}
                   >
                     {row.map((cell, i) => (

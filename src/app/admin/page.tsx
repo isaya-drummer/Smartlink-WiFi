@@ -211,7 +211,7 @@ export default async function AdminDashboardPage() {
       {/* Recent Payments */}
       <div
         className="rounded-xl overflow-hidden"
-        style={{ border: "1px solid #1e3a5f" }}
+        style={{ border: "1px solid var(--border-color)" }}
       >
         <div
           className="px-6 py-4 border-b"
@@ -294,7 +294,7 @@ export default async function AdminDashboardPage() {
       {/* Recent Ratings */}
       <div
         className="rounded-xl overflow-hidden"
-        style={{ border: "1px solid #1e3a5f" }}
+        style={{ border: "1px solid var(--border-color)" }}
       >
         <div
           className="px-6 py-4 border-b"
