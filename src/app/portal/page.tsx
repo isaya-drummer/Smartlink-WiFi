@@ -11,28 +11,28 @@ const PROVIDERS = [
     label: "Yas Mixx",
     logo: "/yas.jpg",
     bg: "#FFC800",   // exact Yas yellow — DO NOT CHANGE
-    fit: "cover",    // wide landscape — fills perfectly
+    fit: "cover" as const,
   },
   {
     key: "AIRTEL",
     label: "Airtel",
     logo: "/airtel.jpg",
-    bg: "#CC0000",   // Airtel deep red
-    fit: "contain",  // portrait logo — contain so nothing is cropped
+    bg: "#EE0000",   // exact Airtel red from the logo background
+    fit: "cover" as const,
   },
   {
     key: "VODACOM",
     label: "Vodacom M-Pesa",
     logo: "/vodacom.png",
-    bg: "#E53935",   // Vodacom red
-    fit: "contain",  // wide banner — contain to show full logo
+    bg: "#E2231A",   // exact Vodacom red from the logo background
+    fit: "cover" as const,
   },
   {
     key: "HALOTEL",
     label: "HaloPesa",
     logo: "/halopesa.png",
-    bg: "#ffffff",   // white background for HaloPesa
-    fit: "contain",  // wide banner — contain to show full logo
+    bg: "#ffffff",   // white — HaloPesa PNG has transparent/white bg with orange logo
+    fit: "contain" as const,  // orange logo on white — contain to show full logo
   },
 ] as const
 
@@ -66,7 +66,7 @@ export default function PortalPage() {
               src={p.logo}
               alt={p.label}
               fill
-              className={p.fit === "cover" ? "object-cover" : "object-contain"}
+              className={p.fit === "cover" ? "object-cover" : "object-contain p-4"}
               sizes="(max-width: 768px) 50vw, 200px"
               priority
             />
