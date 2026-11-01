@@ -62,11 +62,16 @@ function openWatermarkedPrint(report: ReportPayload) {
       inset: 0;
       z-index: 0;
       pointer-events: none;
-      background-image: url('${logoUrl}');
-      background-repeat: repeat;
-      background-size: 180px;
-      opacity: 0.08;
-      transform: rotate(-18deg) scale(1.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .watermark img {
+      width: 320px;
+      height: 320px;
+      object-fit: contain;
+      opacity: 0.07;
+      transform: rotate(-18deg);
     }
     .content { position: relative; z-index: 1; }
     header { display: flex; align-items: center; gap: 14px; border-bottom: 2px solid #00b4ff; padding-bottom: 12px; margin-bottom: 16px; }
@@ -81,7 +86,7 @@ function openWatermarkedPrint(report: ReportPayload) {
   </style>
 </head>
 <body>
-  <div class="watermark"></div>
+  <div class="watermark"><img src="${logoUrl}" alt="" /></div>
   <div class="content">
     <header>
       <img src="${logoUrl}" alt="SmartLink Digital" />
