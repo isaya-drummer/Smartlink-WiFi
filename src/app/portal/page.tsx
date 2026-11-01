@@ -10,7 +10,7 @@ const PROVIDERS = [
     key: "YAS",
     label: "Yas Mixx",
     logo: "/yas.jpg",
-    bg: "#FFD700", // pure golden yellow — same intensity as Yas logo yellow
+    bg: "#FFC800", // exact same yellow as the Yas Mixx logo background
   },
   {
     key: "AIRTEL",
@@ -54,21 +54,19 @@ export default function PortalPage() {
           <button
             key={p.key}
             onClick={() => router.push(`/portal/bundle?provider=${p.key}`)}
-            className="relative overflow-hidden rounded-2xl transition-all duration-200 hover:scale-105 active:scale-95 focus:outline-none focus:ring-4 focus:ring-white/30 shadow-lg flex items-center justify-center p-3"
+            className="relative overflow-hidden rounded-2xl transition-all duration-200 hover:scale-105 active:scale-95 focus:outline-none focus:ring-4 focus:ring-white/30 shadow-lg"
             style={{ height: "135px", backgroundColor: p.bg }}
             aria-label={`Pay with ${p.label}`}
           >
-            {/* Logo contained fully — brand bg fills rest */}
-            <div className="relative w-full h-full">
-              <Image
-                src={p.logo}
-                alt={p.label}
-                fill
-                className="object-contain"
-                sizes="(max-width: 768px) 50vw, 200px"
-                priority
-              />
-            </div>
+            {/* Image fills the entire card — no padding, no gap, no visible boundary */}
+            <Image
+              src={p.logo}
+              alt={p.label}
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 50vw, 200px"
+              priority
+            />
             {/* Tap feedback overlay */}
             <div className="absolute inset-0 bg-black/0 hover:bg-black/10 active:bg-black/20 transition-colors duration-150 rounded-2xl" />
           </button>
