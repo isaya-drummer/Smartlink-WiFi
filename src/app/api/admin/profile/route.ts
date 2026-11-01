@@ -9,7 +9,7 @@ function requireAdminAuth(role?: string) {
 
 const ProfileUpdateSchema = z.object({
   name: z.string().trim().min(2).max(80).optional(),
-  avatarUrl: z.string().url().optional(),
+  avatarUrl: z.string().min(1).optional(), // accepts both https:// URLs and data: URLs
 })
 
 export async function GET() {
