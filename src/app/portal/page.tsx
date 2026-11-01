@@ -10,25 +10,25 @@ const PROVIDERS = [
     key: "YAS",
     label: "Yas Mixx",
     logo: "/yas.jpg",
-    bg: "#FFC107", // yellow — matches Yas brand
+    bg: "#FFD700", // pure golden yellow — same intensity as Yas logo yellow
   },
   {
     key: "AIRTEL",
     label: "Airtel",
     logo: "/airtel.jpg",
-    bg: "#E53935", // red — matches Airtel brand
+    bg: "#CC0000", // deep red — exact same intensity as Airtel logo red
   },
   {
     key: "VODACOM",
     label: "Vodacom M-Pesa",
     logo: "/vodacom.png",
-    bg: "#E53935", // red — matches Vodacom brand
+    bg: "#E53935", // unchanged — Vodacom red stays as-is
   },
   {
     key: "HALOTEL",
     label: "HaloPesa",
     logo: "/halopesa.png",
-    bg: "#ffffff", // white — matches HaloPesa brand
+    bg: "#ffffff", // pure white background for HaloPesa
   },
 ] as const
 
