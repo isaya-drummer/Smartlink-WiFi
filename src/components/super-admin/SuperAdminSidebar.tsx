@@ -15,6 +15,9 @@ import {
   X,
 } from "lucide-react"
 import SmartLinkLogo from "@/components/SmartLinkLogo"
+import ThemeToggle from "@/components/admin/ThemeToggle"
+import { signOut } from "next-auth/react"
+import { LogOut } from "lucide-react"
 
 const navLinks = [
   { href: "/super-admin", label: "Dashboard", icon: LayoutDashboard, exact: true },
@@ -59,10 +62,10 @@ export default function SuperAdminSidebar({ onClose }: { onClose?: () => void })
   return (
     <aside
       className="flex flex-col h-full w-64 flex-shrink-0"
-      style={{ backgroundColor: "#0a1628" }}
+      style={{ backgroundColor: "var(--bg-primary)" }}
     >
       {/* Logo + Badge + mobile close */}
-      <div className="p-6 border-b space-y-3" style={{ borderColor: "#1e3a5f" }}>
+      <div className="p-6 border-b space-y-3" style={{ borderColor: "var(--border-color)" }}>
         <div className="flex items-center justify-between">
           <SmartLinkLogo size="sm" />
           {onClose && (
@@ -127,7 +130,7 @@ export default function SuperAdminSidebar({ onClose }: { onClose?: () => void })
         })}
 
         {/* Divider */}
-        <div className="my-2 border-t" style={{ borderColor: "#1e3a5f" }} />
+        <div className="my-2 border-t" style={{ borderColor: "var(--border-color)" }} />
 
         {/* Quick link to Admin Panel */}
         <Link
@@ -138,6 +141,21 @@ export default function SuperAdminSidebar({ onClose }: { onClose?: () => void })
           Admin Panel
         </Link>
       </nav>
+
+      {/* Bottom section — Theme toggle + Sign Out */}
+      <div className="border-t px-3 py-3 space-y-1" style={{ borderColor: "var(--border-color)" }}>
+        <div className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-gray-400">
+          <ThemeToggle />
+          <span>Theme</span>
+        </div>
+        <button
+          onClick={() => signOut({ callbackUrl: "/auth/login" })}
+          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-red-300 hover:text-red-200 hover:bg-white/5 transition-all"
+        >
+          <LogOut className="w-5 h-5 flex-shrink-0" />
+          Sign Out
+        </button>
+      </div>
     </aside>
   )
 }

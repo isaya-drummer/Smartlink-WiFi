@@ -14,7 +14,7 @@ export default function StatsCard({ title, value, icon: Icon, change, changeLabe
   return (
     <div
       className="rounded-xl p-4 md:p-5 flex items-start gap-3"
-      style={{ backgroundColor: "#0d1f3c", border: "1px solid #1e3a5f" }}
+      style={{ backgroundColor: "var(--bg-secondary)", border: "1px solid var(--border-color)" }}
     >
       <div
         className="p-2.5 rounded-lg flex-shrink-0"

@@ -13,6 +13,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import ThemeToggle from "@/components/admin/ThemeToggle"
 
 interface NotificationItem {
   id: string
@@ -56,6 +57,7 @@ export default function AdminTopBar() {
     const stored = window.localStorage.getItem(SEEN_KEY)
     return stored ? Number(stored) : 0
   })
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(null)
 
   useEffect(() => {
     let active = true
@@ -78,6 +80,22 @@ export default function AdminTopBar() {
     }
   }, [])
 
+  useEffect(() => {
+    let active = true
+    async function loadProfile() {
+      try {
+        const res = await fetch("/api/admin/profile")
+        if (!res.ok || !active) return
+        const data = await res.json()
+        setAvatarUrl(data.avatarUrl ?? null)
+      } catch {
+        // ignore
+      }
+    }
+    loadProfile()
+    return () => { active = false }
+  }, [session?.user?.email])
+
   const items = useMemo(
     () =>
       [...transactions, ...activeClients].sort(
@@ -98,6 +116,8 @@ export default function AdminTopBar() {
 
   return (
     <div className="ml-auto flex items-center gap-2">
+      <ThemeToggle />
+
       <DropdownMenu
         onOpenChange={(open) => {
           if (open) markSeen()
@@ -122,7 +142,7 @@ export default function AdminTopBar() {
         <DropdownMenuContent
           align="end"
           className="w-[22rem] p-0"
-          style={{ backgroundColor: "#0d1f3c", borderColor: "#1e3a5f", color: "#fff" }}
+          style={{ backgroundColor: "var(--bg-secondary)", borderColor: "var(--border-color)", color: "#fff" }}
         >
           <DropdownMenuLabel className="px-4 py-3 text-white">
             Notifications
@@ -130,7 +150,7 @@ export default function AdminTopBar() {
               Transactions and active clients
             </p>
           </DropdownMenuLabel>
-          <DropdownMenuSeparator style={{ backgroundColor: "#1e3a5f" }} />
+          <DropdownMenuSeparator style={{ backgroundColor: "var(--border-color)" }} />
           <div className="max-h-80 overflow-y-auto">
             {items.length === 0 ? (
               <p className="px-4 py-6 text-sm text-gray-400 text-center">
@@ -177,12 +197,16 @@ export default function AdminTopBar() {
             className="flex items-center gap-2 pl-1 pr-2 py-1 rounded-lg hover:bg-white/10 transition-colors"
             aria-label="Open profile menu"
           >
-            <span
-              className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold"
-              style={{ backgroundColor: "rgba(0,180,255,0.2)", color: "#00b4ff" }}
-            >
-              {initials(user?.name, user?.email)}
-            </span>
+            {avatarUrl ? (
+              <img src={avatarUrl} className="w-8 h-8 rounded-full object-cover" alt="Profile" />
+            ) : (
+              <span
+                className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold"
+                style={{ backgroundColor: "rgba(0,180,255,0.2)", color: "#00b4ff" }}
+              >
+                {initials(user?.name, user?.email)}
+              </span>
+            )}
             <span className="hidden sm:block text-left">
               <span className="block text-sm font-medium text-white leading-tight max-w-[10rem] truncate">
                 {displayName}
@@ -196,20 +220,20 @@ export default function AdminTopBar() {
         <DropdownMenuContent
           align="end"
           className="w-56"
-          style={{ backgroundColor: "#0d1f3c", borderColor: "#1e3a5f", color: "#fff" }}
+          style={{ backgroundColor: "var(--bg-secondary)", borderColor: "var(--border-color)", color: "#fff" }}
         >
           <DropdownMenuLabel className="font-normal">
             <p className="text-sm font-medium text-white">{displayName}</p>
             <p className="text-xs text-gray-400 truncate">{user?.email}</p>
           </DropdownMenuLabel>
-          <DropdownMenuSeparator style={{ backgroundColor: "#1e3a5f" }} />
+          <DropdownMenuSeparator style={{ backgroundColor: "var(--border-color)" }} />
           <DropdownMenuItem asChild>
             <Link href={profileHref} className="flex items-center gap-2 cursor-pointer">
               <UserRound className="w-4 h-4" />
               Profile
             </Link>
           </DropdownMenuItem>
-          <DropdownMenuSeparator style={{ backgroundColor: "#1e3a5f" }} />
+          <DropdownMenuSeparator style={{ backgroundColor: "var(--border-color)" }} />
           <DropdownMenuItem
             className="cursor-pointer text-red-300 focus:text-red-200"
             onClick={() => signOut({ callbackUrl: "/auth/login" })}

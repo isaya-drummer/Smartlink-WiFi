@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation"
 import Image from "next/image"
 import { useLanguage } from "@/context/LanguageContext"
+import ContactAdminButton from "@/components/portal/ContactAdminButton"
 
 const PROVIDERS = [
   {
@@ -80,6 +81,14 @@ export default function PortalPage() {
       >
         {t.portal.instruction}
       </p>
+
+      {/* Contact admin — below providers */}
+      <div className="flex items-center justify-center gap-3 pt-1">
+        <span className="text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>
+          Need help?
+        </span>
+        <ContactAdminButton />
+      </div>
     </div>
   )
 }

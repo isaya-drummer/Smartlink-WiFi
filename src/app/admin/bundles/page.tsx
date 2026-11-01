@@ -150,7 +150,7 @@ export default function BundlesPage() {
       {loading ? (
         <div className="text-gray-400 py-8 text-center">Loading...</div>
       ) : bundles.length === 0 ? (
-        <div className="rounded-xl py-12 text-center text-gray-500 text-sm" style={{ border: "1px solid #1e3a5f", backgroundColor: "#0d1f3c" }}>
+        <div className="rounded-xl py-12 text-center text-gray-500 text-sm" style={{ border: "1px solid var(--border-color)", backgroundColor: "var(--bg-secondary)" }}>
           No bundles yet. Add your first bundle.
         </div>
       ) : (
@@ -158,7 +158,7 @@ export default function BundlesPage() {
           {/* Mobile cards */}
           <div className="md:hidden space-y-3">
             {bundles.map((b) => (
-              <div key={b.id} className="rounded-xl p-4" style={{ backgroundColor: "#0d1f3c", border: "1px solid #1e3a5f" }}>
+              <div key={b.id} className="rounded-xl p-4" style={{ backgroundColor: "var(--bg-secondary)", border: "1px solid var(--border-color)" }}>
                 <div className="flex items-start justify-between gap-2 mb-3">
                   <div>
                     <p className="font-semibold text-white">{b.name}</p>
@@ -167,15 +167,15 @@ export default function BundlesPage() {
                   <StatusBadge status={b.isActive ? "ACTIVE" : "EXPIRED"} label={b.isActive ? "Active" : "Inactive"} />
                 </div>
                 <div className="grid grid-cols-3 gap-2 text-center mb-3">
-                  <div className="rounded-lg p-2" style={{ backgroundColor: "#071020" }}>
+                  <div className="rounded-lg p-2" style={{ backgroundColor: "var(--bg-tertiary)" }}>
                     <p className="text-xs text-gray-400">Price</p>
                     <p className="text-sm font-semibold text-white">{formatCurrency(b.price, b.currency)}</p>
                   </div>
-                  <div className="rounded-lg p-2" style={{ backgroundColor: "#071020" }}>
+                  <div className="rounded-lg p-2" style={{ backgroundColor: "var(--bg-tertiary)" }}>
                     <p className="text-xs text-gray-400">Duration</p>
                     <p className="text-sm font-semibold text-white">{formatDuration(b.durationHours)}</p>
                   </div>
-                  <div className="rounded-lg p-2" style={{ backgroundColor: "#071020" }}>
+                  <div className="rounded-lg p-2" style={{ backgroundColor: "var(--bg-tertiary)" }}>
                     <p className="text-xs text-gray-400">Data</p>
                     <p className="text-sm font-semibold text-white">{formatDataLimit(b.dataLimitMB)}</p>
                   </div>
@@ -193,11 +193,11 @@ export default function BundlesPage() {
           </div>
 
           {/* Desktop table */}
-          <div className="hidden md:block rounded-xl overflow-hidden" style={{ border: "1px solid #1e3a5f" }}>
+          <div className="hidden md:block rounded-xl overflow-hidden" style={{ border: "1px solid var(--border-color)" }}>
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr style={{ backgroundColor: "#071020" }}>
+                  <tr style={{ backgroundColor: "var(--bg-tertiary)" }}>
                     {["Name", "Price", "Duration", "Data", "Vouchers", "Status", "Actions"].map((h) => (
                       <th key={h} className="px-4 py-3 text-left font-semibold text-gray-400 whitespace-nowrap">{h}</th>
                     ))}
@@ -205,7 +205,7 @@ export default function BundlesPage() {
                 </thead>
                 <tbody>
                   {bundles.map((b, idx) => (
-                    <tr key={b.id} style={{ backgroundColor: idx % 2 === 0 ? "#0d1f3c" : "#0a1a35", borderTop: "1px solid #1e3a5f" }}>
+                    <tr key={b.id} style={{ backgroundColor: idx % 2 === 0 ? "var(--bg-secondary)" : "#0a1a35", borderTop: "1px solid var(--border-color)" }}>
                       <td className="px-4 py-3">
                         <div className="font-medium text-white">{b.name}</div>
                         {b.description && <div className="text-xs text-gray-400">{b.description}</div>}
@@ -233,7 +233,7 @@ export default function BundlesPage() {
       {/* Add / Edit Dialog */}
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <DialogContent
-          style={{ backgroundColor: "#0a1628", border: "1px solid #1e3a5f" }}
+          style={{ backgroundColor: "var(--bg-primary)", border: "1px solid var(--border-color)" }}
           className="text-white max-w-md"
         >
           <DialogHeader>
@@ -248,7 +248,7 @@ export default function BundlesPage() {
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
                 placeholder="e.g. Hourly"
-                style={{ backgroundColor: "#0d1f3c", borderColor: "#1e3a5f", color: "#fff" }}
+                style={{ backgroundColor: "var(--bg-secondary)", borderColor: "var(--border-color)", color: "#fff" }}
               />
             </div>
             <div className="space-y-1">
@@ -259,7 +259,7 @@ export default function BundlesPage() {
                   setForm({ ...form, description: e.target.value })
                 }
                 placeholder="Optional description"
-                style={{ backgroundColor: "#0d1f3c", borderColor: "#1e3a5f", color: "#fff" }}
+                style={{ backgroundColor: "var(--bg-secondary)", borderColor: "var(--border-color)", color: "#fff" }}
               />
             </div>
             <div className="grid grid-cols-2 gap-3">
@@ -272,7 +272,7 @@ export default function BundlesPage() {
                     setForm({ ...form, price: e.target.value })
                   }
                   placeholder="500"
-                  style={{ backgroundColor: "#0d1f3c", borderColor: "#1e3a5f", color: "#fff" }}
+                  style={{ backgroundColor: "var(--bg-secondary)", borderColor: "var(--border-color)", color: "#fff" }}
                 />
               </div>
               <div className="space-y-1">
@@ -283,7 +283,7 @@ export default function BundlesPage() {
                     setForm({ ...form, currency: e.target.value })
                   }
                   placeholder="TZS"
-                  style={{ backgroundColor: "#0d1f3c", borderColor: "#1e3a5f", color: "#fff" }}
+                  style={{ backgroundColor: "var(--bg-secondary)", borderColor: "var(--border-color)", color: "#fff" }}
                 />
               </div>
             </div>
@@ -297,7 +297,7 @@ export default function BundlesPage() {
                     setForm({ ...form, durationHours: e.target.value })
                   }
                   placeholder="1"
-                  style={{ backgroundColor: "#0d1f3c", borderColor: "#1e3a5f", color: "#fff" }}
+                  style={{ backgroundColor: "var(--bg-secondary)", borderColor: "var(--border-color)", color: "#fff" }}
                 />
               </div>
               <div className="space-y-1">
@@ -309,7 +309,7 @@ export default function BundlesPage() {
                     setForm({ ...form, dataLimitMB: e.target.value })
                   }
                   placeholder="500"
-                  style={{ backgroundColor: "#0d1f3c", borderColor: "#1e3a5f", color: "#fff" }}
+                  style={{ backgroundColor: "var(--bg-secondary)", borderColor: "var(--border-color)", color: "#fff" }}
                 />
               </div>
             </div>
@@ -332,7 +332,7 @@ export default function BundlesPage() {
             <Button
               variant="outline"
               onClick={() => setDialogOpen(false)}
-              style={{ borderColor: "#1e3a5f", color: "#9ca3af" }}
+              style={{ borderColor: "var(--border-color)", color: "#9ca3af" }}
             >
               Cancel
             </Button>
@@ -350,7 +350,7 @@ export default function BundlesPage() {
       {/* Delete Confirmation Dialog */}
       <Dialog open={confirmOpen} onOpenChange={setConfirmOpen}>
         <DialogContent
-          style={{ backgroundColor: "#0a1628", border: "1px solid #1e3a5f" }}
+          style={{ backgroundColor: "var(--bg-primary)", border: "1px solid var(--border-color)" }}
           className="text-white max-w-sm"
         >
           <DialogHeader>
@@ -364,7 +364,7 @@ export default function BundlesPage() {
             <Button
               variant="outline"
               onClick={() => setConfirmOpen(false)}
-              style={{ borderColor: "#1e3a5f", color: "#9ca3af" }}
+              style={{ borderColor: "var(--border-color)", color: "#9ca3af" }}
             >
               Cancel
             </Button>

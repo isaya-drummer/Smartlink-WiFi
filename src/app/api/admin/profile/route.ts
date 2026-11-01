@@ -8,7 +8,8 @@ function requireAdminAuth(role?: string) {
 }
 
 const ProfileUpdateSchema = z.object({
-  name: z.string().trim().min(2).max(80),
+  name: z.string().trim().min(2).max(80).optional(),
+  avatarUrl: z.string().url().optional(),
 })
 
 export async function GET() {
@@ -21,7 +22,7 @@ export async function GET() {
 
   const user = await prisma.user.findUnique({
     where: { id: session.user.id },
-    select: { id: true, name: true, email: true, role: true },
+    select: { id: true, name: true, email: true, role: true, avatarUrl: true },
   })
 
   if (!user) {
@@ -42,13 +43,21 @@ export async function PUT(req: NextRequest) {
   const body = await req.json()
   const parsed = ProfileUpdateSchema.safeParse(body)
   if (!parsed.success) {
-    return NextResponse.json({ error: "Enter a valid name (2–80 characters)." }, { status: 400 })
+    return NextResponse.json({ error: "Invalid input." }, { status: 400 })
   }
+
+  if (!parsed.data.name && parsed.data.avatarUrl === undefined) {
+    return NextResponse.json({ error: "Provide name or avatarUrl." }, { status: 400 })
+  }
+
+  const updateData: { name?: string; avatarUrl?: string } = {}
+  if (parsed.data.name) updateData.name = parsed.data.name
+  if (parsed.data.avatarUrl !== undefined) updateData.avatarUrl = parsed.data.avatarUrl
 
   const user = await prisma.user.update({
     where: { id: session.user.id },
-    data: { name: parsed.data.name },
-    select: { id: true, name: true, email: true, role: true },
+    data: updateData,
+    select: { id: true, name: true, email: true, role: true, avatarUrl: true },
   })
 
   return NextResponse.json(user)

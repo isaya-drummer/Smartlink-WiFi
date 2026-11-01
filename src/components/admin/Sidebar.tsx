@@ -65,10 +65,10 @@ export default function Sidebar({ onClose }: { onClose?: () => void }) {
   return (
     <aside
       className="flex flex-col h-full w-64 flex-shrink-0"
-      style={{ backgroundColor: "#0a1628" }}
+      style={{ backgroundColor: "var(--bg-primary)" }}
     >
       {/* Logo + mobile close button */}
-      <div className="p-6 border-b flex items-center justify-between" style={{ borderColor: "#1e3a5f" }}>
+      <div className="p-6 border-b flex items-center justify-between" style={{ borderColor: "var(--border-color)" }}>
         <SmartLinkLogo size="sm" />
         {onClose && (
           <button

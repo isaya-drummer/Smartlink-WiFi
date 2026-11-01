@@ -200,7 +200,7 @@ export default async function AdminDashboardPage() {
       {/* Revenue Chart */}
       <div
         className="rounded-xl p-6"
-        style={{ backgroundColor: "#0a1628", border: "1px solid #1e3a5f" }}
+      style={{ backgroundColor: "var(--bg-primary)", border: "1px solid var(--border-color)" }}
       >
         <h2 className="text-lg font-semibold text-white mb-4">
           Revenue — Last 7 Days
@@ -216,16 +216,16 @@ export default async function AdminDashboardPage() {
         <div
           className="px-6 py-4 border-b"
           style={{
-            backgroundColor: "#0a1628",
-            borderColor: "#1e3a5f",
+            backgroundColor: "var(--bg-primary)",
+            borderColor: "var(--border-color)",
           }}
         >
           <h2 className="text-lg font-semibold text-white">Recent Payments</h2>
         </div>
-        <div className="overflow-x-auto" style={{ backgroundColor: "#0d1f3c" }}>
+        <div className="overflow-x-auto" style={{ backgroundColor: "var(--bg-secondary)" }}>
           <table className="w-full text-sm">
             <thead>
-              <tr style={{ backgroundColor: "#071020" }}>
+              <tr style={{ backgroundColor: "var(--bg-tertiary)" }}>
                 {["Reference", "Client", "Provider", "Amount", "Status", "Date"].map(
                   (h) => (
                     <th
@@ -252,9 +252,9 @@ export default async function AdminDashboardPage() {
                 data.recentPayments.map((p, idx) => (
                   <tr
                     key={p.id}
-                    style={{
-                      backgroundColor: idx % 2 === 0 ? "#0d1f3c" : "#0a1a35",
-                      borderTop: "1px solid #1e3a5f",
+                style={{
+                      backgroundColor: idx % 2 === 0 ? "var(--bg-secondary)" : "#0a1a35",
+                      borderTop: "1px solid var(--border-color)",
                     }}
                   >
                     <td className="px-4 py-3 text-white font-mono text-xs">
@@ -299,16 +299,16 @@ export default async function AdminDashboardPage() {
         <div
           className="px-6 py-4 border-b"
           style={{
-            backgroundColor: "#0a1628",
-            borderColor: "#1e3a5f",
+            backgroundColor: "var(--bg-primary)",
+            borderColor: "var(--border-color)",
           }}
         >
           <h2 className="text-lg font-semibold text-white">Recent Ratings</h2>
         </div>
-        <div className="overflow-x-auto" style={{ backgroundColor: "#0d1f3c" }}>
+        <div className="overflow-x-auto" style={{ backgroundColor: "var(--bg-secondary)" }}>
           <table className="w-full text-sm">
             <thead>
-              <tr style={{ backgroundColor: "#071020" }}>
+              <tr style={{ backgroundColor: "var(--bg-tertiary)" }}>
                 {["Phone", "Bundle", "Stars", "Comment", "Date"].map((h) => (
                   <th
                     key={h}
@@ -333,9 +333,9 @@ export default async function AdminDashboardPage() {
                 data.recentRatings.map((r, idx) => (
                   <tr
                     key={r.id}
-                    style={{
-                      backgroundColor: idx % 2 === 0 ? "#0d1f3c" : "#0a1a35",
-                      borderTop: "1px solid #1e3a5f",
+                style={{
+                      backgroundColor: idx % 2 === 0 ? "var(--bg-secondary)" : "#0a1a35",
+                      borderTop: "1px solid var(--border-color)",
                     }}
                   >
                     <td className="px-4 py-3 text-white font-mono text-xs">

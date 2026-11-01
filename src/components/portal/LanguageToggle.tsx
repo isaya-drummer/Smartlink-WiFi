@@ -1,61 +1,74 @@
 "use client"
 
+import { useRef, useState, useEffect } from "react"
 import { useLanguage } from "@/context/LanguageContext"
 import { Globe } from "lucide-react"
 
+const LANGUAGES = [
+  { code: "en", label: "English", flag: "🇬🇧" },
+  { code: "sw", label: "Kiswahili", flag: "🇹🇿" },
+] as const
+
 export default function LanguageToggle() {
   const { lang, setLang } = useLanguage()
+  const [open, setOpen] = useState(false)
+  const ref = useRef<HTMLDivElement>(null)
+
+  // Close on outside click
+  useEffect(() => {
+    function handler(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false)
+    }
+    document.addEventListener("mousedown", handler)
+    return () => document.removeEventListener("mousedown", handler)
+  }, [])
+
+  const current = LANGUAGES.find((l) => l.code === lang) ?? LANGUAGES[0]
 
   return (
-    <div
-      className="inline-flex items-center gap-1 p-1 rounded-full text-xs font-medium shadow-sm transition-all"
-      style={{
-        backgroundColor: "#0d1f3c",
-        border: "1px solid rgba(0, 180, 255, 0.3)",
-      }}
-      role="group"
-      aria-label="Language Selector"
-    >
-      <div className="flex items-center pl-2 pr-1 text-gray-400">
-        <Globe className="w-3.5 h-3.5 text-[#00b4ff]" />
-      </div>
-
+    <div ref={ref} className="relative" role="combobox" aria-expanded={open}>
+      {/* Trigger — icon only */}
       <button
         type="button"
-        onClick={() => setLang("en")}
-        className={`px-2.5 py-1 rounded-full transition-all flex items-center gap-1 ${
-          lang === "en"
-            ? "font-semibold text-white shadow"
-            : "text-gray-400 hover:text-white"
-        }`}
+        onClick={() => setOpen((o) => !o)}
+        className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full text-xs font-medium transition-all hover:scale-105 active:scale-95"
         style={{
-          backgroundColor: lang === "en" ? "#00b4ff" : "transparent",
-          color: lang === "en" ? "#0a1628" : undefined,
+          backgroundColor: "rgba(0,180,255,0.12)",
+          border: "1px solid rgba(0,180,255,0.3)",
+          color: "#00b4ff",
         }}
-        aria-pressed={lang === "en"}
+        aria-label="Change language"
+        title="Change language"
       >
-        <span>🇬🇧</span>
-        <span>English</span>
+        <Globe className="w-4 h-4" />
+        <span>{current.flag}</span>
       </button>
 
-      <button
-        type="button"
-        onClick={() => setLang("sw")}
-        className={`px-2.5 py-1 rounded-full transition-all flex items-center gap-1 ${
-          lang === "sw"
-            ? "font-semibold text-white shadow"
-            : "text-gray-400 hover:text-white"
-        }`}
-        style={{
-          backgroundColor: lang === "sw" ? "#00b4ff" : "transparent",
-          color: lang === "sw" ? "#0a1628" : undefined,
-        }}
-        aria-pressed={lang === "sw"}
-      >
-        <span>🇹🇿</span>
-        <span>Kiswahili</span>
-      </button>
+      {/* Dropdown */}
+      {open && (
+        <div
+          className="absolute right-0 top-full mt-2 z-50 rounded-xl overflow-hidden shadow-xl min-w-[140px]"
+          style={{ backgroundColor: "#0d1f3c", border: "1px solid rgba(0,180,255,0.25)" }}
+        >
+          {LANGUAGES.map((l) => (
+            <button
+              key={l.code}
+              type="button"
+              onClick={() => { setLang(l.code); setOpen(false) }}
+              className="w-full flex items-center gap-2.5 px-4 py-2.5 text-sm text-left transition-colors hover:bg-white/10"
+              style={{
+                color: lang === l.code ? "#00b4ff" : "#fff",
+                fontWeight: lang === l.code ? 600 : 400,
+                backgroundColor: lang === l.code ? "rgba(0,180,255,0.08)" : "transparent",
+              }}
+            >
+              <span className="text-base">{l.flag}</span>
+              <span>{l.label}</span>
+              {lang === l.code && <span className="ml-auto text-[10px]">✓</span>}
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   )
 }
-

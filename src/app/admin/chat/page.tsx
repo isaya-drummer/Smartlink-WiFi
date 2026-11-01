@@ -86,7 +86,7 @@ function Avatar({ name, size = "md" }: { name: string; size?: "sm" | "md" | "lg"
   const sizes = { sm: "w-7 h-7 text-[10px]", md: "w-9 h-9 text-xs", lg: "w-11 h-11 text-sm" }
   return (
     <div className={`${sizes[size]} rounded-full flex items-center justify-center font-semibold flex-shrink-0`}
-      style={{ backgroundColor: "#1e3a5f", color: "#00b4ff" }}>
+      style={{ backgroundColor: "var(--border-color)", color: "#00b4ff" }}>
       {initials(name)}
     </div>
   )
@@ -135,7 +135,7 @@ function NewChatDialog({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ backgroundColor: "rgba(0,0,0,0.7)" }}>
-      <div className="w-full max-w-md rounded-2xl p-6 space-y-5" style={{ backgroundColor: "#0a1628", border: "1px solid #1e3a5f" }}>
+      <div className="w-full max-w-md rounded-2xl p-6 space-y-5" style={{ backgroundColor: "var(--bg-primary)", border: "1px solid #1e3a5f" }}>
         <div className="flex items-center justify-between">
           <h2 className="text-lg font-bold text-white">New Conversation</h2>
           <button onClick={onClose} className="p-1.5 rounded-lg text-gray-400 hover:text-white hover:bg-white/10"><X className="w-5 h-5" /></button>
@@ -157,7 +157,7 @@ function NewChatDialog({
             {others.map((u) => (
               <button key={u.id} onClick={() => setSelectedId(u.id)}
                 className="w-full flex items-center gap-3 p-3 rounded-xl transition-colors"
-                style={{ backgroundColor: selectedId === u.id ? "rgba(0,180,255,0.15)" : "#0d1f3c", border: `1px solid ${selectedId === u.id ? "#00b4ff" : "#1e3a5f"}` }}>
+                style={{ backgroundColor: selectedId === u.id ? "rgba(0,180,255,0.15)" : "var(--bg-secondary)", border: `1px solid ${selectedId === u.id ? "#00b4ff" : "var(--border-color)"}` }}>
                 <Avatar name={u.name} size="sm" />
                 <div className="flex-1 text-left">
                   <p className="text-sm font-medium text-white">{u.name}</p>
@@ -171,10 +171,10 @@ function NewChatDialog({
           <div className="space-y-3">
             <input value={groupName} onChange={(e) => setGroupName(e.target.value)}
               placeholder="Group name *" className="w-full px-4 py-2.5 rounded-xl text-sm outline-none text-white"
-              style={{ backgroundColor: "#0d1f3c", border: "1px solid #1e3a5f" }} />
+              style={{ backgroundColor: "var(--bg-secondary)", border: "1px solid #1e3a5f" }} />
             <input value={groupDesc} onChange={(e) => setGroupDesc(e.target.value)}
               placeholder="Description (optional)" className="w-full px-4 py-2.5 rounded-xl text-sm outline-none text-white"
-              style={{ backgroundColor: "#0d1f3c", border: "1px solid #1e3a5f" }} />
+              style={{ backgroundColor: "var(--bg-secondary)", border: "1px solid #1e3a5f" }} />
             <p className="text-xs text-gray-400">Select members:</p>
             <div className="space-y-2 max-h-40 overflow-y-auto">
               {others.map((u) => {
@@ -182,7 +182,7 @@ function NewChatDialog({
                 return (
                   <button key={u.id} onClick={() => setSelected(on ? selected.filter((id) => id !== u.id) : [...selected, u.id])}
                     className="w-full flex items-center gap-3 p-2.5 rounded-xl transition-colors"
-                    style={{ backgroundColor: on ? "rgba(0,180,255,0.1)" : "#0d1f3c", border: `1px solid ${on ? "#00b4ff" : "#1e3a5f"}` }}>
+                    style={{ backgroundColor: on ? "rgba(0,180,255,0.1)" : "var(--bg-secondary)", border: `1px solid ${on ? "#00b4ff" : "var(--border-color)"}` }}>
                     <Avatar name={u.name} size="sm" />
                     <span className="flex-1 text-left text-sm text-white">{u.name}</span>
                     {on && <Check className="w-4 h-4" style={{ color: "#00b4ff" }} />}
@@ -379,7 +379,7 @@ export default function ChatPage() {
     if (label !== lastDay) {
       feed.push(
         <div key={`sep-${m.id}`} className="flex justify-center my-4">
-          <span className="px-3 py-1 rounded-full text-xs" style={{ backgroundColor: "#071020", color: "#9ca3af" }}>{label}</span>
+          <span className="px-3 py-1 rounded-full text-xs" style={{ backgroundColor: "var(--bg-tertiary)", color: "#9ca3af" }}>{label}</span>
         </div>
       )
       lastDay = label
@@ -413,7 +413,7 @@ export default function ChatPage() {
           <div className="relative">
             {/* Message bubble */}
             <div className="px-3.5 py-2 rounded-2xl text-sm"
-              style={{ backgroundColor: own ? "#00b4ff" : "#1e3a5f", color: "#fff",
+              style={{ backgroundColor: own ? "#00b4ff" : "var(--border-color)", color: "#fff",
                 borderRadius: own ? "18px 18px 4px 18px" : "18px 18px 18px 4px" }}>
               {m.deleted ? (
                 <span className="italic text-white/50">Message deleted</span>
@@ -439,13 +439,13 @@ export default function ChatPage() {
               <div className={`absolute top-0 ${own ? "right-full mr-2" : "left-full ml-2"} flex items-center gap-1`}>
                 <button onClick={() => setQuickReactId(quickReactId === m.id ? null : m.id)}
                   className="p-1.5 rounded-lg text-gray-400 hover:text-white transition-colors"
-                  style={{ backgroundColor: "#0d1f3c", border: "1px solid #1e3a5f" }}>
+                  style={{ backgroundColor: "var(--bg-secondary)", border: "1px solid #1e3a5f" }}>
                   <Smile className="w-3.5 h-3.5" />
                 </button>
                 {own && (
                   <button onClick={() => deleteMessage(m.id)}
                     className="p-1.5 rounded-lg text-gray-400 hover:text-red-400 transition-colors"
-                    style={{ backgroundColor: "#0d1f3c", border: "1px solid #1e3a5f" }}>
+                    style={{ backgroundColor: "var(--bg-secondary)", border: "1px solid #1e3a5f" }}>
                     <Trash2 className="w-3.5 h-3.5" />
                   </button>
                 )}
@@ -455,7 +455,7 @@ export default function ChatPage() {
             {/* Quick react picker */}
             {quickReactId === m.id && (
               <div className={`absolute z-10 flex gap-1 p-2 rounded-2xl shadow-xl ${own ? "right-0" : "left-0"}`}
-                style={{ backgroundColor: "#0a1628", border: "1px solid #1e3a5f", bottom: "calc(100% + 8px)" }}>
+                style={{ backgroundColor: "var(--bg-primary)", border: "1px solid #1e3a5f", bottom: "calc(100% + 8px)" }}>
                 {QUICK_EMOJIS.map((e) => (
                   <button key={e} onClick={() => { toggleReaction(m.id, e); setQuickReactId(null) }}
                     className="text-lg hover:scale-125 transition-transform">{e}</button>
@@ -470,8 +470,8 @@ export default function ChatPage() {
               {Object.entries(grouped).map(([emoji, { count, mine }]) => (
                 <button key={emoji} onClick={() => toggleReaction(m.id, emoji)}
                   className="flex items-center gap-1 px-2 py-0.5 rounded-full text-xs transition-colors"
-                  style={{ backgroundColor: mine ? "rgba(0,180,255,0.2)" : "#071020",
-                    border: `1px solid ${mine ? "#00b4ff" : "#1e3a5f"}`, color: "#fff" }}>
+                  style={{ backgroundColor: mine ? "rgba(0,180,255,0.2)" : "var(--bg-tertiary)",
+                    border: `1px solid ${mine ? "#00b4ff" : "var(--border-color)"}`, color: "#fff" }}>
                   <span>{emoji}</span><span>{count}</span>
                 </button>
               ))}
@@ -484,16 +484,16 @@ export default function ChatPage() {
 
   // ─────────────────────────────────────────────────────────────────────────
   return (
-    <div className="flex h-full overflow-hidden" style={{ backgroundColor: "#0a1628" }}>
+    <div className="flex h-full overflow-hidden" style={{ backgroundColor: "var(--bg-primary)" }}>
 
       {/* ── Conversations sidebar ── */}
       <aside className={`
         ${showConvs ? "flex" : "hidden"} md:flex
         w-full md:w-72 flex-shrink-0 flex-col border-r absolute md:relative inset-0 z-10 md:z-auto
-      `} style={{ backgroundColor: "#0a1628", borderColor: "#1e3a5f" }}>
+      `} style={{ backgroundColor: "var(--bg-primary)", borderColor: "var(--border-color)" }}>
 
         {/* Sidebar header */}
-        <div className="flex items-center justify-between px-4 py-4 border-b flex-shrink-0" style={{ borderColor: "#1e3a5f" }}>
+        <div className="flex items-center justify-between px-4 py-4 border-b flex-shrink-0" style={{ borderColor: "var(--border-color)" }}>
           <h2 className="text-lg font-bold text-white">Messages</h2>
           <div className="flex items-center gap-2">
             <button onClick={() => setNewChatOpen(true)}
@@ -508,7 +508,7 @@ export default function ChatPage() {
 
         {/* Search */}
         <div className="px-3 py-2 flex-shrink-0">
-          <div className="flex items-center gap-2 px-3 py-2 rounded-xl" style={{ backgroundColor: "#0d1f3c", border: "1px solid #1e3a5f" }}>
+          <div className="flex items-center gap-2 px-3 py-2 rounded-xl" style={{ backgroundColor: "var(--bg-secondary)", border: "1px solid #1e3a5f" }}>
             <Search className="w-4 h-4 text-gray-500 flex-shrink-0" />
             <input value={search} onChange={(e) => setSearch(e.target.value)}
               placeholder="Search conversations…" className="flex-1 text-sm bg-transparent text-white outline-none placeholder-gray-500" />
@@ -534,7 +534,7 @@ export default function ChatPage() {
                 style={{ backgroundColor: isActive ? "rgba(0,180,255,0.08)" : "transparent",
                   borderLeft: isActive ? "3px solid #00b4ff" : "3px solid transparent" }}>
                 <div className="w-10 h-10 rounded-full flex items-center justify-center font-semibold text-sm flex-shrink-0"
-                  style={{ backgroundColor: "#1e3a5f", color: "#00b4ff" }}>
+                  style={{ backgroundColor: "var(--border-color)", color: "#00b4ff" }}>
                   {initials(name)}
                 </div>
                 <div className="flex-1 min-w-0">
@@ -546,7 +546,7 @@ export default function ChatPage() {
                     <span className="text-xs text-gray-400 truncate">{preview.slice(0, 40)}</span>
                     {c.unreadCount > 0 && (
                       <span className="text-[10px] font-bold rounded-full px-1.5 py-0.5 flex-shrink-0"
-                        style={{ backgroundColor: "#00b4ff", color: "#0a1628" }}>
+                        style={{ backgroundColor: "#00b4ff", color: "var(--bg-primary)" }}>
                         {c.unreadCount > 99 ? "99+" : c.unreadCount}
                       </span>
                     )}
@@ -563,7 +563,7 @@ export default function ChatPage() {
 
         {/* Feed header */}
         <div className="flex items-center justify-between px-4 py-3 border-b flex-shrink-0"
-          style={{ backgroundColor: "#0a1628", borderColor: "#1e3a5f" }}>
+          style={{ backgroundColor: "var(--bg-primary)", borderColor: "var(--border-color)" }}>
           <div className="flex items-center gap-3">
             <button onClick={() => setShowConvs(true)} className="md:hidden p-2 rounded-lg text-gray-400 hover:text-white">
               <ChevronLeft className="w-5 h-5" />
@@ -618,7 +618,7 @@ export default function ChatPage() {
 
             {/* Emoji grid picker */}
             {emojiOpen && (
-              <div className="px-4 py-2 border-t" style={{ borderColor: "#1e3a5f", backgroundColor: "#0a1628" }}>
+              <div className="px-4 py-2 border-t" style={{ borderColor: "var(--border-color)", backgroundColor: "var(--bg-primary)" }}>
                 <div className="grid grid-cols-10 gap-1">
                   {EMOJI_GRID.map((e) => (
                     <button key={e} onClick={() => { setText((t) => t + e); setEmojiOpen(false); textareaRef.current?.focus() }}
@@ -630,21 +630,21 @@ export default function ChatPage() {
 
             {/* Input bar */}
             <div className="flex items-end gap-2 px-4 py-3 border-t flex-shrink-0"
-              style={{ backgroundColor: "#0a1628", borderColor: "#1e3a5f" }}>
+              style={{ backgroundColor: "var(--bg-primary)", borderColor: "var(--border-color)" }}>
               {/* File upload */}
               <input ref={fileInputRef} type="file" className="hidden"
                 onChange={(e) => { const f = e.target.files?.[0]; if (f) handleFileUpload(f); e.target.value = "" }} />
               <button onClick={() => fileInputRef.current?.click()} disabled={uploading}
                 className="p-2.5 rounded-xl text-gray-400 hover:text-white transition-colors flex-shrink-0 disabled:opacity-50"
-                style={{ backgroundColor: "#0d1f3c", border: "1px solid #1e3a5f" }}>
+                style={{ backgroundColor: "var(--bg-secondary)", border: "1px solid #1e3a5f" }}>
                 <Paperclip className="w-4 h-4" />
               </button>
 
               {/* Emoji toggle */}
               <button onClick={() => setEmojiOpen(!emojiOpen)}
                 className="p-2.5 rounded-xl transition-colors flex-shrink-0"
-                style={{ backgroundColor: emojiOpen ? "rgba(0,180,255,0.15)" : "#0d1f3c",
-                  border: `1px solid ${emojiOpen ? "#00b4ff" : "#1e3a5f"}`,
+                style={{ backgroundColor: emojiOpen ? "rgba(0,180,255,0.15)" : "var(--bg-secondary)",
+                  border: `1px solid ${emojiOpen ? "#00b4ff" : "var(--border-color)"}`,
                   color: emojiOpen ? "#00b4ff" : "#9ca3af" }}>
                 <Smile className="w-4 h-4" />
               </button>
@@ -655,7 +655,7 @@ export default function ChatPage() {
                 onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendMessage() } }}
                 placeholder="Type a message…"
                 rows={1} className="flex-1 px-4 py-2.5 rounded-xl text-sm outline-none resize-none"
-                style={{ backgroundColor: "#0d1f3c", border: "1px solid #1e3a5f", color: "#fff",
+                style={{ backgroundColor: "var(--bg-secondary)", border: "1px solid #1e3a5f", color: "#fff",
                   maxHeight: "120px", overflowY: "auto" }} />
 
               {/* Send */}
@@ -669,35 +669,44 @@ export default function ChatPage() {
         )}
       </div>
 
-      {/* ── Members panel ── */}
+      {/* Members panel — slide-over on mobile, inline on desktop */}
       {showMembers && activeConv && (
-        <aside className="hidden md:flex w-56 flex-shrink-0 flex-col border-l"
-          style={{ backgroundColor: "#0a1628", borderColor: "#1e3a5f" }}>
-          <div className="px-4 py-4 border-b flex items-center justify-between" style={{ borderColor: "#1e3a5f" }}>
-            <h3 className="text-sm font-semibold text-white">Members</h3>
-            <button onClick={() => setShowMembers(false)} className="text-gray-400 hover:text-white">
-              <X className="w-4 h-4" />
-            </button>
-          </div>
-          <div className="flex-1 overflow-y-auto py-2">
-            {activeConv.participants.map((p) => (
-              <div key={p.id} className="flex items-center gap-3 px-4 py-2.5">
-                <div className="relative">
-                  <Avatar name={p.name} size="sm" />
-                  <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full border-2"
-                    style={{ backgroundColor: "#22c55e", borderColor: "#0a1628" }} />
+        <>
+          {/* Dark overlay on mobile */}
+          <div
+            className="fixed inset-0 z-20 bg-black/60 md:hidden"
+            onClick={() => setShowMembers(false)}
+          />
+          <aside
+            className="fixed right-0 top-0 h-full z-30 w-56 flex flex-col border-l md:relative md:z-auto"
+            style={{backgroundColor: "var(--bg-primary)", borderColor: "var(--border-color)"}}
+          >
+            <div className="px-4 py-4 border-b flex items-center justify-between" style={{borderColor: "var(--border-color)"}}>
+              <h3 className="text-sm font-semibold" style={{color: "var(--text-primary)"}}>Members</h3>
+              <button onClick={() => setShowMembers(false)} className="text-gray-400 hover:text-white">
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+            <div className="flex-1 overflow-y-auto py-2">
+              {activeConv.participants.map((p) => (
+                <div key={p.id} className="flex items-center gap-3 px-4 py-2.5">
+                  <div className="relative">
+                    <Avatar name={p.name} size="sm" />
+                    <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full border-2"
+                      style={{backgroundColor: "#22c55e", borderColor: "var(--bg-primary)"}} />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-sm font-medium truncate" style={{color: "var(--text-primary)"}}>{p.name}</p>
+                    <span className="text-[10px] px-1.5 py-0.5 rounded-full font-semibold"
+                      style={{backgroundColor: p.role === "SUPER_ADMIN" ? "#9333ea" : "#0066ff", color: "#fff"}}>
+                      {p.role === "SUPER_ADMIN" ? "Super Admin" : "Admin"}
+                    </span>
+                  </div>
                 </div>
-                <div className="min-w-0">
-                  <p className="text-sm font-medium text-white truncate">{p.name}</p>
-                  <span className="text-[10px] px-1.5 py-0.5 rounded-full font-semibold"
-                    style={{ backgroundColor: p.role === "SUPER_ADMIN" ? "#9333ea" : "#0066ff", color: "#fff" }}>
-                    {p.role === "SUPER_ADMIN" ? "Super Admin" : "Admin"}
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </aside>
+              ))}
+            </div>
+          </aside>
+        </>
       )}
 
       {/* ── New chat dialog ── */}

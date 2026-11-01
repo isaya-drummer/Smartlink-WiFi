@@ -1,8 +1,8 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useSession } from "next-auth/react"
-import { Save } from "lucide-react"
+import { Save, Camera } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -16,6 +16,9 @@ export default function ProfilePage() {
   const [saving, setSaving] = useState(false)
   const [message, setMessage] = useState("")
   const [error, setError] = useState("")
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(null)
+  const [uploadingPhoto, setUploadingPhoto] = useState(false)
+  const photoInputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     document.title = "SmartLink Digital — Admin: Profile"
@@ -25,6 +28,7 @@ export default function ProfilePage() {
         setName(data.name ?? "")
         setEmail(data.email ?? "")
         setRole(data.role ?? "")
+        setAvatarUrl(data.avatarUrl ?? null)
       })
       .catch(() => {
         setName(session?.user?.name ?? "")
@@ -33,6 +37,26 @@ export default function ProfilePage() {
       })
       .finally(() => setLoading(false))
   }, [session?.user?.email, session?.user?.name, session?.user?.role])
+
+  async function handlePhotoUpload(file: File) {
+    setUploadingPhoto(true)
+    try {
+      const fd = new FormData()
+      fd.append("file", file)
+      const res = await fetch("/api/uploadthing", { method: "POST", body: fd })
+      if (!res.ok) return
+      const d = await res.json()
+      const url: string = d.data.url
+      await fetch("/api/admin/profile", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ avatarUrl: url }),
+      })
+      setAvatarUrl(url)
+    } finally {
+      setUploadingPhoto(false)
+    }
+  }
 
   async function handleSave() {
     setSaving(true)
@@ -74,6 +98,47 @@ export default function ProfilePage() {
           className="rounded-xl p-6 space-y-5"
           style={{ backgroundColor: "#0a1628", border: "1px solid #1e3a5f" }}
         >
+          {/* Avatar section */}
+          <div className="flex flex-col items-center gap-3 pb-2">
+            <div className="relative">
+              {avatarUrl ? (
+                <img
+                  src={avatarUrl}
+                  className="w-20 h-20 rounded-full object-cover"
+                  alt="Profile photo"
+                />
+              ) : (
+                <div
+                  className="w-20 h-20 rounded-full flex items-center justify-center text-xl font-bold"
+                  style={{ backgroundColor: "rgba(0,180,255,0.2)", color: "#00b4ff" }}
+                >
+                  {name.trim().slice(0, 2).toUpperCase() || "AD"}
+                </div>
+              )}
+            </div>
+            <input
+              type="file"
+              accept="image/*"
+              ref={photoInputRef}
+              className="hidden"
+              onChange={(e) => {
+                const f = e.target.files?.[0]
+                if (f) handlePhotoUpload(f)
+              }}
+            />
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => photoInputRef.current?.click()}
+              disabled={uploadingPhoto}
+              className="flex items-center gap-2 text-xs"
+              style={{ borderColor: "#1e3a5f", color: "#9ca3af" }}
+            >
+              <Camera className="w-3.5 h-3.5" />
+              {uploadingPhoto ? "Uploading…" : "Upload photo"}
+            </Button>
+          </div>
+
           <div className="space-y-1.5">
             <Label className="text-gray-300">Full name</Label>
             <Input
