@@ -101,7 +101,7 @@ export default function PortalPage() {
       {/* Contact admin — below providers */}
       <div className="flex flex-col items-center gap-2 pt-1">
         <p className="text-sm font-medium" style={{ color: "rgba(255,255,255,0.6)" }}>
-          Need help? Tap to contact admin
+          {t.portal.contact.needHelp}
         </p>
         <ContactAdminButton />
       </div>

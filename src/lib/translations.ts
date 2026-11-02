@@ -23,6 +23,7 @@ export interface TranslationSchema {
       badge: string
       defaultMessage: string
       iconLabel: string
+      needHelp: string
     }
   }
   bundle: {
@@ -159,6 +160,7 @@ export const translations: Record<Language, TranslationSchema> = {
         badge: "Admin Available",
         defaultMessage: "Hello Admin, I need assistance connecting to SmartLink WiFi.",
         iconLabel: "Contact admin",
+        needHelp: "Need help?",
       },
     },
     bundle: {
@@ -293,6 +295,7 @@ export const translations: Record<Language, TranslationSchema> = {
         badge: "Admin Yupo Hewani",
         defaultMessage: "Habari Admin, nahitaji msaada wa kujiunga na SmartLink WiFi.",
         iconLabel: "Wasiliana na admin",
+        needHelp: "Unahitaji msaada?",
       },
     },
     bundle: {
