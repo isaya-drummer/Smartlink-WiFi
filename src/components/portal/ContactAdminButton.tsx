@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { Headphones, MessageCircle, Phone } from "lucide-react"
+import { LifeBuoy, MessageCircle, Phone } from "lucide-react"
 import {
   Dialog,
   DialogContent,
@@ -22,7 +22,7 @@ export default function ContactAdminButton() {
   const [open, setOpen] = useState(false)
   const [contact, setContact] = useState<ContactSettings>({
     admin_phone: "+255 618 128 427",
-    admin_whatsapp: "255 798 328 059",
+    admin_whatsapp: "255618128427",
   })
 
   useEffect(() => {
@@ -36,7 +36,7 @@ export default function ContactAdminButton() {
         if (data.admin_phone || data.admin_whatsapp) {
           setContact({
             admin_phone: data.admin_phone || "+255 618 128 427",
-            admin_whatsapp: data.admin_whatsapp?.replace(/\D/g, "") || "255 798 328 059",
+            admin_whatsapp: (data.admin_whatsapp || "255618128427").replace(/\D/g, ""),
           })
         }
       })
@@ -78,7 +78,7 @@ export default function ContactAdminButton() {
               className="w-8 h-8 rounded-full flex items-center justify-center"
               style={{ backgroundColor: "rgba(0, 180, 255, 0.15)", color: "#00b4ff" }}
             >
-              <Headphones className="w-4 h-4" />
+            <LifeBuoy className="w-4 h-4" />
             </span>
             {t.portal.contact.title}
           </DialogTitle>
