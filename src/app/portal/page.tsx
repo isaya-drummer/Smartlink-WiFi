@@ -99,10 +99,10 @@ export default function PortalPage() {
       </p>
 
       {/* Contact admin — below providers */}
-      <div className="flex items-center justify-center gap-3 pt-1">
-        <span className="text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>
-          Need help?
-        </span>
+      <div className="flex flex-col items-center gap-2 pt-1">
+        <p className="text-sm font-medium" style={{ color: "rgba(255,255,255,0.6)" }}>
+          Need help? Tap to contact admin
+        </p>
         <ContactAdminButton />
       </div>
     </div>

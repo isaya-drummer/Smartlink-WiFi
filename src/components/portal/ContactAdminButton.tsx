@@ -55,17 +55,17 @@ export default function ContactAdminButton() {
       <DialogTrigger asChild>
         <button
           type="button"
-          className="relative p-2 rounded-full transition-all hover:scale-105 active:scale-95"
+          className="relative p-4 rounded-2xl transition-all hover:scale-105 active:scale-95"
           style={{
             backgroundColor: "rgba(0, 180, 255, 0.15)",
             color: "#00b4ff",
-            border: "1px solid rgba(0, 180, 255, 0.35)",
+            border: "2px solid rgba(0, 180, 255, 0.5)",
           }}
           aria-label={t.portal.contact.iconLabel}
           title={t.portal.contact.iconLabel}
         >
-          <MessageCircle className="w-5 h-5" />
-          <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-[#0a1628]" />
+          <MessageCircle className="w-8 h-8" />
+          <span className="absolute -top-1 -right-1 w-3.5 h-3.5 rounded-full bg-emerald-400 border-2 border-[#0a1628]" />
         </button>
       </DialogTrigger>
       <DialogContent
