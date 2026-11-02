@@ -24,8 +24,8 @@ const PROVIDERS = [
     key: "VODACOM",
     label: "Vodacom M-Pesa",
     logo: "/vodacom.png",
-    bg: "#E2231A",   // exact Vodacom red from the logo background
-    fit: "cover" as const,
+    bg: "#E2231A",
+    fit: "contain" as const,
   },
   {
     key: "HALOTEL",
