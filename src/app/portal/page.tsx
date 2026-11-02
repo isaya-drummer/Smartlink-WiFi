@@ -17,8 +17,8 @@ const PROVIDERS = [
     key: "AIRTEL",
     label: "Airtel",
     logo: "/airtel.jpg",
-    bg: "#EE0000",   // exact Airtel red from the logo background
-    fit: "cover" as const,
+    bg: "#EE0000",
+    fit: "contain" as const,
   },
   {
     key: "VODACOM",
@@ -33,7 +33,6 @@ const PROVIDERS = [
     logo: "/halopesa.png",
     bg: "#ffffff",
     fit: "contain" as const,
-  },
   },
 ] as const
 
