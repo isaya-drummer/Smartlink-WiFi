@@ -1,5 +1,5 @@
 /**
- * SmartLink Digital — Payment Provider Integration
+ * Smartlink WiFi — Payment Provider Integration
  *
  * Uses PayIn (payin.co.tz) — a Tanzanian payment aggregator that handles
  * M-Pesa, Airtel Money, HaloPesa, and Mixx by Yas through one unified API.

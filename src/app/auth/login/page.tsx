@@ -112,7 +112,7 @@ export default function LoginPage() {
 
         {/* Title */}
         <div className="text-center space-y-1">
-          <h1 className="text-2xl font-bold text-white">SmartLink Digital</h1>
+          <h1 className="text-2xl font-bold text-white">Smartlink WiFi</h1>
           <p className="text-sm" style={{ color: "#00b4ff" }}>
             We&apos;re here for you, daily
           </p>
@@ -130,7 +130,7 @@ export default function LoginPage() {
         </Suspense>
 
         <p className="text-center text-xs text-gray-500">
-          © 2024 SmartLink Digital
+          © 2024 Smartlink WiFi
         </p>
       </div>
     </div>

@@ -144,7 +144,7 @@ export const translations: Record<Language, TranslationSchema> = {
       loading: "Loading...",
       copy: "Copy Code",
       copied: "Copied!",
-      copyright: "© 2024 SmartLink Digital — We're here for you, daily",
+      copyright: "© 2024 Smartlink WiFi — We're here for you, daily",
       support: "Support",
     },
     portal: {
@@ -200,7 +200,7 @@ export const translations: Record<Language, TranslationSchema> = {
     },
     rate: {
       title: "Rate Your WiFi Experience",
-      subtitle: "How satisfied are you with SmartLink Digital WiFi?",
+      subtitle: "How satisfied are you with Smartlink WiFi WiFi?",
       commentLabel: "Feedback / Suggestions (Optional)",
       commentPlaceholder: "Tell us how we can improve...",
       submitButton: "Submit Rating",
@@ -279,7 +279,7 @@ export const translations: Record<Language, TranslationSchema> = {
       loading: "Inapakia...",
       copy: "Nakili Vocha",
       copied: "Imenakiliwa!",
-      copyright: "© 2024 SmartLink Digital — Tupo kwa ajili yako, kila siku",
+      copyright: "© 2024 Smartlink WiFi — Tupo kwa ajili yako, kila siku",
       support: "Msaada",
     },
     portal: {
@@ -335,7 +335,7 @@ export const translations: Record<Language, TranslationSchema> = {
     },
     rate: {
       title: "Toa Maoni Kuhusu WiFi",
-      subtitle: "Umeridhika kiasi gani na huduma ya intaneti ya SmartLink Digital?",
+      subtitle: "Umeridhika kiasi gani na huduma ya intaneti ya Smartlink WiFi?",
       commentLabel: "Maoni / Ushauri (Sio lazima)",
       commentPlaceholder: "Tuambie jinsi tunavyoweza kuboresha zaidi...",
       submitButton: "Tuma Maoni",

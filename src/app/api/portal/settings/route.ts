@@ -21,7 +21,7 @@ export async function GET() {
     const map: Record<string, string> = {
       admin_phone: "+255 744 000 000",
       admin_whatsapp: "255744000000",
-      hotspot_name: "SmartLink Digital Hotspot",
+      hotspot_name: "Smartlink WiFi Hotspot",
       welcome_message: "We're here for you, daily",
     }
 
@@ -37,7 +37,7 @@ export async function GET() {
     return NextResponse.json({
       admin_phone: "+255 744 000 000",
       admin_whatsapp: "255744000000",
-      hotspot_name: "SmartLink Digital Hotspot",
+      hotspot_name: "Smartlink WiFi Hotspot",
       welcome_message: "We're here for you, daily",
     })
   }

@@ -60,7 +60,7 @@ export default function SystemPage() {
   }, [])
 
   useEffect(() => {
-    document.title = "SmartLink Digital — Super Admin: System"
+    document.title = "Smartlink WiFi — Super Admin: System"
     fetchSettings()
     fetchDbInfo()
   }, [fetchSettings, fetchDbInfo])

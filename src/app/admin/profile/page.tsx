@@ -21,7 +21,7 @@ export default function ProfilePage() {
   const photoInputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
-    document.title = "SmartLink Digital — Admin: Profile"
+    document.title = "Smartlink WiFi — Admin: Profile"
     fetch("/api/admin/profile")
       .then((res) => (res.ok ? res.json() : Promise.reject()))
       .then((data) => {

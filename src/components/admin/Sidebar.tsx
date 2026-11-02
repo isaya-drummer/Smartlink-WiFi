@@ -14,7 +14,7 @@ import {
   FileBarChart,
   X,
 } from "lucide-react"
-import SmartLinkLogo from "@/components/SmartLinkLogo"
+import SmartLinkLogo from "@/components/SmartLinkLogoThemed"
 
 const navLinks = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true },

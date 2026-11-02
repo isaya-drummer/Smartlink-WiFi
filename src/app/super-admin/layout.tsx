@@ -5,8 +5,8 @@ import SuperAdminShell from "@/components/super-admin/SuperAdminShell"
 
 export const metadata: Metadata = {
   title: {
-    template: "SmartLink Digital — Super Admin: %s",
-    default: "SmartLink Digital — Super Admin",
+    template: "Smartlink WiFi — Super Admin: %s",
+    default: "Smartlink WiFi — Super Admin",
   },
 }
 

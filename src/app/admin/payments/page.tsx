@@ -36,7 +36,7 @@ export default function PaymentsPage() {
   const [totalPages, setTotalPages] = useState(1)
 
   useEffect(() => {
-    document.title = "SmartLink Digital — Admin: Payments"
+    document.title = "Smartlink WiFi — Admin: Payments"
   }, [])
 
   useEffect(() => {

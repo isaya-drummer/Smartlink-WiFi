@@ -17,7 +17,7 @@ export default function ClientsPage() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    document.title = "SmartLink Digital — Admin: Clients"
+    document.title = "Smartlink WiFi — Admin: Clients"
     fetchClients()
   }, [])
 

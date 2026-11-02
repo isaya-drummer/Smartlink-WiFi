@@ -32,7 +32,7 @@ function RatePageContent() {
   const [done, setDone] = useState(false)
 
   useEffect(() => {
-    document.title = "SmartLink Digital — Rate Our Service"
+    document.title = "Smartlink WiFi — Rate Our Service"
   }, [])
 
   useEffect(() => {

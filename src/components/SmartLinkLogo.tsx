@@ -1,47 +1,57 @@
+"use client"
+
 import Image from "next/image"
 
 type LogoSize = "sm" | "md" | "lg"
 
 interface SmartLinkLogoProps {
   size?: LogoSize
+  theme?: string // optional override, otherwise reads from html class
 }
 
-const sizeMap: Record<LogoSize, { image: number; title: string; sub: string }> =
-  {
-    sm: { image: 40, title: "text-lg", sub: "text-xs" },
-    md: { image: 60, title: "text-2xl", sub: "text-sm" },
-    lg: { image: 80, title: "text-3xl", sub: "text-base" },
-  }
+const sizeMap: Record<LogoSize, { image: number; title: string; sub: string }> = {
+  sm: { image: 40, title: "text-lg",  sub: "text-xs" },
+  md: { image: 60, title: "text-2xl", sub: "text-sm" },
+  lg: { image: 80, title: "text-3xl", sub: "text-base" },
+}
 
 /**
- * SmartLink Digital branding logo component.
- * Renders the logo image alongside the brand name:
- * - "Smart" in white
- * - "Link" in cyan (#00b4ff)
- * - "Digital" below in smaller cyan text
+ * Smartlink WiFi branding logo component.
+ * - Dark theme: uses logo-dark.jpeg (black background)
+ * - All other themes: uses logo-light.jpeg (white background)
  *
- * @param size - Controls the overall size: 'sm' | 'md' | 'lg' (default: 'md')
+ * Name: "Smartlink" in white + "WiFi" in accent color
+ * Tagline: "We're here for you, daily"
  */
-export default function SmartLinkLogo({ size = "md" }: SmartLinkLogoProps) {
+export default function SmartLinkLogo({ size = "md", theme }: SmartLinkLogoProps) {
   const { image, title, sub } = sizeMap[size]
+
+  // Determine which logo to show based on theme class on <html>
+  // Falls back to light logo when theme is unknown (SSR safe)
+  const isDark =
+    theme === "dark" ||
+    (typeof document !== "undefined" &&
+      document.documentElement.classList.contains("dark"))
+
+  const logoSrc = isDark ? "/logo-dark.jpeg" : "/logo-light.jpeg"
 
   return (
     <div className="flex items-center gap-3">
       <Image
-        src="/smartlink-logo.jpeg"
-        alt="SmartLink Digital"
+        src={logoSrc}
+        alt="Smartlink WiFi"
         width={image}
         height={image}
-        className="rounded-full"
+        className="rounded-full object-cover"
         priority
       />
       <div className="flex flex-col">
         <span className={`${title} font-bold leading-tight`}>
-          <span className="text-white">Smart</span>
-          <span style={{ color: "#00b4ff" }}>Link</span>
+          <span style={{ color: "var(--text-primary, #ffffff)" }}>Smartlink</span>
+          <span style={{ color: "var(--accent, #00b4ff)" }}> WiFi</span>
         </span>
-        <span className={`${sub} font-medium`} style={{ color: "#00b4ff" }}>
-          Digital
+        <span className={`${sub} font-medium`} style={{ color: "var(--accent, #00b4ff)", opacity: 0.85 }}>
+          We&apos;re here for you, daily
         </span>
       </div>
     </div>

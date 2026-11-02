@@ -3,7 +3,7 @@ import { useState } from "react"
 import { SessionProvider } from "next-auth/react"
 import { Menu } from "lucide-react"
 import SuperAdminSidebar from "@/components/super-admin/SuperAdminSidebar"
-import SmartLinkLogo from "@/components/SmartLinkLogo"
+import SmartLinkLogo from "@/components/SmartLinkLogoThemed"
 import AdminTopBar from "@/components/admin/AdminTopBar"
 import { ThemeProvider, useTheme } from "@/context/ThemeContext"
 

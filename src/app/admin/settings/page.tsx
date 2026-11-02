@@ -59,7 +59,7 @@ export default function SettingsPage() {
   const [saved, setSaved] = useState(false)
 
   useEffect(() => {
-    document.title = "SmartLink Digital — Admin: Settings"
+    document.title = "Smartlink WiFi — Admin: Settings"
     fetchSettings()
   }, [])
 

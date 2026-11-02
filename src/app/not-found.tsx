@@ -31,7 +31,7 @@ export default function NotFound() {
         </Link>
 
         <p className="text-xs text-gray-600">
-          © 2024 SmartLink Digital — We&apos;re here for you, daily
+          © 2024 Smartlink WiFi — We&apos;re here for you, daily
         </p>
       </div>
     </div>

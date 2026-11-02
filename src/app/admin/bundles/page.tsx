@@ -52,7 +52,7 @@ export default function BundlesPage() {
   const [confirmOpen, setConfirmOpen] = useState(false)
 
   useEffect(() => {
-    document.title = "SmartLink Digital — Admin: Bundles"
+    document.title = "Smartlink WiFi — Admin: Bundles"
     fetchBundles()
   }, [])
 

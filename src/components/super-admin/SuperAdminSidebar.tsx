@@ -14,7 +14,7 @@ import {
   FileBarChart,
   X,
 } from "lucide-react"
-import SmartLinkLogo from "@/components/SmartLinkLogo"
+import SmartLinkLogo from "@/components/SmartLinkLogoThemed"
 import ThemeToggle from "@/components/admin/ThemeToggle"
 import { signOut } from "next-auth/react"
 import { LogOut } from "lucide-react"

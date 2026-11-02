@@ -28,7 +28,7 @@ export default function VouchersPage() {
   const [totalPages, setTotalPages] = useState(1)
 
   useEffect(() => {
-    document.title = "SmartLink Digital — Admin: Vouchers"
+    document.title = "Smartlink WiFi — Admin: Vouchers"
   }, [])
 
   useEffect(() => {

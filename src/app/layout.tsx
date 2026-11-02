@@ -7,8 +7,8 @@ const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: {
-    template: "SmartLink Digital — %s",
-    default: "SmartLink Digital",
+    template: "Smartlink WiFi — %s",
+    default: "Smartlink WiFi",
   },
   description: "We're here for you, daily",
 }

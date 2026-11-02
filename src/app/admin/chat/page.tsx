@@ -255,7 +255,7 @@ export default function ChatPage() {
 
   // ── Initial load ─────────────────────────────────────────────────────────
   useEffect(() => {
-    document.title = "SmartLink Digital — Chat"
+    document.title = "Smartlink WiFi — Chat"
     fetchConvs()
     fetch("/api/admin/users")
       .then((r) => r.ok ? r.json() : null)

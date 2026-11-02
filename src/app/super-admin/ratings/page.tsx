@@ -43,7 +43,7 @@ export default function RatingsPage() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    document.title = "SmartLink Digital — Super Admin: Ratings"
+    document.title = "Smartlink WiFi — Super Admin: Ratings"
   }, [])
 
   const fetchRatings = useCallback(async () => {

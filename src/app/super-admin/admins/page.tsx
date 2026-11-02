@@ -38,7 +38,7 @@ export default function AdminsPage() {
   const [confirmOpen, setConfirmOpen] = useState(false)
 
   useEffect(() => {
-    document.title = "SmartLink Digital — Super Admin: Admins"
+    document.title = "Smartlink WiFi — Super Admin: Admins"
     fetchAdmins()
   }, [])
 

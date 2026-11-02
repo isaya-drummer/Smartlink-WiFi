@@ -40,7 +40,7 @@ function escapeCsv(value: string) {
 
 function openWatermarkedPrint(report: ReportPayload) {
   const origin = window.location.origin
-  const logoUrl = `${origin}/smartlink-logo.jpeg`
+  const logoUrl = `${origin}/logo-light.jpeg`
   const tableHead = report.columns.map((c) => `<th>${c}</th>`).join("")
   const tableBody = report.rows
     .map(
@@ -89,10 +89,10 @@ function openWatermarkedPrint(report: ReportPayload) {
   <div class="watermark"><img src="${logoUrl}" alt="" /></div>
   <div class="content">
     <header>
-      <img src="${logoUrl}" alt="SmartLink Digital" />
+      <img src="${logoUrl}" alt="Smartlink WiFi" />
       <div>
         <h1>${report.title}</h1>
-        <p class="meta">SmartLink Digital · ${new Date(report.from).toLocaleDateString()} – ${new Date(report.to).toLocaleDateString()}</p>
+        <p class="meta">Smartlink WiFi · ${new Date(report.from).toLocaleDateString()} – ${new Date(report.to).toLocaleDateString()}</p>
         <p class="meta">Generated ${new Date(report.generatedAt).toLocaleString()} by ${report.generatedBy}</p>
       </div>
     </header>
@@ -100,7 +100,7 @@ function openWatermarkedPrint(report: ReportPayload) {
       <thead><tr>${tableHead}</tr></thead>
       <tbody>${tableBody || `<tr><td colspan="${report.columns.length}">No records in this range.</td></tr>`}</tbody>
     </table>
-    <footer>Confidential · SmartLink Digital watermarked report</footer>
+    <footer>Confidential · Smartlink WiFi watermarked report</footer>
   </div>
   <script>window.onload = function () { window.focus(); window.print(); }</script>
 </body>
@@ -151,7 +151,7 @@ export default function ReportsPage() {
   }
 
   useEffect(() => {
-    document.title = "SmartLink Digital — Admin: Reports"
+    document.title = "Smartlink WiFi — Admin: Reports"
     loadReport()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query])
@@ -180,7 +180,7 @@ export default function ReportsPage() {
       <div>
         <h1 className="text-xl md:text-2xl font-bold text-white">Reports</h1>
         <p className="text-sm text-gray-400 mt-1">
-          Generate and download system reports. PDF copies include the SmartLink Digital logo watermark.
+          Generate and download system reports. PDF copies include the Smartlink WiFi logo watermark.
         </p>
       </div>
 

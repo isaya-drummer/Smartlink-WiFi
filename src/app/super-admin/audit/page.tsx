@@ -40,7 +40,7 @@ export default function AuditPage() {
   }, [page, actionFilter])
 
   useEffect(() => {
-    document.title = "SmartLink Digital — Super Admin: Audit Log"
+    document.title = "Smartlink WiFi — Super Admin: Audit Log"
     fetchLogs()
   }, [fetchLogs])
 

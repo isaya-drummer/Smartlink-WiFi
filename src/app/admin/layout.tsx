@@ -5,8 +5,8 @@ import AdminShell from "@/components/admin/AdminShell"
 
 export const metadata: Metadata = {
   title: {
-    template: "SmartLink Digital — Admin: %s",
-    default: "SmartLink Digital — Admin",
+    template: "Smartlink WiFi — Admin: %s",
+    default: "Smartlink WiFi — Admin",
   },
 }
 
