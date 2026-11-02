@@ -32,7 +32,8 @@ const PROVIDERS = [
     label: "HaloPesa",
     logo: "/halopesa.png",
     bg: "#ffffff",
-    fit: "cover" as const,
+    fit: "contain" as const,
+  },
   },
 ] as const
 
@@ -53,23 +54,39 @@ export default function PortalPage() {
       </div>
 
       {/* 2×2 provider grid */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-3 max-w-xs mx-auto w-full">
         {PROVIDERS.map((p) => (
           <button
             key={p.key}
             onClick={() => router.push(`/portal/bundle?provider=${p.key}`)}
             className="relative overflow-hidden rounded-2xl transition-all duration-200 hover:scale-105 active:scale-95 focus:outline-none focus:ring-4 focus:ring-white/30 shadow-lg"
-            style={{ height: "135px", backgroundColor: p.bg }}
+            style={{ height: "110px", backgroundColor: p.bg }}
             aria-label={`Pay with ${p.label}`}
           >
-            <Image
-              src={p.logo}
-              alt={p.label}
-              fill
-              className={p.fit === "cover" ? "object-cover" : "object-contain p-4"}
-              sizes="(max-width: 768px) 50vw, 200px"
-              priority
-            />
+            {p.fit === "cover" ? (
+              <Image
+                src={p.logo}
+                alt={p.label}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 50vw, 200px"
+                priority
+              />
+            ) : (
+              /* object-contain: fill card with solid bg color, logo fits inside */
+              <>
+                <div className="absolute inset-0" style={{ backgroundColor: p.bg }} />
+                <Image
+                  src={p.logo}
+                  alt={p.label}
+                  fill
+                  className="object-contain"
+                  style={{ padding: "14px" }}
+                  sizes="(max-width: 768px) 50vw, 200px"
+                  priority
+                />
+              </>
+            )}
             <div className="absolute inset-0 bg-black/0 hover:bg-black/10 active:bg-black/20 transition-colors duration-150 rounded-2xl" />
           </button>
         ))}
