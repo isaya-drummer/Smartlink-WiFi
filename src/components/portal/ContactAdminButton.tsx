@@ -21,8 +21,8 @@ export default function ContactAdminButton() {
   const { t } = useLanguage()
   const [open, setOpen] = useState(false)
   const [contact, setContact] = useState<ContactSettings>({
-    admin_phone: "+255 744 000 000",
-    admin_whatsapp: "255744000000",
+    admin_phone: "+255 618 128 427",
+    admin_whatsapp: "255 798 328 059",
   })
 
   useEffect(() => {
@@ -35,8 +35,8 @@ export default function ContactAdminButton() {
       .then((data) => {
         if (data.admin_phone || data.admin_whatsapp) {
           setContact({
-            admin_phone: data.admin_phone || "+255 744 000 000",
-            admin_whatsapp: data.admin_whatsapp?.replace(/\D/g, "") || "255744000000",
+            admin_phone: data.admin_phone || "+255 618 128 427",
+            admin_whatsapp: data.admin_whatsapp?.replace(/\D/g, "") || "255 798 328 059",
           })
         }
       })

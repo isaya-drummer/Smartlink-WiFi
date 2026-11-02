@@ -6,6 +6,7 @@ import Sidebar from "@/components/admin/Sidebar"
 import SmartLinkLogo from "@/components/SmartLinkLogo"
 import AdminTopBar from "@/components/admin/AdminTopBar"
 import { ThemeProvider, useTheme } from "@/context/ThemeContext"
+import { LanguageProvider } from "@/context/LanguageContext"
 
 function AdminShellInner({ children }: { children: React.ReactNode }) {
   const { theme } = useTheme()
@@ -33,9 +34,11 @@ function AdminShellInner({ children }: { children: React.ReactNode }) {
 export default function AdminShell({ children }: { children: React.ReactNode }) {
   return (
     <ThemeProvider>
-      <SessionProvider>
-        <AdminShellInner>{children}</AdminShellInner>
-      </SessionProvider>
+      <LanguageProvider>
+        <SessionProvider>
+          <AdminShellInner>{children}</AdminShellInner>
+        </SessionProvider>
+      </LanguageProvider>
     </ThemeProvider>
   )
 }

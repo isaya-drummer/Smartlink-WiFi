@@ -14,16 +14,16 @@ export interface TranslationSchema {
     title: string
     subtitle: string
     instruction: string
-      contact: {
-        title: string
-        subtitle: string
-        callButton: string
-        whatsappButton: string
-        phoneLabel: string
-        badge: string
-        defaultMessage: string
-        iconLabel: string
-      }
+    contact: {
+      title: string
+      subtitle: string
+      callButton: string
+      whatsappButton: string
+      phoneLabel: string
+      badge: string
+      defaultMessage: string
+      iconLabel: string
+    }
   }
   bundle: {
     title: string
@@ -68,6 +68,70 @@ export interface TranslationSchema {
     submitButton: string
     thankYouTitle: string
     thankYouMessage: string
+  }
+  admin: {
+    nav: {
+      dashboard: string
+      bundles: string
+      vouchers: string
+      payments: string
+      clients: string
+      chat: string
+      settings: string
+      reports: string
+      admins: string
+      auditLog: string
+      ratings: string
+      system: string
+      profile: string
+      signOut: string
+    }
+    dashboard: {
+      title: string
+      subtitle: string
+      activeVouchers: string
+      totalClients: string
+      todayRevenue: string
+      avgRating: string
+      recentPayments: string
+      recentRatings: string
+      noPayments: string
+      noRatings: string
+    }
+    greeting: {
+      morning: string
+      afternoon: string
+      evening: string
+      night: string
+    }
+    notifications: {
+      title: string
+      subtitle: string
+      noActivity: string
+    }
+    common: {
+      save: string
+      cancel: string
+      delete: string
+      edit: string
+      add: string
+      active: string
+      inactive: string
+      loading: string
+      noData: string
+      search: string
+      filter: string
+      from: string
+      to: string
+      actions: string
+      status: string
+      date: string
+      name: string
+      email: string
+      phone: string
+      amount: string
+      provider: string
+    }
   }
 }
 
@@ -141,6 +205,70 @@ export const translations: Record<Language, TranslationSchema> = {
       thankYouTitle: "Thank You!",
       thankYouMessage: "Your feedback helps us deliver faster, more reliable internet.",
     },
+    admin: {
+      nav: {
+        dashboard: "Dashboard",
+        bundles: "Bundles",
+        vouchers: "Vouchers",
+        payments: "Payments",
+        clients: "Clients",
+        chat: "Chat",
+        settings: "Settings",
+        reports: "Reports",
+        admins: "Admins",
+        auditLog: "Audit Log",
+        ratings: "Ratings",
+        system: "System",
+        profile: "Profile",
+        signOut: "Sign Out",
+      },
+      dashboard: {
+        title: "Dashboard",
+        subtitle: "Overview of your WiFi hotspot system",
+        activeVouchers: "Active Vouchers",
+        totalClients: "Total Clients",
+        todayRevenue: "Today's Revenue",
+        avgRating: "Avg Rating",
+        recentPayments: "Recent Payments",
+        recentRatings: "Recent Ratings",
+        noPayments: "No payments yet.",
+        noRatings: "No ratings yet.",
+      },
+      greeting: {
+        morning: "Good morning",
+        afternoon: "Good afternoon",
+        evening: "Good evening",
+        night: "Good night",
+      },
+      notifications: {
+        title: "Notifications",
+        subtitle: "Transactions and active clients",
+        noActivity: "No recent activity yet.",
+      },
+      common: {
+        save: "Save",
+        cancel: "Cancel",
+        delete: "Delete",
+        edit: "Edit",
+        add: "Add",
+        active: "Active",
+        inactive: "Inactive",
+        loading: "Loading...",
+        noData: "No data found.",
+        search: "Search...",
+        filter: "Filter",
+        from: "From",
+        to: "To",
+        actions: "Actions",
+        status: "Status",
+        date: "Date",
+        name: "Name",
+        email: "Email",
+        phone: "Phone",
+        amount: "Amount",
+        provider: "Provider",
+      },
+    },
   },
   sw: {
     common: {
@@ -210,6 +338,70 @@ export const translations: Record<Language, TranslationSchema> = {
       submitButton: "Tuma Maoni",
       thankYouTitle: "Asante Sana!",
       thankYouMessage: "Maoni yako yanatusaidia kukupa huduma bora na intaneti yenye kasi zaidi.",
+    },
+    admin: {
+      nav: {
+        dashboard: "Dashibodi",
+        bundles: "Vifurushi",
+        vouchers: "Vocha",
+        payments: "Malipo",
+        clients: "Wateja",
+        chat: "Mazungumzo",
+        settings: "Mipangilio",
+        reports: "Ripoti",
+        admins: "Wasimamizi",
+        auditLog: "Kumbukumbu",
+        ratings: "Maoni",
+        system: "Mfumo",
+        profile: "Wasifu",
+        signOut: "Toka",
+      },
+      dashboard: {
+        title: "Dashibodi",
+        subtitle: "Muhtasari wa mfumo wako wa WiFi",
+        activeVouchers: "Vocha Zinazofanya Kazi",
+        totalClients: "Jumla ya Wateja",
+        todayRevenue: "Mapato ya Leo",
+        avgRating: "Maoni ya Wastani",
+        recentPayments: "Malipo ya Hivi Karibuni",
+        recentRatings: "Maoni ya Hivi Karibuni",
+        noPayments: "Hakuna malipo bado.",
+        noRatings: "Hakuna maoni bado.",
+      },
+      greeting: {
+        morning: "Habari za asubuhi",
+        afternoon: "Habari za mchana",
+        evening: "Habari za jioni",
+        night: "Usiku mwema",
+      },
+      notifications: {
+        title: "Arifa",
+        subtitle: "Miamala na wateja wanaotumia",
+        noActivity: "Hakuna shughuli za hivi karibuni.",
+      },
+      common: {
+        save: "Hifadhi",
+        cancel: "Ghairi",
+        delete: "Futa",
+        edit: "Hariri",
+        add: "Ongeza",
+        active: "Inafanya Kazi",
+        inactive: "Haifanyi Kazi",
+        loading: "Inapakia...",
+        noData: "Hakuna data.",
+        search: "Tafuta...",
+        filter: "Chuja",
+        from: "Kutoka",
+        to: "Hadi",
+        actions: "Vitendo",
+        status: "Hali",
+        date: "Tarehe",
+        name: "Jina",
+        email: "Barua pepe",
+        phone: "Simu",
+        amount: "Kiasi",
+        provider: "Mtoa huduma",
+      },
     },
   },
 }
