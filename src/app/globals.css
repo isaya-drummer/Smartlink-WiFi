@@ -220,3 +220,161 @@
     background-size: 32px 32px;
   }
 }
+
+/* ══════════════════════════════════════════════
+   LIGHT MODE — Override all hardcoded dark blues
+   #071020, #0a1628, #0a1a35, #0d1f3c → white/cream
+   #1e3a5f → light border
+══════════════════════════════════════════════ */
+
+/* Table header rows */
+.light tr[style*="071020"],
+.light tr[style*="0a1628"] {
+  background-color: #F3F2F0 !important;
+}
+
+/* Alternating table rows — both dark shades → white/off-white */
+.light tr[style*="0d1f3c"],
+.light tr[style*="0a1a35"],
+.light tr[style*="0a1628"] {
+  background-color: #FFFFFF !important;
+}
+.light tr:nth-child(even) {
+  background-color: #F8FAF8 !important;
+}
+.light tr:hover {
+  background-color: #EEF6F4 !important;
+}
+
+/* Card/panel backgrounds */
+.light div[style*="0d1f3c"],
+.light div[style*="0a1628"],
+.light div[style*="071020"],
+.light section[style*="0d1f3c"] {
+  background-color: #FFFFFF !important;
+}
+
+/* Borders — replace dark blue with light */
+.light *[style*="1e3a5f"] {
+  border-color: #E0E7E5 !important;
+}
+
+/* Table overflow containers */
+.light .overflow-x-auto[style*="0d1f3c"],
+.light .overflow-x-auto[style*="0a1628"] {
+  background-color: #FFFFFF !important;
+}
+
+/* DataTable empty state */
+.light .rounded-xl[style*="0d1f3c"] {
+  background-color: #FFFFFF !important;
+  border-color: #E0E7E5 !important;
+}
+
+/* Mobile card rows in DataTable */
+.light .space-y-3 > div[style*="0d1f3c"] {
+  background-color: #FFFFFF !important;
+  border-color: #E0E7E5 !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+/* Section header backgrounds */
+.light .px-6.py-4.border-b[style*="0a1628"],
+.light .px-6.py-4[style*="0a1628"] {
+  background-color: #F8FAF9 !important;
+}
+
+/* Stat cards and inner panels */
+.light [style*="background-color: var(--bg-secondary)"],
+.light [style*="backgroundColor: \"#0d1f3c\""] {
+  background-color: #FFFFFF !important;
+}
+
+/* ══════════════════════════════════════════════
+   LIGHT MODE — Force override all hardcoded dark
+   navy/blue colors (#071020 #0a1628 #0d1f3c
+   #0a1a35 #1e3a5f) so they become light in light
+   mode. Dark mode is NOT affected.
+══════════════════════════════════════════════ */
+
+/* All elements with hardcoded dark bg in light mode */
+.light [style*="background-color: rgb(10, 22, 40)"],
+.light [style*="background-color: rgb(13, 31, 60)"],
+.light [style*="background-color: rgb(10, 26, 53)"],
+.light [style*="background-color: rgb(7, 16, 32)"] {
+  background-color: #FFFFFF !important;
+}
+
+/* Table rows — override inline styles for dark stripes */
+.light tbody tr {
+  background-color: #FFFFFF !important;
+}
+.light tbody tr:nth-child(even) {
+  background-color: #F5F9F8 !important;
+}
+.light tbody tr:hover {
+  background-color: #EEF6F4 !important;
+}
+
+/* Table headers */
+.light thead tr {
+  background-color: #F0F4F3 !important;
+}
+.light thead th {
+  color: #6B7F78 !important;
+  border-bottom: 2px solid #E0E7E5 !important;
+}
+
+/* Table cells */
+.light tbody td {
+  color: #1A2E2A !important;
+  border-color: #E0E7E5 !important;
+}
+
+/* Section / card containers with dark bg */
+.light .overflow-x-auto {
+  background-color: #FFFFFF !important;
+}
+.light .overflow-hidden {
+  background-color: #FFFFFF !important;
+}
+
+/* Section header bars (px-6 py-4 border-b) */
+.light .border-b {
+  border-color: #E0E7E5 !important;
+}
+
+/* ALL inline dark backgrounds via universal override */
+/* This catches any element that has the dark navy colors set inline */
+.light * {
+  --tw-bg-opacity: 1;
+}
+
+/* Override specific color combinations used as table rows */
+.light [style*="#0d1f3c"],
+.light [style*="#0a1a35"],
+.light [style*="#071020"],
+.light [style*="#0a1628"] {
+  background-color: #FFFFFF !important;
+  color: #1A2E2A !important;
+}
+
+/* Border overrides */
+.light [style*="#1e3a5f"] {
+  border-color: #E0E7E5 !important;
+}
+.light [style*="1e3a5f"] {
+  border-color: #E0E7E5 !important;
+}
+
+/* Text color overrides for hardcoded white text */
+.light [style*="color: rgb(255, 255, 255)"],
+.light [style*="color: #fff"],
+.light [style*="color: white"] {
+  color: #1A2E2A !important;
+}
+
+/* Ensure card section headers are light */
+.light .px-6.py-4 {
+  background-color: #F8FAF9 !important;
+}
