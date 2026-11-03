@@ -90,18 +90,16 @@ export default function Sidebar({ onClose }: { onClose?: () => void }) {
               key={href}
               href={href}
               onClick={() => onClose?.()}
-              className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all ${
-                active ? "text-cyan-400" : "text-gray-400 hover:text-white"
-              }`}
+              className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all`}
               style={
                 active
                   ? {
-                      borderLeft: "3px solid #00b4ff",
+                      borderLeft: "3px solid var(--accent)",
                       paddingLeft: "calc(0.75rem - 3px)",
-                      backgroundColor: "rgba(0, 180, 255, 0.08)",
-                      color: "#00b4ff",
+                      backgroundColor: "var(--accent-dim)",
+                      color: "var(--accent)",
                     }
-                  : {}
+                  : { color: "var(--text-secondary)" }
               }
             >
               <Icon className="w-5 h-5 flex-shrink-0" />
@@ -110,8 +108,8 @@ export default function Sidebar({ onClose }: { onClose?: () => void }) {
                 <span
                   className="ml-auto rounded-full text-xs font-bold flex items-center justify-center"
                   style={{
-                    backgroundColor: "#00b4ff",
-                    color: "#0a1628",
+                    backgroundColor: "var(--accent)",
+                    color: "var(--bg-primary)",
                     minWidth: "1.25rem",
                     height: "1.25rem",
                     padding: "0 0.4rem",

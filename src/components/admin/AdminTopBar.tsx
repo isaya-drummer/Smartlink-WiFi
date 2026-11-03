@@ -125,14 +125,15 @@ export default function AdminTopBar() {
       >
         <DropdownMenuTrigger asChild>
           <button
-            className="relative p-2 rounded-lg text-gray-300 hover:text-white hover:bg-white/10 transition-colors"
+            className="relative p-2 rounded-lg transition-colors"
+            style={{ color: "var(--text-secondary)" }}
             aria-label="Notifications"
           >
             <Bell className="w-5 h-5" />
             {unread > 0 && (
               <span
-                className="absolute -top-0.5 -right-0.5 min-w-[1.1rem] h-[1.1rem] px-1 rounded-full text-[10px] font-bold flex items-center justify-center"
-                style={{ backgroundColor: "#00b4ff", color: "#0a1628" }}
+                className="absolute -top-0.5 -right-0.5 min-w-[1.1rem] h-[1.1rem] px-1 rounded-full text-[10px] font-bold flex items-center justify-center notification-badge"
+                style={{ backgroundColor: "var(--accent)", color: "var(--bg-primary)" }}
               >
                 {unread > 99 ? "99+" : unread}
               </span>
@@ -144,9 +145,9 @@ export default function AdminTopBar() {
           className="w-[22rem] p-0"
           style={{ backgroundColor: "var(--bg-secondary)", borderColor: "var(--border-color)", color: "#fff" }}
         >
-          <DropdownMenuLabel className="px-4 py-3 text-white">
+          <DropdownMenuLabel className="px-4 py-3" style={{ color: "var(--text-primary)" }}>
             Notifications
-            <p className="text-xs font-normal text-gray-400 mt-0.5">
+            <p className="text-xs font-normal mt-0.5" style={{ color: "var(--text-secondary)" }}>
               Transactions and active clients
             </p>
           </DropdownMenuLabel>
@@ -165,10 +166,7 @@ export default function AdminTopBar() {
                   >
                     <span
                       className="mt-0.5 w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
-                      style={{
-                        backgroundColor: "rgba(0,180,255,0.12)",
-                        color: "#00b4ff",
-                      }}
+                      style={{ backgroundColor: "var(--accent-dim)", color: "var(--accent)" }}
                     >
                       {item.type === "transaction" ? (
                         <CreditCard className="w-4 h-4" />
@@ -177,9 +175,9 @@ export default function AdminTopBar() {
                       )}
                     </span>
                     <span className="min-w-0">
-                      <span className="block text-white leading-snug">{item.title}</span>
-                      <span className="block text-xs text-gray-400 mt-0.5">{item.detail}</span>
-                      <span className="block text-[11px] text-gray-500 mt-1">
+                      <span className="block leading-snug" style={{ color: "var(--text-primary)" }}>{item.title}</span>
+                      <span className="block text-xs mt-0.5" style={{ color: "var(--text-secondary)" }}>{item.detail}</span>
+                      <span className="block text-[11px] mt-1" style={{ color: "var(--text-secondary)", opacity: 0.7 }}>
                         {timeAgo(item.createdAt)}
                       </span>
                     </span>
@@ -201,17 +199,17 @@ export default function AdminTopBar() {
               <img src={avatarUrl} className="w-8 h-8 rounded-full object-cover" alt="Profile" />
             ) : (
               <span
-                className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold"
-                style={{ backgroundColor: "rgba(0,180,255,0.2)", color: "#00b4ff" }}
+                className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold avatar-initials"
+                style={{ backgroundColor: "var(--accent-dim)", color: "var(--accent)" }}
               >
                 {initials(user?.name, user?.email)}
               </span>
             )}
             <span className="hidden sm:block text-left">
-              <span className="block text-sm font-medium text-white leading-tight max-w-[10rem] truncate">
+              <span className="block text-sm font-medium leading-tight max-w-[10rem] truncate" style={{ color: "var(--text-primary)" }}>
                 {displayName}
               </span>
-              <span className="block text-[11px] text-gray-400 leading-tight">
+              <span className="block text-[11px] leading-tight" style={{ color: "var(--text-secondary)" }}>
                 {user?.role === "SUPER_ADMIN" ? "Super Admin" : "Admin"}
               </span>
             </span>
@@ -223,8 +221,8 @@ export default function AdminTopBar() {
           style={{ backgroundColor: "var(--bg-secondary)", borderColor: "var(--border-color)", color: "#fff" }}
         >
           <DropdownMenuLabel className="font-normal">
-            <p className="text-sm font-medium text-white">{displayName}</p>
-            <p className="text-xs text-gray-400 truncate">{user?.email}</p>
+            <p className="text-sm font-medium" style={{ color: "var(--text-primary)" }}>{displayName}</p>
+            <p className="text-xs truncate" style={{ color: "var(--text-secondary)" }}>{user?.email}</p>
           </DropdownMenuLabel>
           <DropdownMenuSeparator style={{ backgroundColor: "var(--border-color)" }} />
           <DropdownMenuItem asChild>

@@ -1,7 +1,11 @@
-@tailwind base;
+﻿@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ══ FONTS ══ */
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap");
+
+/* ══ BASE SHADCN TOKENS ══ */
 @layer base {
   :root {
     --background: 222.2 84% 4.9%;
@@ -23,7 +27,7 @@
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
-    --radius: 0.5rem;
+    --radius: 0.625rem;
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;
@@ -36,68 +40,183 @@
   body {
     @apply bg-background text-foreground;
     background-color: #0a1628;
+    font-family: "Inter", system-ui, sans-serif;
   }
 }
 
-:root {
-  --bg-primary: #0a1628;
-  --bg-secondary: #0d1f3c;
-  --bg-tertiary: #071020;
-  --border-color: #1e3a5f;
-  --text-primary: #ffffff;
+/* ══════════════════════════════════════════════
+   DARK MODE — original navy (unchanged)
+══════════════════════════════════════════════ */
+:root,
+.dark {
+  --bg-primary:     #0a1628;
+  --bg-secondary:   #0d1f3c;
+  --bg-tertiary:    #071020;
+  --border-color:   #1e3a5f;
+  --text-primary:   #ffffff;
   --text-secondary: #9ca3af;
-  --accent: #00b4ff;
+  --accent:         #00b4ff;
+  --accent-dim:     rgba(0,180,255,0.12);
+  --card-shadow:    none;
 }
+.dark body { background-color: #0a1628 !important; }
 
-/* ── LIGHT MODE — warm white & gold, clean modern attractive design ── */
+/* ══════════════════════════════════════════════
+   LIGHT MODE — CASFETA Design System
+   Emerald #0D7B6B · Warm cream #FDFCFB
+   Serif headings (Playfair Display)
+══════════════════════════════════════════════ */
 .light {
-  --bg-primary: #faf7f2;
-  --bg-secondary: #ffffff;
-  --bg-tertiary: #f0ebe0;
-  --border-color: #e5d9c3;
-  --text-primary: #1a1209;
-  --text-secondary: #6b5c45;
-  --accent: #c8870a;
-  --accent-dim: rgba(200,135,10,0.12);
-  --accent-hover: #a66e08;
-  --sidebar-bg: #1a1209;
-  --sidebar-border: #3d2e1a;
-  --sidebar-text: #f5ead8;
-  --sidebar-text-secondary: #c4a97a;
-  --sidebar-active-bg: rgba(200,135,10,0.18);
-  --sidebar-active-accent: #f0a830;
-  --card-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  --background:         #FDFCFB;
+  --foreground:         #1A2E2A;
+  --card:               #FFFFFF;
+  --card-foreground:    #1A2E2A;
+  --popover:            #FFFFFF;
+  --popover-foreground: #1A2E2A;
+  --primary:            #0D7B6B;
+  --primary-foreground: #FDFCFB;
+  --secondary:          #F3F1EE;
+  --secondary-foreground: #253D38;
+  --muted:              #F3F2F0;
+  --muted-foreground:   #6B7F78;
+  --accent:             #F5EFE0;
+  --accent-foreground:  #6B5320;
+  --destructive:        #D64F2A;
+  --destructive-foreground: #FDFCFB;
+  --border:             #E0E7E5;
+  --input:              #E8EDEB;
+  --ring:               #0D7B6B;
+  --bg-primary:         #FDFCFB;
+  --bg-secondary:       #FFFFFF;
+  --bg-tertiary:        #F3F2F0;
+  --border-color:       #E0E7E5;
+  --text-primary:       #1A2E2A;
+  --text-secondary:     #6B7F78;
+  --accent-dim:         rgba(13,123,107,0.10);
+  --card-shadow:        0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
+  --sidebar:            #F8FAF9;
+  --sidebar-border:     #E0E7E5;
 }
 
-/* Remove old extra themes */
+.light body {
+  background-color: #FDFCFB !important;
+  color: #1A2E2A;
+}
 
-/* ── Light mode sidebar override — dark chocolate sidebar stays premium ── */
+/* Headings — Playfair Display */
+.light h1, .light h2 {
+  font-family: "Playfair Display", Georgia, serif !important;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: #1A2E2A !important;
+}
+.light h3, .light h4 {
+  color: #1A2E2A !important;
+  font-weight: 600;
+}
+
+/* ── Sidebar ── */
 .light aside {
-  background-color: var(--sidebar-bg) !important;
-  border-color: var(--sidebar-border) !important;
+  background-color: #F8FAF9 !important;
+  border-color: #E0E7E5 !important;
 }
-.light aside a,
-.light aside button,
-.light aside span.text-white,
-.light aside p {
-  color: var(--sidebar-text) !important;
+.light aside a { color: #4A6360 !important; }
+.light aside a:hover {
+  color: #1A2E2A !important;
+  background-color: #EBF4F2 !important;
 }
-.light aside .text-gray-400 {
-  color: var(--sidebar-text-secondary) !important;
-}
+.light aside .text-gray-400,
+.light aside .text-gray-500 { color: #6B7F78 !important; }
+.light aside p { color: #6B7F78 !important; }
 
-/* ── Light mode card/table elevation ── */
+/* ── Text overrides ── */
+.light .text-white    { color: #1A2E2A !important; }
+.light .text-gray-400 { color: #6B7F78 !important; }
+.light .text-gray-500 { color: #8A9E99 !important; }
+.light .text-gray-300 { color: #4A6360 !important; }
+
+/* ── Cards ── */
 .light .rounded-xl,
 .light .rounded-2xl {
-  box-shadow: var(--card-shadow);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
 }
 
-/* ── Light mode body background ── */
-.light body {
-  background-color: var(--bg-primary) !important;
+/* ── Tables ── */
+.light table th {
+  background-color: #F3F2F0 !important;
+  color: #6B7F78 !important;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.light table td { color: #1A2E2A !important; }
+.light table tr { border-color: #E0E7E5 !important; }
+.light table tr:nth-child(even) td { background-color: #FAFAF9 !important; }
+.light table tr:hover td { background-color: #F0F7F5 !important; }
+
+/* ── Inputs ── */
+.light input,
+.light textarea,
+.light select {
+  background-color: #E8EDEB !important;
+  border-color: #E0E7E5 !important;
+  color: #1A2E2A !important;
+}
+.light input::placeholder,
+.light textarea::placeholder { color: #6B7F78 !important; }
+.light input:focus,
+.light textarea:focus {
+  border-color: #0D7B6B !important;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(13,123,107,0.18) !important;
 }
 
-/* ── Dark mode body background (keep original) ── */
-.dark body {
-  background-color: #0a1628 !important;
+/* ── Dropdowns/menus ── */
+.light [role="menuitem"] { color: #1A2E2A !important; }
+.light [role="menuitem"]:hover { background-color: #EBF4F2 !important; }
+
+/* ── Icon accent areas ── */
+.light .stats-icon {
+  background-color: rgba(13,123,107,0.10) !important;
+  color: #0D7B6B !important;
+}
+.light .notification-badge {
+  background-color: #0D7B6B !important;
+  color: #FFFFFF !important;
+}
+.light .avatar-initials {
+  background-color: rgba(13,123,107,0.12) !important;
+  color: #0D7B6B !important;
+}
+
+/* ── Chart bars — emerald ── */
+.light .recharts-bar-rectangle path { fill: #0D7B6B !important; }
+
+/* ── Scrollbar ── */
+.light ::-webkit-scrollbar { width: 8px; height: 8px; }
+.light ::-webkit-scrollbar-track { background: transparent; }
+.light ::-webkit-scrollbar-thumb {
+  background: #C5D5D2;
+  border-radius: 5px;
+}
+.light ::-webkit-scrollbar-thumb:hover { background: #0D7B6B; }
+
+
+/* ══ UTILITY CLASSES ══ */
+@layer utilities {
+  .card-hover {
+    @apply transition-all duration-200 hover:shadow-md hover:-translate-y-0.5;
+  }
+  .focus-ring {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+  .nav-item-active {
+    @apply bg-primary/10 text-primary font-medium;
+  }
+  .bg-grid-pattern {
+    background-image:
+      linear-gradient(to right, rgba(0,0,0,0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0,0,0,0.04) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
 }
