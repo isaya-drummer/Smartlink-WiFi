@@ -22,7 +22,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { prisma, withRetry } from "@/lib/prisma"
 import { verifyWebhookSignature } from "@/lib/payment"
-import { addVoucher } from "@/lib/mikrotik"
+import { authorizeClient } from "@/lib/omada"
 
 // ─── Shared activation logic ──────────────────────────────────────────────────
 
@@ -74,12 +74,29 @@ async function activateByRef(externalRef: string) {
     })
   })
 
-  // Notify MikroTik hotspot router (stub — wire up credentials in src/lib/mikrotik.ts)
-  await addVoucher(
-    updated.code,
-    payment.voucher.bundle.durationHours,
-    payment.voucher.bundle.dataLimitMB
-  )
+  // Authorize client on Omada EAP625 if MAC address is known
+  // clientMac comes from the session record if available
+  const session = await prisma.session.findFirst({
+    where: { voucherId: updated.id },
+    orderBy: { connectedAt: "desc" },
+  })
+
+  const apMac   = process.env.OMADA_AP_MAC ?? "A82948318A18" // EAP625 MAC
+  const ssid    = process.env.OMADA_SSID   ?? "Smartlink WiFi"
+  const radioId = 1 // 5GHz band
+
+  if (session?.clientMac) {
+    await authorizeClient(
+      session.clientMac,
+      apMac,
+      ssid,
+      radioId,
+      payment.voucher.bundle.durationHours * 3600,
+      payment.voucher.bundle.dataLimitMB
+    )
+  } else {
+    console.log(`[Webhook] No client MAC for voucher ${updated.code} — Omada auth skipped until client connects`)
+  }
 
   console.log(`[Webhook] Voucher ${updated.code} activated | expires ${expiresAt.toISOString()}`)
 
