@@ -57,26 +57,26 @@ export default function ContactAdminButton() {
           type="button"
           className="relative p-4 rounded-2xl transition-all hover:scale-105 active:scale-95"
           style={{
-            backgroundColor: "rgba(0, 180, 255, 0.15)",
-            color: "#00b4ff",
-            border: "2px solid rgba(0, 180, 255, 0.5)",
+            backgroundColor: "rgba(200, 135, 10, 0.15)",
+            color: "#c8870a",
+            border: "2px solid rgba(200, 135, 10, 0.5)",
           }}
           aria-label={t.portal.contact.iconLabel}
           title={t.portal.contact.iconLabel}
         >
           <MessageCircle className="w-8 h-8" />
-          <span className="absolute -top-1 -right-1 w-3.5 h-3.5 rounded-full bg-emerald-400 border-2 border-[#0a1628]" />
+          <span className="absolute -top-1 -right-1 w-3.5 h-3.5 rounded-full bg-emerald-400 border-2 border-[#0a1a0f]" />
         </button>
       </DialogTrigger>
       <DialogContent
         className="max-w-sm border text-white"
-        style={{ backgroundColor: "#0d1f3c", borderColor: "rgba(0, 180, 255, 0.28)" }}
+        style={{ backgroundColor: "#0f2318", borderColor: "rgba(200, 135, 10, 0.28)" }}
       >
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 text-white">
             <span
               className="w-8 h-8 rounded-full flex items-center justify-center"
-              style={{ backgroundColor: "rgba(0, 180, 255, 0.15)", color: "#00b4ff" }}
+              style={{ backgroundColor: "rgba(200, 135, 10, 0.15)", color: "#c8870a" }}
             >
             <LifeBuoy className="w-4 h-4" />
             </span>
@@ -106,7 +106,7 @@ export default function ContactAdminButton() {
           <a
             href={`tel:${sanitizedTel}`}
             className="flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs font-semibold text-white"
-            style={{ background: "linear-gradient(135deg, #00b4ff 0%, #0066ff 100%)" }}
+            style={{ background: "linear-gradient(135deg, #0d7b3e 0%, #0a6332 100%)" }}
           >
             <Phone className="w-3.5 h-3.5" />
             {t.portal.contact.callButton}

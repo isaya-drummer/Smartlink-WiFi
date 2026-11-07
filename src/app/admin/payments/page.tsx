@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useEffect, useState } from "react"
 import { RefreshCw } from "lucide-react"
@@ -36,7 +36,7 @@ export default function PaymentsPage() {
   const [totalPages, setTotalPages] = useState(1)
 
   useEffect(() => {
-    document.title = "Smartlink WiFi — Admin: Payments"
+    document.title = "Smartlink WiFi â€” Admin: Payments"
   }, [])
 
   useEffect(() => {
@@ -80,8 +80,8 @@ export default function PaymentsPage() {
           onChange={(e) => handleFilter(setProviderFilter, e.target.value)}
           className="text-sm rounded-lg px-3 py-2 outline-none"
           style={{
-            backgroundColor: "#0a1628",
-            border: "1px solid #1e3a5f",
+            backgroundColor: "var(--bg-primary)",
+            border: "1px solid var(--border-color)",
             color: "#fff",
           }}
         >
@@ -96,8 +96,8 @@ export default function PaymentsPage() {
           onChange={(e) => handleFilter(setStatusFilter, e.target.value)}
           className="text-sm rounded-lg px-3 py-2 outline-none"
           style={{
-            backgroundColor: "#0a1628",
-            border: "1px solid #1e3a5f",
+            backgroundColor: "var(--bg-primary)",
+            border: "1px solid var(--border-color)",
             color: "#fff",
           }}
         >
@@ -121,12 +121,12 @@ export default function PaymentsPage() {
         <>
           <div
             className="rounded-xl overflow-hidden"
-            style={{ border: "1px solid #1e3a5f" }}
+            style={{ border: "1px solid var(--border-color)" }}
           >
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr style={{ backgroundColor: "#071020" }}>
+                  <tr style={{ backgroundColor: "var(--bg-tertiary)" }}>
                     {[
                       "Reference",
                       "Provider",
@@ -165,12 +165,12 @@ export default function PaymentsPage() {
                           key={p.id}
                           style={{
                             backgroundColor:
-                              idx % 2 === 0 ? "#0d1f3c" : "#0a1a35",
-                            borderTop: "1px solid #1e3a5f",
+                              idx % 2 === 0 ? "var(--bg-secondary)" : "var(--bg-tertiary)",
+                            borderTop: "1px solid var(--border-color)",
                           }}
                         >
                           <td className="px-4 py-3 font-mono text-xs text-white">
-                            {p.reference.slice(0, 16)}…
+                            {p.reference.slice(0, 16)}â€¦
                           </td>
                           <td className="px-4 py-3">
                             <span

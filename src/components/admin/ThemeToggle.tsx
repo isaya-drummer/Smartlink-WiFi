@@ -13,12 +13,12 @@ export default function ThemeToggle() {
       className="flex items-center gap-2 px-3 py-1.5 rounded-xl text-sm font-medium transition-all hover:scale-105 active:scale-95"
       style={{
         backgroundColor: isDark
-          ? "rgba(255,255,255,0.08)"
-          : "rgba(200,135,10,0.12)",
+          ? "rgba(200,135,10,0.12)"
+          : "rgba(13,123,62,0.12)",
         border: isDark
-          ? "1px solid rgba(255,255,255,0.15)"
-          : "1px solid rgba(200,135,10,0.3)",
-        color: isDark ? "#ffffff" : "#c8870a",
+          ? "1px solid rgba(200,135,10,0.3)"
+          : "1px solid rgba(13,123,62,0.3)",
+        color: isDark ? "#c8870a" : "#0d7b3e",
       }}
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
       title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}

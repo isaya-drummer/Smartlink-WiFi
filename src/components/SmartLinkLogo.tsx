@@ -20,7 +20,7 @@ const sizeMap: Record<LogoSize, { image: number; title: string; sub: string }> =
  * - Dark theme: uses logo-dark.jpeg (black background)
  * - All other themes: uses logo-light.jpeg (white background)
  *
- * Name: "Smartlink" in white + "WiFi" in accent color
+ * Name: "Smartlink" in white/dark + "WiFi" in gold
  * Tagline: "We're here for you, daily"
  */
 export default function SmartLinkLogo({ size = "md", theme }: SmartLinkLogoProps) {
@@ -47,10 +47,10 @@ export default function SmartLinkLogo({ size = "md", theme }: SmartLinkLogoProps
       />
       <div className="flex flex-col">
         <span className={`${title} font-bold leading-tight`}>
-          <span style={{ color: "var(--text-primary, #ffffff)" }}>Smartlink</span>
-          <span style={{ color: "var(--accent, #00b4ff)" }}> WiFi</span>
+          <span className="logo-name" style={{ color: "var(--text-primary, #ffffff)" }}>Smartlink</span>
+          <span style={{ color: "#c8870a" }}> WiFi</span>
         </span>
-        <span className={`${sub} font-medium`} style={{ color: "var(--accent, #00b4ff)", opacity: 0.85 }}>
+        <span className={`${sub} font-medium`} style={{ color: "#c8870a", opacity: 0.85 }}>
           We&apos;re here for you, daily
         </span>
       </div>

@@ -139,7 +139,7 @@ export default function BundlesPage() {
         <Button
           onClick={openAdd}
           className="flex items-center gap-2 flex-shrink-0"
-          style={{ backgroundColor: "#00b4ff", color: "#000" }}
+          style={{ backgroundColor: "var(--accent)", color: "var(--bg-primary)" }}
         >
           <Plus className="w-4 h-4" />
           <span className="hidden sm:inline">Add Bundle</span>
@@ -181,7 +181,7 @@ export default function BundlesPage() {
                   </div>
                 </div>
                 <div className="flex items-center justify-end gap-2">
-                  <button onClick={() => openEdit(b)} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium" style={{ backgroundColor: "rgba(0,180,255,0.15)", color: "#00b4ff" }}>
+                  <button onClick={() => openEdit(b)} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium" style={{ backgroundColor: "var(--accent-dim)", color: "var(--accent)" }}>
                     <Pencil className="w-3.5 h-3.5" /> Edit
                   </button>
                   <button onClick={() => confirmDelete(b.id)} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium" style={{ backgroundColor: "rgba(239,68,68,0.15)", color: "#ef4444" }}>
@@ -205,7 +205,7 @@ export default function BundlesPage() {
                 </thead>
                 <tbody>
                   {bundles.map((b, idx) => (
-                    <tr key={b.id} style={{ backgroundColor: idx % 2 === 0 ? "var(--bg-secondary)" : "#0a1a35", borderTop: "1px solid var(--border-color)" }}>
+                    <tr key={b.id} style={{ backgroundColor: idx % 2 === 0 ? "var(--bg-secondary)" : "var(--bg-tertiary)", borderTop: "1px solid var(--border-color)" }}>
                       <td className="px-4 py-3">
                         <div className="font-medium text-white">{b.name}</div>
                         {b.description && <div className="text-xs text-gray-400">{b.description}</div>}
@@ -339,7 +339,7 @@ export default function BundlesPage() {
             <Button
               onClick={handleSave}
               disabled={saving}
-              style={{ backgroundColor: "#00b4ff", color: "#000" }}
+              style={{ backgroundColor: "var(--accent)", color: "var(--bg-primary)" }}
             >
               {saving ? "Saving…" : "Save"}
             </Button>

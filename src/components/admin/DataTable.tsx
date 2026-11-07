@@ -1,4 +1,4 @@
-import { ReactNode } from "react"
+﻿import { ReactNode } from "react"
 
 interface Column<T> {
   key: string
@@ -29,7 +29,7 @@ export default function DataTable<T extends Record<string, unknown>>({
     return (
       <div
         className="rounded-xl py-12 text-center text-gray-500 text-sm"
-        style={{ border: "1px solid #1e3a5f", backgroundColor: "#0d1f3c" }}
+        style={{ border: "1px solid var(--border-color)", backgroundColor: "var(--bg-secondary)" }}
       >
         {emptyMessage}
       </div>
@@ -38,15 +38,15 @@ export default function DataTable<T extends Record<string, unknown>>({
 
   return (
     <>
-      {/* ── Desktop table (md+) ── */}
+      {/* â”€â”€ Desktop table (md+) â”€â”€ */}
       <div
         className="hidden md:block rounded-xl overflow-hidden"
-        style={{ border: "1px solid #1e3a5f" }}
+        style={{ border: "1px solid var(--border-color)" }}
       >
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr style={{ backgroundColor: "#071020" }}>
+              <tr style={{ backgroundColor: "var(--bg-tertiary)" }}>
                 {columns.map((col) => (
                   <th
                     key={col.key}
@@ -62,8 +62,8 @@ export default function DataTable<T extends Record<string, unknown>>({
                 <tr
                   key={String(row[keyField])}
                   style={{
-                    backgroundColor: idx % 2 === 0 ? "#0d1f3c" : "#0a1a35",
-                    borderTop: "1px solid #1e3a5f",
+                    backgroundColor: idx % 2 === 0 ? "var(--bg-secondary)" : "var(--bg-tertiary)",
+                    borderTop: "1px solid var(--border-color)",
                   }}
                   className="hover:opacity-90 transition-opacity"
                 >
@@ -79,13 +79,13 @@ export default function DataTable<T extends Record<string, unknown>>({
         </div>
       </div>
 
-      {/* ── Mobile cards (< md) ── */}
+      {/* â”€â”€ Mobile cards (< md) â”€â”€ */}
       <div className="md:hidden space-y-3">
         {data.map((row) => (
           <div
             key={String(row[keyField])}
             className="rounded-xl p-4 space-y-2"
-            style={{ backgroundColor: "#0d1f3c", border: "1px solid #1e3a5f" }}
+            style={{ backgroundColor: "var(--bg-secondary)", border: "1px solid var(--border-color)" }}
           >
             {columns
               .filter((col) => !col.mobileHide)

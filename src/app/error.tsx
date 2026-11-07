@@ -11,7 +11,7 @@ export default function ErrorPage({ error, reset }: ErrorPageProps) {
   return (
     <div
       className="min-h-screen flex items-center justify-center px-4"
-      style={{ backgroundColor: "#0a1628" }}
+      style={{ backgroundColor: "#0a1a0f" }}
     >
       <div className="text-center space-y-6">
         <div className="flex justify-center">
@@ -31,7 +31,7 @@ export default function ErrorPage({ error, reset }: ErrorPageProps) {
         <button
           onClick={reset}
           className="px-6 py-3 rounded-lg font-semibold text-white transition-opacity hover:opacity-90"
-          style={{ background: "linear-gradient(to right, #00b4ff, #0066ff)" }}
+          style={{ background: "linear-gradient(to right, #c8870a, #a06208)" }}
         >
           Try Again
         </button>

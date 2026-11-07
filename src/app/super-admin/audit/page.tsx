@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useEffect, useState, useCallback } from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
@@ -40,7 +40,7 @@ export default function AuditPage() {
   }, [page, actionFilter])
 
   useEffect(() => {
-    document.title = "Smartlink WiFi — Super Admin: Audit Log"
+    document.title = "Smartlink WiFi â€” Super Admin: Audit Log"
     fetchLogs()
   }, [fetchLogs])
 
@@ -59,18 +59,18 @@ export default function AuditPage() {
           type="text"
           value={actionFilter}
           onChange={(e) => { setActionFilter(e.target.value); setPage(1) }}
-          placeholder="Filter by action…"
+          placeholder="Filter by actionâ€¦"
           className="px-3 py-2 text-sm rounded-lg outline-none focus:ring-2 w-56"
           style={{
-            backgroundColor: "#0a1628",
-            border: "1px solid #1e3a5f",
+            backgroundColor: "var(--bg-primary)",
+            border: "1px solid var(--border-color)",
             color: "#fff",
           }}
         />
         <Button
           variant="outline"
           onClick={() => { setActionFilter(""); setPage(1) }}
-          style={{ borderColor: "#1e3a5f", color: "#9ca3af" }}
+          style={{ borderColor: "var(--border-color)", color: "#9ca3af" }}
           className="text-sm"
         >
           Clear
@@ -83,12 +83,12 @@ export default function AuditPage() {
         <>
           <div
             className="rounded-xl overflow-hidden"
-            style={{ border: "1px solid #1e3a5f" }}
+            style={{ border: "1px solid var(--border-color)" }}
           >
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr style={{ backgroundColor: "#071020" }}>
+                  <tr style={{ backgroundColor: "var(--bg-tertiary)" }}>
                     {["User", "Action", "Details", "IP Address", "Date"].map((h) => (
                       <th
                         key={h}
@@ -111,8 +111,8 @@ export default function AuditPage() {
                       <tr
                         key={log.id}
                         style={{
-                          backgroundColor: idx % 2 === 0 ? "#0d1f3c" : "#0a1a35",
-                          borderTop: "1px solid #1e3a5f",
+                          backgroundColor: idx % 2 === 0 ? "var(--bg-secondary)" : "var(--bg-tertiary)",
+                          borderTop: "1px solid var(--border-color)",
                         }}
                       >
                         <td className="px-4 py-3 text-white">
@@ -122,8 +122,8 @@ export default function AuditPage() {
                           <span
                             className="px-2 py-0.5 rounded text-xs font-semibold"
                             style={{
-                              backgroundColor: "rgba(0,180,255,0.12)",
-                              color: "#00b4ff",
+                              backgroundColor: "var(--accent-dim)",
+                              color: "var(--accent)",
                             }}
                           >
                             {log.action}
@@ -135,12 +135,12 @@ export default function AuditPage() {
                         >
                           {log.details
                             ? log.details.length > 60
-                              ? log.details.slice(0, 60) + "…"
+                              ? log.details.slice(0, 60) + "â€¦"
                               : log.details
-                            : "—"}
+                            : "â€”"}
                         </td>
                         <td className="px-4 py-3 text-gray-400 text-xs">
-                          {log.ipAddress ?? "—"}
+                          {log.ipAddress ?? "â€”"}
                         </td>
                         <td className="px-4 py-3 text-gray-400 text-xs whitespace-nowrap">
                           {formatDate(log.createdAt)}
@@ -164,7 +164,7 @@ export default function AuditPage() {
                   variant="outline"
                   onClick={() => setPage((p) => Math.max(1, p - 1))}
                   disabled={page === 1}
-                  style={{ borderColor: "#1e3a5f", color: "#9ca3af" }}
+                  style={{ borderColor: "var(--border-color)", color: "#9ca3af" }}
                   className="flex items-center gap-1 text-sm"
                 >
                   <ChevronLeft className="w-4 h-4" />
@@ -174,7 +174,7 @@ export default function AuditPage() {
                   variant="outline"
                   onClick={() => setPage((p) => Math.min(data.totalPages, p + 1))}
                   disabled={page >= data.totalPages}
-                  style={{ borderColor: "#1e3a5f", color: "#9ca3af" }}
+                  style={{ borderColor: "var(--border-color)", color: "#9ca3af" }}
                   className="flex items-center gap-1 text-sm"
                 >
                   Next

@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useEffect, useState } from "react"
 import { Plus, Pencil, UserX } from "lucide-react"
@@ -38,7 +38,7 @@ export default function AdminsPage() {
   const [confirmOpen, setConfirmOpen] = useState(false)
 
   useEffect(() => {
-    document.title = "Smartlink WiFi — Super Admin: Admins"
+    document.title = "Smartlink WiFi â€” Super Admin: Admins"
     fetchAdmins()
   }, [])
 
@@ -121,7 +121,7 @@ export default function AdminsPage() {
         <Button
           onClick={openAdd}
           className="flex items-center gap-2"
-          style={{ backgroundColor: "#00b4ff", color: "#000" }}
+          style={{ backgroundColor: "var(--accent)", color: "var(--bg-primary)" }}
         >
           <Plus className="w-4 h-4" />
           Add Admin
@@ -133,12 +133,12 @@ export default function AdminsPage() {
       ) : (
         <div
           className="rounded-xl overflow-hidden"
-          style={{ border: "1px solid #1e3a5f" }}
+          style={{ border: "1px solid var(--border-color)" }}
         >
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr style={{ backgroundColor: "#071020" }}>
+                <tr style={{ backgroundColor: "var(--bg-tertiary)" }}>
                   {["Name", "Email", "Status", "Created At", "Actions"].map((h) => (
                     <th
                       key={h}
@@ -161,8 +161,8 @@ export default function AdminsPage() {
                     <tr
                       key={admin.id}
                       style={{
-                        backgroundColor: idx % 2 === 0 ? "#0d1f3c" : "#0a1a35",
-                        borderTop: "1px solid #1e3a5f",
+                        backgroundColor: idx % 2 === 0 ? "var(--bg-secondary)" : "var(--bg-tertiary)",
+                        borderTop: "1px solid var(--border-color)",
                       }}
                     >
                       <td className="px-4 py-3 font-medium text-white">{admin.name}</td>
@@ -206,7 +206,7 @@ export default function AdminsPage() {
       {/* Add / Edit Dialog */}
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <DialogContent
-          style={{ backgroundColor: "#0a1628", border: "1px solid #1e3a5f" }}
+          style={{ backgroundColor: "var(--bg-primary)", border: "1px solid var(--border-color)" }}
           className="text-white max-w-md"
         >
           <DialogHeader>
@@ -221,7 +221,7 @@ export default function AdminsPage() {
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
                 placeholder="Full name"
-                style={{ backgroundColor: "#0d1f3c", borderColor: "#1e3a5f", color: "#fff" }}
+                style={{ backgroundColor: "var(--bg-secondary)", borderColor: "var(--border-color)", color: "#fff" }}
               />
             </div>
             <div className="space-y-1">
@@ -231,7 +231,7 @@ export default function AdminsPage() {
                 value={form.email}
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
                 placeholder="admin@wifi.local"
-                style={{ backgroundColor: "#0d1f3c", borderColor: "#1e3a5f", color: "#fff" }}
+                style={{ backgroundColor: "var(--bg-secondary)", borderColor: "var(--border-color)", color: "#fff" }}
               />
             </div>
             <div className="space-y-1">
@@ -242,8 +242,8 @@ export default function AdminsPage() {
                 type="password"
                 value={form.password}
                 onChange={(e) => setForm({ ...form, password: e.target.value })}
-                placeholder="••••••••"
-                style={{ backgroundColor: "#0d1f3c", borderColor: "#1e3a5f", color: "#fff" }}
+                placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
+                style={{ backgroundColor: "var(--bg-secondary)", borderColor: "var(--border-color)", color: "#fff" }}
               />
             </div>
             {error && <p className="text-sm text-red-400">{error}</p>}
@@ -252,16 +252,16 @@ export default function AdminsPage() {
             <Button
               variant="outline"
               onClick={() => setDialogOpen(false)}
-              style={{ borderColor: "#1e3a5f", color: "#9ca3af" }}
+              style={{ borderColor: "var(--border-color)", color: "#9ca3af" }}
             >
               Cancel
             </Button>
             <Button
               onClick={handleSave}
               disabled={saving}
-              style={{ backgroundColor: "#00b4ff", color: "#000" }}
+              style={{ backgroundColor: "var(--accent)", color: "var(--bg-primary)" }}
             >
-              {saving ? "Saving…" : "Save"}
+              {saving ? "Savingâ€¦" : "Save"}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -270,7 +270,7 @@ export default function AdminsPage() {
       {/* Deactivate Confirmation */}
       <Dialog open={confirmOpen} onOpenChange={setConfirmOpen}>
         <DialogContent
-          style={{ backgroundColor: "#0a1628", border: "1px solid #1e3a5f" }}
+          style={{ backgroundColor: "var(--bg-primary)", border: "1px solid var(--border-color)" }}
           className="text-white max-w-sm"
         >
           <DialogHeader>
@@ -284,7 +284,7 @@ export default function AdminsPage() {
             <Button
               variant="outline"
               onClick={() => setConfirmOpen(false)}
-              style={{ borderColor: "#1e3a5f", color: "#9ca3af" }}
+              style={{ borderColor: "var(--border-color)", color: "#9ca3af" }}
             >
               Cancel
             </Button>

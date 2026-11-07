@@ -33,9 +33,9 @@ export default function LanguageToggle() {
         onClick={() => setOpen((o) => !o)}
         className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full text-xs font-medium transition-all hover:scale-105 active:scale-95"
         style={{
-          backgroundColor: "rgba(0,180,255,0.12)",
-          border: "1px solid rgba(0,180,255,0.3)",
-          color: "#00b4ff",
+          backgroundColor: "rgba(200,135,10,0.12)",
+          border: "1px solid rgba(200,135,10,0.3)",
+          color: "#c8870a",
         }}
         aria-label="Change language"
         title="Change language"
@@ -48,7 +48,7 @@ export default function LanguageToggle() {
       {open && (
         <div
           className="absolute right-0 top-full mt-2 z-50 rounded-xl overflow-hidden shadow-xl min-w-[140px]"
-          style={{ backgroundColor: "#0d1f3c", border: "1px solid rgba(0,180,255,0.25)" }}
+          style={{ backgroundColor: "#0f2318", border: "1px solid rgba(200,135,10,0.25)" }}
         >
           {LANGUAGES.map((l) => (
             <button
@@ -57,9 +57,9 @@ export default function LanguageToggle() {
               onClick={() => { setLang(l.code); setOpen(false) }}
               className="w-full flex items-center gap-2.5 px-4 py-2.5 text-sm text-left transition-colors hover:bg-white/10"
               style={{
-                color: lang === l.code ? "#00b4ff" : "#fff",
+                color: lang === l.code ? "#c8870a" : "#fff",
                 fontWeight: lang === l.code ? 600 : 400,
-                backgroundColor: lang === l.code ? "rgba(0,180,255,0.08)" : "transparent",
+                backgroundColor: lang === l.code ? "rgba(200,135,10,0.10)" : "transparent",
               }}
             >
               <span className="text-base">{l.flag}</span>

@@ -1,5 +1,4 @@
 ﻿"use client"
-
 import { Suspense, useState } from "react"
 import { signIn } from "next-auth/react"
 import { useSearchParams } from "next/navigation"
@@ -28,30 +27,30 @@ function LoginForm() {
     }
   }
 
-  const inputStyle = { backgroundColor: "#0a1628", border: "1px solid #1e3a5f", color: "#fff" }
+  const inputStyle = { backgroundColor: "#071510", border: "1px solid #1a3d22", color: "#fff" }
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="space-y-1.5">
-        <label className="block text-sm font-medium text-gray-300">Email</label>
+        <label className="block text-sm font-medium" style={{ color: "#8aab92" }}>Email</label>
         <input type="email" required value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="admin@smartlinkwifi.com"
-          className="w-full px-4 py-2.5 rounded-lg text-sm outline-none focus:ring-2 transition"
+          className="w-full px-4 py-2.5 rounded-lg text-sm outline-none transition"
           style={inputStyle} />
       </div>
       <div className="space-y-1.5">
-        <label className="block text-sm font-medium text-gray-300">Password</label>
+        <label className="block text-sm font-medium" style={{ color: "#8aab92" }}>Password</label>
         <div className="relative">
           <input
             type={showPw ? "text" : "password"} required value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="••••••••"
-            className="w-full px-4 py-2.5 pr-11 rounded-lg text-sm outline-none focus:ring-2 transition"
+            className="w-full px-4 py-2.5 pr-11 rounded-lg text-sm outline-none transition"
             style={inputStyle} />
           <button type="button" onClick={() => setShowPw((v) => !v)} tabIndex={-1}
-            className="absolute right-3 top-1/2 -translate-y-1/2 p-1 rounded transition-colors hover:text-white"
-            style={{ color: "#9ca3af" }}
+            className="absolute right-3 top-1/2 -translate-y-1/2 p-1 rounded transition-colors"
+            style={{ color: "#8aab92" }}
             aria-label={showPw ? "Hide password" : "Show password"}>
             {showPw ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
           </button>
@@ -60,7 +59,7 @@ function LoginForm() {
       {error && <p className="text-sm text-red-400 text-center">{error}</p>}
       <button type="submit" disabled={loading}
         className="w-full py-2.5 rounded-lg font-semibold text-white text-sm transition-opacity disabled:opacity-60"
-        style={{ background: "linear-gradient(to right, #00b4ff, #0066ff)" }}>
+        style={{ background: "linear-gradient(to right, #c8870a, #a06208)" }}>
         {loading ? "Signing in..." : "Sign In"}
       </button>
     </form>
@@ -69,18 +68,18 @@ function LoginForm() {
 
 export default function LoginPage() {
   return (
-    <div className="min-h-screen flex items-center justify-center px-4" style={{ backgroundColor: "#0a1628" }}>
+    <div className="min-h-screen flex items-center justify-center px-4" style={{ backgroundColor: "#0a1a0f" }}>
       <div className="w-full max-w-md rounded-2xl p-8 space-y-6"
-        style={{ backgroundColor: "#0d1f3c", border: "1px solid #00b4ff" }}>
+        style={{ backgroundColor: "#0f2318", border: "1px solid #c8870a" }}>
         <div className="flex justify-center"><SmartLinkLogo size="lg" /></div>
         <div className="text-center space-y-1">
-          <h1 className="text-2xl font-bold text-white">Smartlink WiFi</h1>
-          <p className="text-sm" style={{ color: "#00b4ff" }}>We&apos;re here for you, daily</p>
+          <h1 className="text-2xl font-bold text-white">Smartlink <span style={{ color: "#c8870a" }}>WiFi</span></h1>
+          <p className="text-sm" style={{ color: "#c8870a" }}>We&apos;re here for you, daily</p>
         </div>
-        <Suspense fallback={<div className="py-4 text-center text-gray-400 text-sm">Loading...</div>}>
+        <Suspense fallback={<div className="py-4 text-center text-sm" style={{ color: "#8aab92" }}>Loading...</div>}>
           <LoginForm />
         </Suspense>
-        <p className="text-center text-xs text-gray-500">© 2026 Smartlink WiFi</p>
+        <p className="text-center text-xs" style={{ color: "#4a7055" }}>© 2026 Smartlink WiFi</p>
       </div>
     </div>
   )

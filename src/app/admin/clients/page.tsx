@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useEffect, useState } from "react"
 import { RefreshCw } from "lucide-react"
@@ -17,7 +17,7 @@ export default function ClientsPage() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    document.title = "Smartlink WiFi — Admin: Clients"
+    document.title = "Smartlink WiFi â€” Admin: Clients"
     fetchClients()
   }, [])
 
@@ -53,12 +53,12 @@ export default function ClientsPage() {
       ) : (
         <div
           className="rounded-xl overflow-hidden"
-          style={{ border: "1px solid #1e3a5f" }}
+          style={{ border: "1px solid var(--border-color)" }}
         >
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr style={{ backgroundColor: "#071020" }}>
+                <tr style={{ backgroundColor: "var(--bg-tertiary)" }}>
                   {[
                     "Name",
                     "Phone",
@@ -91,8 +91,8 @@ export default function ClientsPage() {
                       key={c.clientPhone}
                       style={{
                         backgroundColor:
-                          idx % 2 === 0 ? "#0d1f3c" : "#0a1a35",
-                        borderTop: "1px solid #1e3a5f",
+                          idx % 2 === 0 ? "var(--bg-secondary)" : "var(--bg-tertiary)",
+                        borderTop: "1px solid var(--border-color)",
                       }}
                     >
                       <td className="px-4 py-3 text-white font-medium">
@@ -108,7 +108,7 @@ export default function ClientsPage() {
                         {formatCurrency(c.totalSpent)}
                       </td>
                       <td className="px-4 py-3 text-gray-400 text-xs whitespace-nowrap">
-                        {c.lastSeen ? formatDate(c.lastSeen) : "—"}
+                        {c.lastSeen ? formatDate(c.lastSeen) : "â€”"}
                       </td>
                     </tr>
                   ))

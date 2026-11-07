@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useEffect, useState, useCallback } from "react"
 import { Save, AlertTriangle } from "lucide-react"
@@ -60,7 +60,7 @@ export default function SystemPage() {
   }, [])
 
   useEffect(() => {
-    document.title = "Smartlink WiFi — Super Admin: System"
+    document.title = "Smartlink WiFi â€” Super Admin: System"
     fetchSettings()
     fetchDbInfo()
   }, [fetchSettings, fetchDbInfo])
@@ -106,7 +106,7 @@ export default function SystemPage() {
         ) : (
           <div
             className="rounded-xl overflow-hidden"
-            style={{ border: "1px solid #1e3a5f" }}
+            style={{ border: "1px solid var(--border-color)" }}
           >
             {settings.length === 0 ? (
               <p className="px-6 py-8 text-center text-gray-500">
@@ -115,7 +115,7 @@ export default function SystemPage() {
             ) : (
               <table className="w-full text-sm">
                 <thead>
-                  <tr style={{ backgroundColor: "#071020" }}>
+                  <tr style={{ backgroundColor: "var(--bg-tertiary)" }}>
                     {["Key", "Value", "Actions"].map((h) => (
                       <th
                         key={h}
@@ -131,8 +131,8 @@ export default function SystemPage() {
                     <tr
                       key={s.id}
                       style={{
-                        backgroundColor: idx % 2 === 0 ? "#0d1f3c" : "#0a1a35",
-                        borderTop: "1px solid #1e3a5f",
+                        backgroundColor: idx % 2 === 0 ? "var(--bg-secondary)" : "var(--bg-tertiary)",
+                        borderTop: "1px solid var(--border-color)",
                       }}
                     >
                       <td className="px-4 py-3 font-mono text-xs text-gray-300 whitespace-nowrap">
@@ -145,8 +145,8 @@ export default function SystemPage() {
                             setEditValues((prev) => ({ ...prev, [s.key]: e.target.value }))
                           }
                           style={{
-                            backgroundColor: "#0a1628",
-                            borderColor: "#1e3a5f",
+                            backgroundColor: "var(--bg-primary)",
+                            borderColor: "var(--border-color)",
                             color: "#fff",
                             height: "32px",
                             fontSize: "13px",
@@ -159,10 +159,10 @@ export default function SystemPage() {
                             onClick={() => handleSave(s.key)}
                             disabled={saving === s.key}
                             className="flex items-center gap-1 h-8 px-3 text-xs"
-                            style={{ backgroundColor: "#00b4ff", color: "#000" }}
+                            style={{ backgroundColor: "var(--accent)", color: "var(--bg-primary)" }}
                           >
                             <Save className="w-3 h-3" />
-                            {saving === s.key ? "Saving…" : "Save"}
+                            {saving === s.key ? "Savingâ€¦" : "Save"}
                           </Button>
                           {saved === s.key && (
                             <span className="text-xs" style={{ color: "#22c55e" }}>
@@ -189,7 +189,7 @@ export default function SystemPage() {
               <div
                 key={model}
                 className="rounded-xl p-4 flex flex-col gap-1"
-                style={{ backgroundColor: "#0a1628", border: "1px solid #1e3a5f" }}
+                style={{ backgroundColor: "var(--bg-primary)", border: "1px solid var(--border-color)" }}
               >
                 <span className="text-xs text-gray-400 capitalize">{model}</span>
                 <span className="text-2xl font-bold text-white">
@@ -242,7 +242,7 @@ export default function SystemPage() {
       {/* Danger Confirmation Dialog */}
       <Dialog open={dangerOpen} onOpenChange={setDangerOpen}>
         <DialogContent
-          style={{ backgroundColor: "#0a1628", border: "1px solid #ef4444" }}
+          style={{ backgroundColor: "var(--bg-primary)", border: "1px solid #ef4444" }}
           className="text-white max-w-sm"
         >
           <DialogHeader>
@@ -259,7 +259,7 @@ export default function SystemPage() {
             <Button
               variant="outline"
               onClick={() => setDangerOpen(false)}
-              style={{ borderColor: "#1e3a5f", color: "#9ca3af" }}
+              style={{ borderColor: "var(--border-color)", color: "#9ca3af" }}
             >
               Cancel
             </Button>
@@ -268,7 +268,7 @@ export default function SystemPage() {
               disabled={dangerLoading}
               style={{ backgroundColor: "#ef4444", color: "#fff" }}
             >
-              {dangerLoading ? "Processing…" : "Expire All Pending"}
+              {dangerLoading ? "Processingâ€¦" : "Expire All Pending"}
             </Button>
           </DialogFooter>
         </DialogContent>

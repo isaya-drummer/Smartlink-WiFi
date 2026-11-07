@@ -4,8 +4,8 @@ import { createContext, useContext, useEffect, useState } from "react"
 export type Theme = "dark" | "light"
 
 export const THEMES: { value: Theme; label: string; preview: string; icon: string }[] = [
-  { value: "dark",  label: "Dark Mode",  preview: "#0a1628", icon: "🌙" },
-  { value: "light", label: "Light Mode", preview: "#f8f4ed", icon: "☀️" },
+  { value: "dark",  label: "Dark Mode",  preview: "#0a1a0f", icon: "🌙" },
+  { value: "light", label: "Light Mode", preview: "#f5faf6", icon: "☀️" },
 ]
 
 interface ThemeContextValue {

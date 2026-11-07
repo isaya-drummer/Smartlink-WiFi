@@ -5,7 +5,7 @@ export default function NotFound() {
   return (
     <div
       className="min-h-screen flex items-center justify-center px-4"
-      style={{ backgroundColor: "#0a1628" }}
+      style={{ backgroundColor: "#0a1a0f" }}
     >
       <div className="text-center space-y-6">
         <div className="flex justify-center">
@@ -13,7 +13,7 @@ export default function NotFound() {
         </div>
 
         <div className="space-y-2">
-          <h1 className="text-6xl font-bold" style={{ color: "#00b4ff" }}>
+          <h1 className="text-6xl font-bold" style={{ color: "#c8870a" }}>
             404
           </h1>
           <h2 className="text-2xl font-semibold text-white">Page Not Found</h2>
@@ -25,7 +25,7 @@ export default function NotFound() {
         <Link
           href="/portal"
           className="inline-block px-6 py-3 rounded-lg font-semibold text-white transition-opacity hover:opacity-90"
-          style={{ background: "linear-gradient(to right, #00b4ff, #0066ff)" }}
+          style={{ background: "linear-gradient(to right, #c8870a, #a06208)" }}
         >
           Go Home
         </Link>

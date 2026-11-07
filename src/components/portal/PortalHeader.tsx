@@ -18,11 +18,10 @@ export default function PortalHeader() {
 
       <p
         className="mt-3 text-base font-medium text-center transition-opacity duration-200"
-        style={{ color: "#00b4ff" }}
+        style={{ color: "#c8870a" }}
       >
         {t.common.tagline}
       </p>
     </header>
   )
 }
-

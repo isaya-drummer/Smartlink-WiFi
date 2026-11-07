@@ -2,10 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ══ FONTS ══ */
 @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap");
 
-/* ══ BASE SHADCN TOKENS ══ */
 @layer base {
   :root {
     --background: 222.2 84% 4.9%;
@@ -39,342 +37,151 @@
 @layer base {
   body {
     @apply bg-background text-foreground;
-    background-color: #0a1628;
+    background-color: #0a1a0f;
     font-family: "Inter", system-ui, sans-serif;
   }
 }
 
 /* ══════════════════════════════════════════════
-   DARK MODE — original navy (unchanged)
+   DARK MODE — Deep Forest Green + Gold
+   Professional & Corporate
 ══════════════════════════════════════════════ */
 :root,
 .dark {
-  --bg-primary:     #0a1628;
-  --bg-secondary:   #0d1f3c;
-  --bg-tertiary:    #071020;
-  --border-color:   #1e3a5f;
-  --text-primary:   #ffffff;
-  --text-secondary: #9ca3af;
-  --accent:         #00b4ff;
-  --accent-dim:     rgba(0,180,255,0.12);
-  --card-shadow:    none;
+  --bg-primary:      #0a1a0f;
+  --bg-secondary:    #0f2318;
+  --bg-tertiary:     #071510;
+  --border-color:    #1a3d22;
+  --text-primary:    #ffffff;
+  --text-secondary:  #8aab92;
+  --accent:          #c8870a;
+  --accent-dim:      rgba(200,135,10,0.12);
+  --accent-green:    #1a9e4a;
+  --accent-green-dim: rgba(26,158,74,0.12);
+  --card-shadow:     none;
 }
-.dark body { background-color: #0a1628 !important; }
+
+.dark body,
+body { background-color: #0a1a0f !important; }
 
 /* ══════════════════════════════════════════════
-   LIGHT MODE — CASFETA Design System
-   Emerald #0D7B6B · Warm cream #FDFCFB
-   Serif headings (Playfair Display)
+   LIGHT MODE — Clean White + Emerald + Gold
 ══════════════════════════════════════════════ */
 .light {
-  --background:         #FDFCFB;
-  --foreground:         #1A2E2A;
-  --card:               #FFFFFF;
-  --card-foreground:    #1A2E2A;
-  --popover:            #FFFFFF;
-  --popover-foreground: #1A2E2A;
-  --primary:            #0D7B6B;
-  --primary-foreground: #FDFCFB;
-  --secondary:          #F3F1EE;
-  --secondary-foreground: #253D38;
-  --muted:              #F3F2F0;
-  --muted-foreground:   #6B7F78;
-  --accent:             #F5EFE0;
-  --accent-foreground:  #6B5320;
-  --destructive:        #D64F2A;
-  --destructive-foreground: #FDFCFB;
-  --border:             #E0E7E5;
-  --input:              #E8EDEB;
-  --ring:               #0D7B6B;
-  --bg-primary:         #FDFCFB;
-  --bg-secondary:       #FFFFFF;
-  --bg-tertiary:        #F3F2F0;
-  --border-color:       #E0E7E5;
-  --text-primary:       #1A2E2A;
-  --text-secondary:     #6B7F78;
-  --accent-dim:         rgba(13,123,107,0.10);
-  --card-shadow:        0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
-  --sidebar:            #F8FAF9;
-  --sidebar-border:     #E0E7E5;
+  --bg-primary:      #f5faf6;
+  --bg-secondary:    #ffffff;
+  --bg-tertiary:     #edf5ef;
+  --border-color:    #c8e0cd;
+  --text-primary:    #0a1a0f;
+  --text-secondary:  #4a7055;
+  --accent:          #0d7b3e;
+  --accent-dim:      rgba(13,123,62,0.10);
+  --accent-green:    #0d7b3e;
+  --accent-green-dim: rgba(13,123,62,0.10);
+  --accent-gold:     #c8870a;
+  --card-shadow:     0 1px 4px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
 }
 
-.light body {
-  background-color: #FDFCFB !important;
-  color: #1A2E2A;
-}
+.light body { background-color: #f5faf6 !important; }
 
-/* Headings — Playfair Display */
+/* Light mode headings */
 .light h1, .light h2 {
   font-family: "Playfair Display", Georgia, serif !important;
   font-weight: 600;
-  letter-spacing: -0.01em;
-  color: #1A2E2A !important;
+  color: #0a1a0f !important;
 }
-.light h3, .light h4 {
-  color: #1A2E2A !important;
-  font-weight: 600;
-}
+.light h3, .light h4 { color: #0a1a0f !important; font-weight: 600; }
 
-/* ── Sidebar ── */
+/* Sidebar in light mode — dark green stays premium */
 .light aside {
-  background-color: #F8FAF9 !important;
-  border-color: #E0E7E5 !important;
+  background-color: #0f2318 !important;
+  border-color: #1a3d22 !important;
 }
-.light aside a { color: #4A6360 !important; }
-.light aside a:hover {
-  color: #1A2E2A !important;
-  background-color: #EBF4F2 !important;
-}
+.light aside a { color: #c8e0cd !important; }
+.light aside a:hover { color: #ffffff !important; background-color: rgba(200,135,10,0.15) !important; }
 .light aside .text-gray-400,
-.light aside .text-gray-500 { color: #6B7F78 !important; }
-.light aside p { color: #6B7F78 !important; }
+.light aside .text-gray-500 { color: #8aab92 !important; }
+.light aside p { color: #8aab92 !important; }
 
-/* ── Text overrides ── */
-.light .text-white    { color: #1A2E2A !important; }
-.light .text-gray-400 { color: #6B7F78 !important; }
-.light .text-gray-500 { color: #8A9E99 !important; }
-.light .text-gray-300 { color: #4A6360 !important; }
+/* Text in light mode */
+.light .text-white { color: #0a1a0f !important; }
+.light .text-gray-400 { color: #4a7055 !important; }
+.light .text-gray-500 { color: #6a9070 !important; }
+.light .text-gray-300 { color: #3a6045 !important; }
 
-/* ── Cards ── */
+/* Cards */
 .light .rounded-xl,
 .light .rounded-2xl {
-  box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
 }
 
-/* ── Tables ── */
-.light table th {
-  background-color: #F3F2F0 !important;
-  color: #6B7F78 !important;
-  font-size: 0.72rem;
+/* Tables in light mode */
+.light thead tr { background-color: #edf5ef !important; }
+.light thead th {
+  color: #4a7055 !important;
+  border-bottom: 2px solid #c8e0cd !important;
   text-transform: uppercase;
+  font-size: 0.72rem;
   letter-spacing: 0.05em;
 }
-.light table td { color: #1A2E2A !important; }
-.light table tr { border-color: #E0E7E5 !important; }
-.light table tr:nth-child(even) td { background-color: #FAFAF9 !important; }
-.light table tr:hover td { background-color: #F0F7F5 !important; }
+.light tbody td { color: #0a1a0f !important; border-color: #c8e0cd !important; }
+.light tbody tr:nth-child(even) { background-color: #f0f8f2 !important; }
+.light tbody tr:hover { background-color: #e4f2e8 !important; }
 
-/* ── Inputs ── */
-.light input,
-.light textarea,
-.light select {
-  background-color: #E8EDEB !important;
-  border-color: #E0E7E5 !important;
-  color: #1A2E2A !important;
+/* Override ALL hardcoded dark blues in light mode */
+.light [style*="#0d1f3c"],
+.light [style*="#0a1a35"],
+.light [style*="#071020"],
+.light [style*="#0a1628"],
+.light [style*="0d1f3c"],
+.light [style*="0a1628"] {
+  background-color: #ffffff !important;
+  color: #0a1a0f !important;
 }
-.light input::placeholder,
-.light textarea::placeholder { color: #6B7F78 !important; }
-.light input:focus,
-.light textarea:focus {
-  border-color: #0D7B6B !important;
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(13,123,107,0.18) !important;
-}
+.light [style*="#1e3a5f"],
+.light [style*="1e3a5f"] { border-color: #c8e0cd !important; }
+.light .overflow-x-auto { background-color: #ffffff !important; }
+.light .border-b { border-color: #c8e0cd !important; }
 
-/* ── Dropdowns/menus ── */
-.light [role="menuitem"] { color: #1A2E2A !important; }
-.light [role="menuitem"]:hover { background-color: #EBF4F2 !important; }
-
-/* ── Icon accent areas ── */
-.light .stats-icon {
-  background-color: rgba(13,123,107,0.10) !important;
-  color: #0D7B6B !important;
+/* Inputs */
+.light input, .light textarea, .light select {
+  background-color: #edf5ef !important;
+  border-color: #c8e0cd !important;
+  color: #0a1a0f !important;
 }
-.light .notification-badge {
-  background-color: #0D7B6B !important;
-  color: #FFFFFF !important;
-}
-.light .avatar-initials {
-  background-color: rgba(13,123,107,0.12) !important;
-  color: #0D7B6B !important;
+.light input::placeholder, .light textarea::placeholder { color: #6a9070 !important; }
+.light input:focus, .light textarea:focus {
+  border-color: #0d7b3e !important;
+  box-shadow: 0 0 0 2px rgba(13,123,62,0.18) !important;
 }
 
-/* ── Chart bars — emerald ── */
-.light .recharts-bar-rectangle path { fill: #0D7B6B !important; }
+/* Dropdowns */
+.light [role="menuitem"] { color: #0a1a0f !important; }
+.light [role="menuitem"]:hover { background-color: #e4f2e8 !important; }
 
-/* ── Scrollbar ── */
+/* Scrollbar */
 .light ::-webkit-scrollbar { width: 8px; height: 8px; }
 .light ::-webkit-scrollbar-track { background: transparent; }
-.light ::-webkit-scrollbar-thumb {
-  background: #C5D5D2;
-  border-radius: 5px;
-}
-.light ::-webkit-scrollbar-thumb:hover { background: #0D7B6B; }
+.light ::-webkit-scrollbar-thumb { background: #b8d4be; border-radius: 5px; }
+.light ::-webkit-scrollbar-thumb:hover { background: #0d7b3e; }
 
+/* ══════════════════════════════════════════════
+   PORTAL — Dark Green theme for both modes
+══════════════════════════════════════════════ */
+/* Portal keeps dark green background always */
+.portal-bg { background-color: #0a1a0f !important; }
 
-/* ══ UTILITY CLASSES ══ */
+/* ══════════════════════════════════════════════
+   UTILITY CLASSES
+══════════════════════════════════════════════ */
 @layer utilities {
-  .card-hover {
-    @apply transition-all duration-200 hover:shadow-md hover:-translate-y-0.5;
-  }
-  .focus-ring {
-    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
-  }
-  .nav-item-active {
-    @apply bg-primary/10 text-primary font-medium;
-  }
+  .card-hover { @apply transition-all duration-200 hover:shadow-md hover:-translate-y-0.5; }
+  .focus-ring { @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background; }
+  .nav-item-active { @apply bg-primary/10 text-primary font-medium; }
   .bg-grid-pattern {
     background-image:
       linear-gradient(to right, rgba(0,0,0,0.04) 1px, transparent 1px),
       linear-gradient(to bottom, rgba(0,0,0,0.04) 1px, transparent 1px);
     background-size: 32px 32px;
   }
-}
-
-/* ══════════════════════════════════════════════
-   LIGHT MODE — Override all hardcoded dark blues
-   #071020, #0a1628, #0a1a35, #0d1f3c → white/cream
-   #1e3a5f → light border
-══════════════════════════════════════════════ */
-
-/* Table header rows */
-.light tr[style*="071020"],
-.light tr[style*="0a1628"] {
-  background-color: #F3F2F0 !important;
-}
-
-/* Alternating table rows — both dark shades → white/off-white */
-.light tr[style*="0d1f3c"],
-.light tr[style*="0a1a35"],
-.light tr[style*="0a1628"] {
-  background-color: #FFFFFF !important;
-}
-.light tr:nth-child(even) {
-  background-color: #F8FAF8 !important;
-}
-.light tr:hover {
-  background-color: #EEF6F4 !important;
-}
-
-/* Card/panel backgrounds */
-.light div[style*="0d1f3c"],
-.light div[style*="0a1628"],
-.light div[style*="071020"],
-.light section[style*="0d1f3c"] {
-  background-color: #FFFFFF !important;
-}
-
-/* Borders — replace dark blue with light */
-.light *[style*="1e3a5f"] {
-  border-color: #E0E7E5 !important;
-}
-
-/* Table overflow containers */
-.light .overflow-x-auto[style*="0d1f3c"],
-.light .overflow-x-auto[style*="0a1628"] {
-  background-color: #FFFFFF !important;
-}
-
-/* DataTable empty state */
-.light .rounded-xl[style*="0d1f3c"] {
-  background-color: #FFFFFF !important;
-  border-color: #E0E7E5 !important;
-}
-
-/* Mobile card rows in DataTable */
-.light .space-y-3 > div[style*="0d1f3c"] {
-  background-color: #FFFFFF !important;
-  border-color: #E0E7E5 !important;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-}
-
-/* Section header backgrounds */
-.light .px-6.py-4.border-b[style*="0a1628"],
-.light .px-6.py-4[style*="0a1628"] {
-  background-color: #F8FAF9 !important;
-}
-
-/* Stat cards and inner panels */
-.light [style*="background-color: var(--bg-secondary)"],
-.light [style*="backgroundColor: \"#0d1f3c\""] {
-  background-color: #FFFFFF !important;
-}
-
-/* ══════════════════════════════════════════════
-   LIGHT MODE — Force override all hardcoded dark
-   navy/blue colors (#071020 #0a1628 #0d1f3c
-   #0a1a35 #1e3a5f) so they become light in light
-   mode. Dark mode is NOT affected.
-══════════════════════════════════════════════ */
-
-/* All elements with hardcoded dark bg in light mode */
-.light [style*="background-color: rgb(10, 22, 40)"],
-.light [style*="background-color: rgb(13, 31, 60)"],
-.light [style*="background-color: rgb(10, 26, 53)"],
-.light [style*="background-color: rgb(7, 16, 32)"] {
-  background-color: #FFFFFF !important;
-}
-
-/* Table rows — override inline styles for dark stripes */
-.light tbody tr {
-  background-color: #FFFFFF !important;
-}
-.light tbody tr:nth-child(even) {
-  background-color: #F5F9F8 !important;
-}
-.light tbody tr:hover {
-  background-color: #EEF6F4 !important;
-}
-
-/* Table headers */
-.light thead tr {
-  background-color: #F0F4F3 !important;
-}
-.light thead th {
-  color: #6B7F78 !important;
-  border-bottom: 2px solid #E0E7E5 !important;
-}
-
-/* Table cells */
-.light tbody td {
-  color: #1A2E2A !important;
-  border-color: #E0E7E5 !important;
-}
-
-/* Section / card containers with dark bg */
-.light .overflow-x-auto {
-  background-color: #FFFFFF !important;
-}
-.light .overflow-hidden {
-  background-color: #FFFFFF !important;
-}
-
-/* Section header bars (px-6 py-4 border-b) */
-.light .border-b {
-  border-color: #E0E7E5 !important;
-}
-
-/* ALL inline dark backgrounds via universal override */
-/* This catches any element that has the dark navy colors set inline */
-.light * {
-  --tw-bg-opacity: 1;
-}
-
-/* Override specific color combinations used as table rows */
-.light [style*="#0d1f3c"],
-.light [style*="#0a1a35"],
-.light [style*="#071020"],
-.light [style*="#0a1628"] {
-  background-color: #FFFFFF !important;
-  color: #1A2E2A !important;
-}
-
-/* Border overrides */
-.light [style*="#1e3a5f"] {
-  border-color: #E0E7E5 !important;
-}
-.light [style*="1e3a5f"] {
-  border-color: #E0E7E5 !important;
-}
-
-/* Text color overrides for hardcoded white text */
-.light [style*="color: rgb(255, 255, 255)"],
-.light [style*="color: #fff"],
-.light [style*="color: white"] {
-  color: #1A2E2A !important;
-}
-
-/* Ensure card section headers are light */
-.light .px-6.py-4 {
-  background-color: #F8FAF9 !important;
 }

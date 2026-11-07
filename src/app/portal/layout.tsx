@@ -19,8 +19,8 @@ export default function PortalLayout({
   return (
     <LanguageProvider>
       <div
-        className="min-h-screen flex flex-col"
-        style={{ backgroundColor: "#0a1628" }}
+        className="portal min-h-screen flex flex-col"
+        style={{ backgroundColor: "#0a1a0f" }}
       >
         <PortalHeader />
 

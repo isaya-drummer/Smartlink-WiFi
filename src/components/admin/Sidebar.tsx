@@ -64,7 +64,7 @@ export default function Sidebar({ onClose }: { onClose?: () => void }) {
 
   return (
     <aside
-      className="flex flex-col h-full w-64 flex-shrink-0"
+      className="admin-sidebar flex flex-col h-full w-64 flex-shrink-0"
       style={{ backgroundColor: "var(--bg-primary)" }}
     >
       {/* Logo + mobile close button */}
@@ -94,10 +94,10 @@ export default function Sidebar({ onClose }: { onClose?: () => void }) {
               style={
                 active
                   ? {
-                      borderLeft: "3px solid var(--accent)",
+                      borderLeft: "3px solid #c8870a",
                       paddingLeft: "calc(0.75rem - 3px)",
-                      backgroundColor: "var(--accent-dim)",
-                      color: "var(--accent)",
+                      backgroundColor: "rgba(200,135,10,0.10)",
+                      color: "#c8870a",
                     }
                   : { color: "var(--text-secondary)" }
               }

@@ -13,9 +13,9 @@ interface StatusBadgeProps {
 }
 
 const statusStyles: Record<string, { bg: string; text: string }> = {
-  ACTIVE: { bg: "rgba(34,197,94,0.15)", text: "#22c55e" },
-  SUCCESS: { bg: "rgba(34,197,94,0.15)", text: "#22c55e" },
-  PENDING: { bg: "rgba(234,179,8,0.15)", text: "#eab308" },
+  ACTIVE: { bg: "rgba(26,158,74,0.15)", text: "#1a9e4a" },
+  SUCCESS: { bg: "rgba(26,158,74,0.15)", text: "#1a9e4a" },
+  PENDING: { bg: "rgba(200,135,10,0.15)", text: "#c8870a" },
   EXPIRED: { bg: "rgba(239,68,68,0.15)", text: "#ef4444" },
   FAILED: { bg: "rgba(239,68,68,0.15)", text: "#ef4444" },
   USED: { bg: "rgba(59,130,246,0.15)", text: "#3b82f6" },
@@ -25,7 +25,7 @@ const defaultStyle = { bg: "rgba(107,114,128,0.15)", text: "#6b7280" }
 
 /**
  * Colored badge for voucher and payment statuses.
- * ACTIVE/SUCCESS=green, PENDING=yellow, EXPIRED/FAILED=red, USED=blue.
+ * ACTIVE/SUCCESS=green, PENDING=gold, EXPIRED/FAILED=red, USED=blue.
  */
 export default function StatusBadge({ status, label }: StatusBadgeProps) {
   const style = statusStyles[status] ?? defaultStyle

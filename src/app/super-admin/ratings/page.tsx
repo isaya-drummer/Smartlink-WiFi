@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useEffect, useState, useCallback } from "react"
 import { maskPhone, formatDate } from "@/lib/utils"
@@ -43,7 +43,7 @@ export default function RatingsPage() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    document.title = "Smartlink WiFi — Super Admin: Ratings"
+    document.title = "Smartlink WiFi â€” Super Admin: Ratings"
   }, [])
 
   const fetchRatings = useCallback(async () => {
@@ -78,7 +78,7 @@ export default function RatingsPage() {
         {/* Total */}
         <div
           className="rounded-xl p-5"
-          style={{ backgroundColor: "#0a1628", border: "1px solid #1e3a5f" }}
+          style={{ backgroundColor: "var(--bg-primary)", border: "1px solid var(--border-color)" }}
         >
           <p className="text-sm text-gray-400">Total Ratings</p>
           <p className="text-3xl font-bold text-white mt-1">{data.stats.total}</p>
@@ -87,18 +87,18 @@ export default function RatingsPage() {
         {/* Average */}
         <div
           className="rounded-xl p-5"
-          style={{ backgroundColor: "#0a1628", border: "1px solid #1e3a5f" }}
+          style={{ backgroundColor: "var(--bg-primary)", border: "1px solid var(--border-color)" }}
         >
           <p className="text-sm text-gray-400">Average Rating</p>
-          <p className="text-3xl font-bold mt-1" style={{ color: "#00b4ff" }}>
-            {data.stats.average > 0 ? `${data.stats.average} ★` : "—"}
+          <p className="text-3xl font-bold mt-1" style={{ color: "var(--accent)" }}>
+            {data.stats.average > 0 ? `${data.stats.average} â˜…` : "â€”"}
           </p>
         </div>
 
         {/* Distribution */}
         <div
           className="rounded-xl p-5"
-          style={{ backgroundColor: "#0a1628", border: "1px solid #1e3a5f" }}
+          style={{ backgroundColor: "var(--bg-primary)", border: "1px solid var(--border-color)" }}
         >
           <p className="text-sm text-gray-400 mb-3">Distribution</p>
           <div className="space-y-1.5">
@@ -108,14 +108,14 @@ export default function RatingsPage() {
               return (
                 <div key={star} className="flex items-center gap-2 text-xs">
                   <span className="w-4 text-right text-gray-400">{star}</span>
-                  <span style={{ color: "#00b4ff" }}>★</span>
+                  <span style={{ color: "var(--accent)" }}>â˜…</span>
                   <div
                     className="flex-1 rounded-full h-2"
-                    style={{ backgroundColor: "#1e3a5f" }}
+                    style={{ backgroundColor: "var(--border-color)" }}
                   >
                     <div
                       className="h-2 rounded-full transition-all"
-                      style={{ backgroundColor: "#00b4ff", width: `${pct}%` }}
+                      style={{ backgroundColor: "var(--accent)", width: `${pct}%` }}
                     />
                   </div>
                   <span className="w-6 text-right text-gray-400">{count}</span>
@@ -129,15 +129,15 @@ export default function RatingsPage() {
       {/* Filters */}
       <div
         className="rounded-xl p-4 flex flex-wrap items-center gap-3"
-        style={{ backgroundColor: "#0a1628", border: "1px solid #1e3a5f" }}
+        style={{ backgroundColor: "var(--bg-primary)", border: "1px solid var(--border-color)" }}
       >
         <select
           value={filters.rating}
           onChange={(e) => setFilters((f) => ({ ...f, rating: e.target.value }))}
           className="px-3 py-2 rounded-lg text-sm outline-none"
           style={{
-            backgroundColor: "#0d1f3c",
-            border: "1px solid #1e3a5f",
+            backgroundColor: "var(--bg-secondary)",
+            border: "1px solid var(--border-color)",
             color: "#fff",
           }}
         >
@@ -155,8 +155,8 @@ export default function RatingsPage() {
           onChange={(e) => setFilters((f) => ({ ...f, dateFrom: e.target.value }))}
           className="px-3 py-2 rounded-lg text-sm outline-none"
           style={{
-            backgroundColor: "#0d1f3c",
-            border: "1px solid #1e3a5f",
+            backgroundColor: "var(--bg-secondary)",
+            border: "1px solid var(--border-color)",
             color: "#fff",
             colorScheme: "dark",
           }}
@@ -168,8 +168,8 @@ export default function RatingsPage() {
           onChange={(e) => setFilters((f) => ({ ...f, dateTo: e.target.value }))}
           className="px-3 py-2 rounded-lg text-sm outline-none"
           style={{
-            backgroundColor: "#0d1f3c",
-            border: "1px solid #1e3a5f",
+            backgroundColor: "var(--bg-secondary)",
+            border: "1px solid var(--border-color)",
             color: "#fff",
             colorScheme: "dark",
           }}
@@ -179,7 +179,7 @@ export default function RatingsPage() {
           <button
             onClick={() => setFilters({ rating: "", dateFrom: "", dateTo: "" })}
             className="px-3 py-2 rounded-lg text-sm text-gray-400 hover:text-white transition-colors"
-            style={{ border: "1px solid #1e3a5f" }}
+            style={{ border: "1px solid var(--border-color)" }}
           >
             Clear
           </button>
@@ -188,16 +188,16 @@ export default function RatingsPage() {
 
       {/* Table */}
       {loading ? (
-        <div className="text-gray-400 py-8 text-center">Loading…</div>
+        <div className="text-gray-400 py-8 text-center">Loadingâ€¦</div>
       ) : (
         <div
           className="rounded-xl overflow-hidden"
-          style={{ border: "1px solid #1e3a5f" }}
+          style={{ border: "1px solid var(--border-color)" }}
         >
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr style={{ backgroundColor: "#071020" }}>
+                <tr style={{ backgroundColor: "var(--bg-tertiary)" }}>
                   {["Voucher Code", "Client Phone", "Bundle", "Provider", "Stars", "Comment", "Date"].map(
                     (h) => (
                       <th
@@ -225,8 +225,8 @@ export default function RatingsPage() {
                     <tr
                       key={r.id}
                       style={{
-                        backgroundColor: idx % 2 === 0 ? "#0d1f3c" : "#0a1a35",
-                        borderTop: "1px solid #1e3a5f",
+                        backgroundColor: idx % 2 === 0 ? "var(--bg-secondary)" : "var(--bg-tertiary)",
+                        borderTop: "1px solid var(--border-color)",
                       }}
                     >
                       <td className="px-4 py-3 text-white font-mono text-xs">
@@ -236,33 +236,33 @@ export default function RatingsPage() {
                         {maskPhone(r.voucher.clientPhone)}
                       </td>
                       <td className="px-4 py-3 text-white">
-                        {r.voucher.bundle?.name ?? "—"}
+                        {r.voucher.bundle?.name ?? "â€”"}
                       </td>
                       <td className="px-4 py-3">
                         <span
                           className="px-2 py-0.5 rounded text-xs font-semibold"
                           style={{
-                            backgroundColor: "rgba(0,180,255,0.15)",
-                            color: "#00b4ff",
+                            backgroundColor: "var(--accent-dim)",
+                            color: "var(--accent)",
                           }}
                         >
                           {r.voucher.paymentProvider}
                         </span>
                       </td>
                       <td className="px-4 py-3">
-                        <span style={{ color: "#00b4ff" }}>
-                          {"★".repeat(r.rating)}
+                        <span style={{ color: "var(--accent)" }}>
+                          {"â˜…".repeat(r.rating)}
                         </span>
                         <span className="text-gray-600">
-                          {"★".repeat(5 - r.rating)}
+                          {"â˜…".repeat(5 - r.rating)}
                         </span>
                       </td>
                       <td className="px-4 py-3 text-gray-300">
                         {r.comment
                           ? r.comment.length > 60
-                            ? r.comment.slice(0, 60) + "…"
+                            ? r.comment.slice(0, 60) + "â€¦"
                             : r.comment
-                          : "—"}
+                          : "â€”"}
                       </td>
                       <td className="px-4 py-3 text-gray-400 text-xs whitespace-nowrap">
                         {formatDate(r.createdAt)}

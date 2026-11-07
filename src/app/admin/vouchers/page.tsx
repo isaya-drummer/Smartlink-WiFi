@@ -77,8 +77,8 @@ export default function VouchersPage() {
             onChange={(e) => handleFilterChange(setStatusFilter, e.target.value)}
             className="text-sm rounded-lg px-3 py-2 outline-none"
             style={{
-              backgroundColor: "#0a1628",
-              border: "1px solid #1e3a5f",
+              backgroundColor: "var(--bg-primary)",
+              border: "1px solid var(--border-color)",
               color: "#fff",
             }}
           >
@@ -96,8 +96,8 @@ export default function VouchersPage() {
           }
           className="text-sm rounded-lg px-3 py-2 outline-none"
           style={{
-            backgroundColor: "#0a1628",
-            border: "1px solid #1e3a5f",
+            backgroundColor: "var(--bg-primary)",
+            border: "1px solid var(--border-color)",
             color: "#fff",
           }}
         >
@@ -121,12 +121,12 @@ export default function VouchersPage() {
         <>
           <div
             className="rounded-xl overflow-hidden"
-            style={{ border: "1px solid #1e3a5f" }}
+            style={{ border: "1px solid var(--border-color)" }}
           >
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr style={{ backgroundColor: "#071020" }}>
+                  <tr style={{ backgroundColor: "var(--bg-tertiary)" }}>
                     {[
                       "Code",
                       "Client",
@@ -161,8 +161,8 @@ export default function VouchersPage() {
                         key={v.id}
                         style={{
                           backgroundColor:
-                            idx % 2 === 0 ? "#0d1f3c" : "#0a1a35",
-                          borderTop: "1px solid #1e3a5f",
+                            idx % 2 === 0 ? "var(--bg-secondary)" : "var(--bg-tertiary)",
+                          borderTop: "1px solid var(--border-color)",
                         }}
                       >
                         <td className="px-4 py-3 font-mono text-xs text-white">
@@ -179,8 +179,8 @@ export default function VouchersPage() {
                           <span
                             className="px-2 py-0.5 rounded text-xs font-semibold"
                             style={{
-                              backgroundColor: "rgba(0,180,255,0.15)",
-                              color: "#00b4ff",
+                              backgroundColor: "var(--accent-dim)",
+                              color: "var(--accent)",
                             }}
                           >
                             {v.paymentProvider}

@@ -10,9 +10,9 @@ const config: Config = {
     extend: {
       colors: {
         smartlink: {
-          navy: "#0a1628",
-          cyan: "#00b4ff",
-          blue: "#0066ff",
+          navy: "#0a1a0f",
+          cyan: "#c8870a",
+          blue: "#a06208",
         },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

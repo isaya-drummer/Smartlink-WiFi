@@ -197,7 +197,7 @@ export default async function AdminDashboardPage() {
         className="rounded-xl p-6"
       style={{ backgroundColor: "var(--bg-primary)", border: "1px solid var(--border-color)" }}
       >
-        <h2 className="text-lg font-semibold text-white mb-4">
+        <h2 className="text-lg font-semibold mb-4" style={{ color: "var(--text-primary)" }}>
           Revenue — Last 7 Days
         </h2>
         <RevenueChart data={data.revenueByDay} />
@@ -215,7 +215,7 @@ export default async function AdminDashboardPage() {
             borderColor: "var(--border-color)",
           }}
         >
-          <h2 className="text-lg font-semibold text-white">Recent Payments</h2>
+          <h2 className="text-lg font-semibold" style={{ color: "var(--text-primary)" }}>Recent Payments</h2>
         </div>
         <div className="overflow-x-auto" style={{ backgroundColor: "var(--bg-secondary)" }}>
           <table className="w-full text-sm">
@@ -248,7 +248,7 @@ export default async function AdminDashboardPage() {
                   <tr
                     key={p.id}
                 style={{
-                      backgroundColor: idx % 2 === 0 ? "var(--bg-secondary)" : "#0a1a35",
+                      backgroundColor: idx % 2 === 0 ? "var(--bg-secondary)" : "var(--bg-tertiary)",
                       borderTop: "1px solid var(--border-color)",
                     }}
                   >
@@ -262,8 +262,8 @@ export default async function AdminDashboardPage() {
                       <span
                         className="px-2 py-0.5 rounded text-xs font-semibold"
                         style={{
-                          backgroundColor: "rgba(0,180,255,0.15)",
-                          color: "#00b4ff",
+                          backgroundColor: "var(--accent-dim)",
+                          color: "var(--accent)",
                         }}
                       >
                         {p.provider}
@@ -298,7 +298,7 @@ export default async function AdminDashboardPage() {
             borderColor: "var(--border-color)",
           }}
         >
-          <h2 className="text-lg font-semibold text-white">Recent Ratings</h2>
+          <h2 className="text-lg font-semibold" style={{ color: "var(--text-primary)" }}>Recent Ratings</h2>
         </div>
         <div className="overflow-x-auto" style={{ backgroundColor: "var(--bg-secondary)" }}>
           <table className="w-full text-sm">
@@ -329,7 +329,7 @@ export default async function AdminDashboardPage() {
                   <tr
                     key={r.id}
                 style={{
-                      backgroundColor: idx % 2 === 0 ? "var(--bg-secondary)" : "#0a1a35",
+                      backgroundColor: idx % 2 === 0 ? "var(--bg-secondary)" : "var(--bg-tertiary)",
                       borderTop: "1px solid var(--border-color)",
                     }}
                   >
@@ -339,7 +339,7 @@ export default async function AdminDashboardPage() {
                     <td className="px-4 py-3 text-white">
                       {r.bundleName ?? "—"}
                     </td>
-                    <td className="px-4 py-3" style={{ color: "#00b4ff" }}>
+                    <td className="px-4 py-3" style={{ color: "var(--accent)" }}>
                       {"★".repeat(r.rating)}
                       <span className="text-gray-600">{"★".repeat(5 - r.rating)}</span>
                     </td>

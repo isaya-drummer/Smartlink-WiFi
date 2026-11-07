@@ -22,9 +22,9 @@ export default function StatsCard({ title, value, icon: Icon, change, changeLabe
       {/* Icon */}
       <div
         className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0"
-        style={{ backgroundColor: "var(--accent-dim, rgba(0,180,255,0.15))" }}
+        style={{ backgroundColor: "var(--accent-dim)" }}
       >
-        <Icon className="w-5 h-5" style={{ color: "var(--accent, #00b4ff)" }} />
+        <Icon className="w-5 h-5" style={{ color: "var(--accent)" }} />
       </div>
 
       {/* Text */}

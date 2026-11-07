@@ -47,7 +47,7 @@ export default function PortalPage() {
         <h1 className="text-2xl font-bold text-white transition-opacity duration-200">
           {t.portal.title}
         </h1>
-        <p className="mt-1 text-sm font-medium" style={{ color: "#00b4ff" }}>
+        <p className="mt-1 text-sm font-medium" style={{ color: "#c8870a" }}>
           {t.portal.subtitle}
         </p>
       </div>

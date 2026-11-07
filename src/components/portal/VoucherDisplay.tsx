@@ -36,21 +36,21 @@ export default function VoucherDisplay({ code }: VoucherDisplayProps) {
   return (
     <div
       className="flex items-center justify-between rounded-xl px-5 py-4 gap-4"
-      style={{ border: "2px solid #00b4ff", backgroundColor: "#0d1f3c" }}
+      style={{ border: "2px solid #c8870a", backgroundColor: "#0f2318" }}
     >
       <span
         className="font-mono text-3xl font-bold tracking-widest"
-        style={{ color: "#00b4ff" }}
+        style={{ color: "#c8870a" }}
         aria-label={`Voucher code: ${code}`}
       >
         {code}
       </span>
       <button
         onClick={handleCopy}
-        className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#00b4ff]"
+        className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#c8870a]"
         style={{
-          backgroundColor: copied ? "#00b4ff" : "#1e3a5f",
-          color: copied ? "#0a1628" : "#ffffff",
+          backgroundColor: copied ? "#c8870a" : "#1a3d22",
+          color: copied ? "#0a1a0f" : "#ffffff",
         }}
         aria-label="Copy voucher code to clipboard"
       >

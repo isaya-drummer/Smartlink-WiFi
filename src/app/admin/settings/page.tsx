@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useEffect, useState } from "react"
 import { Save } from "lucide-react"
@@ -59,7 +59,7 @@ export default function SettingsPage() {
   const [saved, setSaved] = useState(false)
 
   useEffect(() => {
-    document.title = "Smartlink WiFi — Admin: Settings"
+    document.title = "Smartlink WiFi â€” Admin: Settings"
     fetchSettings()
   }, [])
 
@@ -125,7 +125,7 @@ export default function SettingsPage() {
       ) : (
         <div
           className="rounded-xl p-6 space-y-5"
-          style={{ backgroundColor: "#0a1628", border: "1px solid #1e3a5f" }}
+          style={{ backgroundColor: "var(--bg-primary)", border: "1px solid var(--border-color)" }}
         >
           {SETTING_FIELDS.map((field) => (
             <div key={field.key} className="space-y-1.5">
@@ -138,8 +138,8 @@ export default function SettingsPage() {
                   rows={3}
                   className="w-full px-3 py-2 text-sm rounded-lg resize-none outline-none focus:ring-2"
                   style={{
-                    backgroundColor: "#0d1f3c",
-                    border: "1px solid #1e3a5f",
+                    backgroundColor: "var(--bg-secondary)",
+                    border: "1px solid var(--border-color)",
                     color: "#fff",
                   } as React.CSSProperties}
                 />
@@ -150,8 +150,8 @@ export default function SettingsPage() {
                   onChange={(e) => handleChange(field.key, e.target.value)}
                   placeholder={field.placeholder}
                   style={{
-                    backgroundColor: "#0d1f3c",
-                    borderColor: "#1e3a5f",
+                    backgroundColor: "var(--bg-secondary)",
+                    borderColor: "var(--border-color)",
                     color: "#fff",
                   }}
                 />
@@ -164,10 +164,10 @@ export default function SettingsPage() {
               onClick={handleSave}
               disabled={saving}
               className="flex items-center gap-2"
-              style={{ backgroundColor: "#00b4ff", color: "#000" }}
+              style={{ backgroundColor: "var(--accent)", color: "var(--bg-primary)" }}
             >
               <Save className="w-4 h-4" />
-              {saving ? "Saving…" : "Save Settings"}
+              {saving ? "Savingâ€¦" : "Save Settings"}
             </Button>
             {saved && (
               <span className="text-sm" style={{ color: "#22c55e" }}>

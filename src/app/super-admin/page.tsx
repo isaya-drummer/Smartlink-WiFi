@@ -1,4 +1,4 @@
-import type { Metadata } from "next"
+﻿import type { Metadata } from "next"
 import { DollarSign, Ticket, Users, TrendingUp, ShieldCheck } from "lucide-react"
 import StatsCard from "@/components/admin/StatsCard"
 import StatusBadge from "@/components/admin/StatusBadge"
@@ -139,10 +139,10 @@ export default async function SuperAdminDashboardPage() {
       {/* Revenue Chart */}
       <div
         className="rounded-xl p-6"
-        style={{ backgroundColor: "#0a1628", border: "1px solid #1e3a5f" }}
+        style={{ backgroundColor: "var(--bg-primary)", border: "1px solid var(--border-color)" }}
       >
         <h2 className="text-lg font-semibold text-white mb-4">
-          Revenue — Last 7 Days
+          Revenue â€” Last 7 Days
         </h2>
         <RevenueChart data={data.revenueByDay} />
       </div>
@@ -150,18 +150,18 @@ export default async function SuperAdminDashboardPage() {
       {/* Recent Audit Logs */}
       <div
         className="rounded-xl overflow-hidden"
-        style={{ border: "1px solid #1e3a5f" }}
+        style={{ border: "1px solid var(--border-color)" }}
       >
         <div
           className="px-6 py-4 border-b"
-          style={{ backgroundColor: "#0a1628", borderColor: "#1e3a5f" }}
+          style={{ backgroundColor: "var(--bg-primary)", borderColor: "var(--border-color)" }}
         >
           <h2 className="text-lg font-semibold text-white">Recent Audit Log</h2>
         </div>
-        <div className="overflow-x-auto" style={{ backgroundColor: "#0d1f3c" }}>
+        <div className="overflow-x-auto" style={{ backgroundColor: "var(--bg-secondary)" }}>
           <table className="w-full text-sm">
             <thead>
-              <tr style={{ backgroundColor: "#071020" }}>
+              <tr style={{ backgroundColor: "var(--bg-tertiary)" }}>
                 {["User", "Action", "IP Address", "Date"].map((h) => (
                   <th
                     key={h}
@@ -184,8 +184,8 @@ export default async function SuperAdminDashboardPage() {
                   <tr
                     key={log.id}
                     style={{
-                      backgroundColor: idx % 2 === 0 ? "#0d1f3c" : "#0a1a35",
-                      borderTop: "1px solid #1e3a5f",
+                      backgroundColor: idx % 2 === 0 ? "var(--bg-secondary)" : "var(--bg-tertiary)",
+                      borderTop: "1px solid var(--border-color)",
                     }}
                   >
                     <td className="px-4 py-3 text-white">
@@ -195,7 +195,7 @@ export default async function SuperAdminDashboardPage() {
                       <StatusBadge status={log.action} label={log.action} />
                     </td>
                     <td className="px-4 py-3 text-gray-400 text-xs">
-                      {log.ipAddress ?? "—"}
+                      {log.ipAddress ?? "â€”"}
                     </td>
                     <td className="px-4 py-3 text-gray-400 text-xs whitespace-nowrap">
                       {formatDate(log.createdAt)}

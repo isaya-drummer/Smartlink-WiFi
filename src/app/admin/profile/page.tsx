@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useEffect, useRef, useState } from "react"
 import { useSession } from "next-auth/react"
@@ -21,7 +21,7 @@ export default function ProfilePage() {
   const photoInputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
-    document.title = "Smartlink WiFi — Admin: Profile"
+    document.title = "Smartlink WiFi â€” Admin: Profile"
     fetch("/api/admin/profile")
       .then((res) => (res.ok ? res.json() : Promise.reject()))
       .then((data) => {
@@ -121,7 +121,7 @@ export default function ProfilePage() {
               ) : (
                 <div
                   className="w-20 h-20 rounded-full flex items-center justify-center text-xl font-bold"
-                  style={{ backgroundColor: "rgba(0,180,255,0.2)", color: "#00b4ff" }}
+                  style={{ backgroundColor: "var(--accent-dim)", color: "var(--accent)" }}
                 >
                   {name.trim().slice(0, 2).toUpperCase() || "AD"}
                 </div>
@@ -146,7 +146,7 @@ export default function ProfilePage() {
               style={{ borderColor: "var(--border-color)", color: "#9ca3af" }}
             >
               <Camera className="w-3.5 h-3.5" />
-              {uploadingPhoto ? "Uploading…" : "Upload photo"}
+              {uploadingPhoto ? "Uploadingâ€¦" : "Upload photo"}
             </Button>
           </div>
 
@@ -179,10 +179,10 @@ export default function ProfilePage() {
             <Button
               onClick={handleSave}
               disabled={saving || name.trim().length < 2}
-              style={{ backgroundColor: "#00b4ff", color: "var(--bg-primary)" }}
+              style={{ backgroundColor: "var(--accent)", color: "var(--bg-primary)" }}
             >
               <Save className="w-4 h-4" />
-              {saving ? "Saving…" : "Save profile"}
+              {saving ? "Savingâ€¦" : "Save profile"}
             </Button>
             {message && <span className="text-sm text-emerald-400">{message}</span>}
             {error && <span className="text-sm text-red-400">{error}</span>}
