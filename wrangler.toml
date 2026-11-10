@@ -1,0 +1,9 @@
+name = "smartlink-wifi"
+compatibility_date = "2024-11-10"
+compatibility_flags = ["nodejs_compat"]
+pages_build_output_dir = ".vercel/output/static"
+
+[vars]
+PAYIN_SANDBOX = "true"
+OMADA_AP_MAC = "A829DCFA75DA"
+OMADA_SSID = "SmartLink Wifi"
