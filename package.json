@@ -8,8 +8,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "prisma generate && next build",
-    "build:cf": "prisma generate && npx @cloudflare/next-on-pages",
-    "preview": "npm run build:cf && wrangler pages dev",
+    "build:cf": "prisma generate && next build && npx @cloudflare/next-on-pages",
     "start": "next start",
     "lint": "next lint",
     "postinstall": "prisma generate"
