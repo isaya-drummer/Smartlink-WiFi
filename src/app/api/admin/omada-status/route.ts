@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic'
 /**
  * GET /api/admin/omada-status
  * Returns Omada connection status for the admin dashboard.

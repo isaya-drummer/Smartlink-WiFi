@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic'
 /**
  * File upload endpoint — converts profile photos to small base64 data URLs.
  * No external SDK or npm packages needed.
