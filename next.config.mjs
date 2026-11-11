@@ -6,13 +6,14 @@ const nextConfig = {
       { protocol: "https", hostname: "uploadthing.com" },
     ],
   },
-  // Skip type checking and linting during build for faster CI
+  // Required for Cloudflare Pages — skip type/lint checks during build
   typescript: { ignoreBuildErrors: true },
   eslint: { ignoreDuringBuilds: true },
-  // Experimental: skip static generation errors
   experimental: {
     missingSuspenseWithCSRBailout: false,
   },
+  // Standalone output for smaller deployment size
+  output: "standalone",
 }
 
 export default nextConfig
