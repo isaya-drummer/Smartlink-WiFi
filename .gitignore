@@ -42,6 +42,9 @@ prisma/reset-passwords.ts
 *.tsbuildinfo
 next-env.d.ts
 
+# Cloudflare deployment scripts (contain sensitive info)
+scripts/*.mjs
+
 # prisma
 prisma/dev.db
 prisma/dev.db-journal
