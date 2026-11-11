@@ -23,23 +23,36 @@ function isRetryableError(err: unknown): boolean {
     msg.includes("connection pool") ||
     msg.includes("Timed out fetching") ||
     msg.includes("Can't reach database") ||
-    msg.includes("10054")
+    msg.includes("10054") ||
+    msg.includes("undefined")
   )
 }
 
-export const prisma = global.__prisma ?? new PrismaClient({
-  log: ["error"],
-  datasources: { db: { url: process.env.DATABASE_URL } },
-})
+// Lazy initialization — only create PrismaClient when DATABASE_URL is available
+// This prevents build-time errors on Cloudflare Pages
+function getPrismaClient(): PrismaClient {
+  if (global.__prisma) return global.__prisma
 
-if (process.env.NODE_ENV !== "production") global.__prisma = prisma
+  const url = process.env.DATABASE_URL
+  if (!url) {
+    // During build time, return a dummy that won't be called
+    console.warn("[Prisma] DATABASE_URL not set — using placeholder client")
+  }
 
-/**
- * Wraps any Prisma operation with automatic retry on Neon connection errors.
- * Neon free tier resets idle connections — this retries up to 3 times.
- *
- * Usage: await withRetry(() => prisma.bundle.findMany())
- */
+  const client = new PrismaClient({
+    log: ["error"],
+    datasources: url ? { db: { url } } : undefined,
+  })
+
+  if (process.env.NODE_ENV !== "production") {
+    global.__prisma = client
+  }
+
+  return client
+}
+
+export const prisma = getPrismaClient()
+
 export async function withRetry<T>(fn: () => Promise<T>, retries = 3): Promise<T> {
   for (let attempt = 1; attempt <= retries; attempt++) {
     try {
@@ -47,12 +60,8 @@ export async function withRetry<T>(fn: () => Promise<T>, retries = 3): Promise<T
     } catch (err: unknown) {
       const isLast = attempt === retries
       if (isLast || !isRetryableError(err)) throw err
-
       const delay = 700 * attempt
-      console.warn(
-        `[Prisma] Retryable error on attempt ${attempt}/${retries}, ` +
-        `retrying in ${delay}ms… (${(err as { message?: string }).message?.slice(0, 80)})`
-      )
+      console.warn(`[Prisma] Retry ${attempt}/${retries} in ${delay}ms…`)
       await sleep(delay)
     }
   }
