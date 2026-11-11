@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "prisma generate && next build",
-    "build:cf": "prisma generate && next build && rm -rf .next/cache",
+    "build:cf": "prisma generate && next build && node -e \"const fs=require('fs');fs.rmSync('.next/cache',{recursive:true,force:true});console.log('Cache removed')\"",
     "start": "next start",
     "lint": "next lint",
     "postinstall": "prisma generate"
