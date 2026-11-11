@@ -1,4 +1,5 @@
-﻿import type { Metadata } from "next"
+export const dynamic = 'force-dynamic'
+import type { Metadata } from "next"
 import { DollarSign, Ticket, Users, TrendingUp, ShieldCheck } from "lucide-react"
 import StatsCard from "@/components/admin/StatsCard"
 import StatusBadge from "@/components/admin/StatusBadge"

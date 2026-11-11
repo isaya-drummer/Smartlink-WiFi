@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic'
 import type { Metadata } from "next"
 import { Ticket, Users, TrendingUp, Star } from "lucide-react"
 import StatsCard from "@/components/admin/StatsCard"
