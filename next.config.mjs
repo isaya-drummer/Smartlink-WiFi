@@ -6,11 +6,6 @@ const nextConfig = {
       { protocol: "https", hostname: "uploadthing.com" },
     ],
   },
-  typescript: { ignoreBuildErrors: true },
-  eslint: { ignoreDuringBuilds: true },
-  experimental: {
-    missingSuspenseWithCSRBailout: false,
-  },
 }
 
 export default nextConfig
